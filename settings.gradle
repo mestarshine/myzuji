@@ -1,0 +1,3 @@
+rootProject.name = 'myzuji'
+include 'study'
+include 'backend'
