@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ws</title>
+</head>
+<body>
+
+<button onclick="websocket()">开始</button>
+<button onclick="closeSocket()">关闭</button>
+<div id="log-container" style="height: 300px; overflow-y: scroll; background: #333; color: #aaa; padding: 10px;">
+    <div></div>
+</div>
+<script>
+    function websocket() {
+        if ("WebSocket" in window) {
+            alert("您的浏览器支持 WebSocket!");
+
+            // 打开一个 web socket
+            var ws = new WebSocket("http://127.0.0.1:8080/webSocketIMServer");
+
+            ws.onopen = function () {
+                // Web Socket 已连接上，使用 send() 方法发送数据
+                ws.send("发送数据");
+                alert("数据发送中...");
+            };
+
+            ws.onmessage = function (evt) {
+                $("#log-container div").append(evt.data).append("<br/>");
+                $("#log-container").scrollTop($("#log-container div").height() - $("#log-container").height());
+            };
+
+            ws.onclose = function () {
+                // 关闭 websocket
+                alert("连接已关闭...");
+            };
+        } else {
+            // 浏览器不支持 WebSocket
+            alert("您的浏览器不支持 WebSocket!");
+        }
+    }
+
+</script>
+</body>
+</html>

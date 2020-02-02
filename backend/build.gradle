@@ -3,7 +3,7 @@ version '1.0-SNAPSHOT'
 
 buildscript {
     ext {
-        springBootVersion = '1.5.9.RELEASE'
+        springBootVersion = '2.0.1.RELEASE'
     }
     repositories {
         maven {
@@ -19,24 +19,33 @@ buildscript {
 apply plugin: 'war'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-websocket')
     compile('org.springframework.boot:spring-boot-starter-jdbc')
     compile('org.springframework.boot:spring-boot-starter-tomcat')
     compile('org.springframework.boot:spring-boot-starter-log4j2')
     compile('mysql:mysql-connector-java')
+    compile('com.alibaba.spring.boot:dubbo-spring-boot-starter:1.0.1')
     compile('com.alibaba:druid:1.1.6')
     runtime('org.springframework.boot:spring-boot-devtools')
     compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.apache.zookeeper:zookeeper:3.4.9')
+    compile('com.github.sgroschupf:zkclient:0.1')
+    compile('com.alibaba.rocketmq:rocketmq-client:3.2.6')
+    compile('org.apache.commons:commons-lang3:3.7')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 configurations {
     all*.exclude module: 'spring-boot-starter-logging'
+    all*.exclude group: 'com.alibaba', module: 'spring'
 }
