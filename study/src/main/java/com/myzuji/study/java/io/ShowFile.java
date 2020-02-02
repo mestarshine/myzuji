@@ -7,6 +7,7 @@ import java.io.IOException;
 
 /**
  * javac 运行，读取指定文件内容，并输出到控制台
+ * 当 程序跳出 try 块的时候会自动关闭
  *
  * @author shine
  * @date 2020/02/02
