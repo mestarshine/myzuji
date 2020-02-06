@@ -1,9 +1,10 @@
 package com.myzuji.zujibackend.common.interceptors;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 
 /**
  * 说明
@@ -12,20 +13,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @date 2020/02/01
  */
 @Configuration
-public class WebInterceptor extends WebMvcConfigurerAdapter {
+public class WebInterceptor implements WebMvcConfigurer {
 
+    /**
+     * 配置静态访问资源
+     *
+     * @param registry
+     */
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        // addPathPatterns 用于添加拦截规则
-        // excludePathPatterns 用户排除拦截
-        registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/**");
-        super.addInterceptors(registry);
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }
 
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
-        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-        super.addResourceHandlers(registry);
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        registry.jsp("WEB-INF/page", ".jsp");
     }
 }
