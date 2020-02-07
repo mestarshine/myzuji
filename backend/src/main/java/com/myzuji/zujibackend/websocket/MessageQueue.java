@@ -1,5 +1,8 @@
 package com.myzuji.zujibackend.websocket;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -11,7 +14,9 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class MessageQueue {
 
-    public static final int QUEUE_MAX_SIZE = 10000;
+    private static final Logger LOGGER = LoggerFactory.getLogger(MessageQueue.class);
+
+    public static final int QUEUE_MAX_SIZE = 10;
 
     private static MessageQueue messageQueue = new MessageQueue();
 

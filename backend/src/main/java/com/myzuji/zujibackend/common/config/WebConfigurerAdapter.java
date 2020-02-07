@@ -1,4 +1,4 @@
-package com.myzuji.zujibackend.common.interceptors;
+package com.myzuji.zujibackend.common.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @date 2020/02/01
  */
 @Configuration
-public class WebInterceptor implements WebMvcConfigurer {
+public class WebConfigurerAdapter implements WebMvcConfigurer {
 
     /**
      * 配置静态访问资源
@@ -27,6 +27,6 @@ public class WebInterceptor implements WebMvcConfigurer {
 
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.jsp("WEB-INF/page", ".jsp");
+        registry.jsp("/WEB-INF/page", ".jsp");
     }
 }

@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>ws</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 
-<button onclick="websocket()">开始</button>
+<button onclick="websocketopen()">开始</button>
 <button onclick="closeSocket()">关闭</button>
 <div id="log-container" style="height: 300px; overflow-y: scroll; background: #333; color: #aaa; padding: 10px;">
     <div></div>
 </div>
 <script>
-    function websocket() {
+    var ws;
+
+    function websocketopen() {
         if ("WebSocket" in window) {
             alert("您的浏览器支持 WebSocket!");
 
             // 打开一个 web socket
-            var ws = new WebSocket("http://127.0.0.1:8080/webSocketIMServer");
+            ws = new WebSocket("ws://127.0.0.1:8080/webSocketIMServer");
 
             ws.onopen = function () {
                 // Web Socket 已连接上，使用 send() 方法发送数据
@@ -38,6 +41,20 @@
             // 浏览器不支持 WebSocket
             alert("您的浏览器不支持 WebSocket!");
         }
+    }
+
+    function closeSocket() {
+        if ("WebSocket" in window) {
+            alert("您的浏览器支持 WebSocket!");
+            ws.close();
+        } else {
+            // 浏览器不支持 WebSocket
+            alert("您的浏览器不支持 WebSocket!");
+        }
+    }
+
+    window.close = function () {
+        ws.onclose();
     }
 
 </script>

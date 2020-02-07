@@ -21,8 +21,19 @@ public class MessageListening {
     @PostConstruct
     public void start() {
         ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
-                new BasicThreadFactory.Builder().namingPattern("ws-push-pool-%d").daemon(true).build());
+            new BasicThreadFactory.Builder().namingPattern("ws-push-pool-%d").daemon(true).build());
         executorService.scheduleAtFixedRate(() -> MessageQueue.getInstance().pushMessage(UUID.randomUUID().toString()),
-                1, 1, TimeUnit.SECONDS);
+            1, 1, TimeUnit.SECONDS);
+    }
+
+    @PostConstruct
+    public void send() {
+        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
+            new BasicThreadFactory.Builder().namingPattern("ws-pull-pool-%d").daemon(true).build());
+        executorService.scheduleAtFixedRate(() -> {
+                String message = MessageQueue.getInstance().pollMessage();
+                ChatWebSocketHandler.sendMessageAllUser(message);
+            },
+            1, 1, TimeUnit.SECONDS);
     }
 }
