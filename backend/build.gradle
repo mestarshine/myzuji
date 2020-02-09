@@ -37,6 +37,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-websocket')
     compile('org.springframework.boot:spring-boot-starter-jdbc')
     compile('org.springframework.boot:spring-boot-starter-log4j2')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('mysql:mysql-connector-java')
     compile('com.alibaba.spring.boot:dubbo-spring-boot-starter:1.0.1')
     compile('com.alibaba:druid:1.1.6')

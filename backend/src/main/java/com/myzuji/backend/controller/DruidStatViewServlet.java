@@ -1,4 +1,4 @@
-package com.myzuji.zujibackend.controller;
+package com.myzuji.backend.controller;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 

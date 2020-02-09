@@ -1,4 +1,4 @@
-package com.myzuji.zujibackend.common.filter;
+package com.myzuji.backend.common.filter;
 
 /**
  * 说明

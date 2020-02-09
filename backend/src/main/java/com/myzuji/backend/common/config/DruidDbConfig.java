@@ -1,4 +1,4 @@
-package com.myzuji.zujibackend.common.config;
+package com.myzuji.backend.common.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;

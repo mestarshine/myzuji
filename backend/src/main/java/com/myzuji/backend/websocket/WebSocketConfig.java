@@ -1,4 +1,4 @@
-package com.myzuji.zujibackend.websocket;
+package com.myzuji.backend.websocket;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

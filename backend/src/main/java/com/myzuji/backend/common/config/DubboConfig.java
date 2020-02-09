@@ -1,4 +1,4 @@
-package com.myzuji.zujibackend.common.config;
+package com.myzuji.backend.common.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;

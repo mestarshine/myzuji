@@ -1,4 +1,4 @@
-package com.myzuji.zujibackend;
+package com.myzuji.backend;
 
 import com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer;
 import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;

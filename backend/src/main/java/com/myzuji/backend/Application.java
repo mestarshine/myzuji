@@ -1,4 +1,4 @@
-package com.myzuji.zujibackend;
+package com.myzuji.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

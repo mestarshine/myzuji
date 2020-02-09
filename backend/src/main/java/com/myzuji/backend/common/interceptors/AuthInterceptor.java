@@ -1,4 +1,4 @@
-package com.myzuji.zujibackend.common.interceptors;
+package com.myzuji.backend.common.interceptors;
 
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
 

@@ -1,4 +1,4 @@
-package com.myzuji.zujibackend.websocket;
+package com.myzuji.backend.websocket;
 
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.stereotype.Service;

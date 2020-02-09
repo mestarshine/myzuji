@@ -1,4 +1,4 @@
-package com.myzuji.zujibackend.websocket;
+package com.myzuji.backend.websocket;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

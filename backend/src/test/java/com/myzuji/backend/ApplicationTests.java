@@ -1,4 +1,4 @@
-package com.myzuji.zujibackend;
+package com.myzuji.backend;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
