@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2020/02/09
  */
 @Controller
-public class LoginServlet {
+public class LoginController {
 
     @RequestMapping(value = "login.html")
     public String login(Model model){
