@@ -32,20 +32,15 @@ configurations {
 }
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.boot:spring-boot-starter-websocket')
-    compile('org.springframework.boot:spring-boot-starter-jdbc')
-    compile('org.springframework.boot:spring-boot-starter-log4j2')
-    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-    compile('mysql:mysql-connector-java')
-    compile('com.alibaba.spring.boot:dubbo-spring-boot-starter:1.0.1')
-    compile('com.alibaba:druid:1.1.6')
-    compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.apache.zookeeper:zookeeper:3.4.9')
-    compile('com.github.sgroschupf:zkclient:0.1')
-    compile('com.alibaba.rocketmq:rocketmq-client:3.2.6')
-    compile('org.apache.commons:commons-lang3:3.7')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-websocket')
+    implementation('org.springframework.boot:spring-boot-starter-jdbc')
+    implementation('org.springframework.boot:spring-boot-starter-log4j2')
+    implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
+    implementation('mysql:mysql-connector-java')
+    implementation('com.alibaba:druid:1.1.6')
+    implementation('org.apache.commons:commons-lang3:3.7')
     runtime('org.springframework.boot:spring-boot-devtools')
     compileOnly('org.projectlombok:lombok')
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
@@ -54,5 +49,8 @@ dependencies {
 
 configurations {
     all*.exclude module: 'spring-boot-starter-logging'
-    all*.exclude group: 'com.alibaba', module: 'spring'
+}
+
+bootRun {
+    sourceResources sourceSets.main
 }
