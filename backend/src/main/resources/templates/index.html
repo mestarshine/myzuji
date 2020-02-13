@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/head :: common_head('')"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <header th:replace="layout/menu :: main_header"></header>
+
+    <aside th:replace="layout/menu :: menu_sidebar"></aside>
+
+    <div class="content-wrapper">
+        <div th:replace="layout/menu :: menu_crumb"></div>
+        <div class="content-iframe " style="background-color: #ffffff; ">
+            <div class="tab-content " id="tab-content">
+
+            </div>
+        </div>
+        <iframe name="mainFrame" id="mainFrame" frameborder="0" width="100%"
+                src="https://baidu.com"></iframe>
+    </div>
+
+    <footer th:replace="layout/copyright :: copyright"></footer>
+
+    <aside th:replace="layout/menu :: menu_control_sidebar"></aside>
+</div>
+<div th:replace="layout/head :: common_js"></div>
+</body>
+</html>
