@@ -8,7 +8,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -21,21 +21,17 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(ChatWebSocketHandler.class);
 
-    public static final Map<String, WebSocketSession> users;
-
-    static {
-        users = new HashMap<>();
-    }
+    private static Map<String, WebSocketSession> users = Collections.emptyMap();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
-        logger.info(session.getId() + "成功建立websocket连接!");
+        logger.info("{} - 成功建立websocket连接!", session.getId());
         users.put(session.getId(), session);
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        logger.info(session.getId() + "关闭连接!");
+        logger.info("{} - 关闭连接!", session.getId());
         users.remove(session.getId());
         super.afterConnectionClosed(session, status);
     }
@@ -46,7 +42,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
                 try {
                     webSocketSession.sendMessage(new TextMessage(message));
                 } catch (IOException e) {
-                    logger.error("向【" + webSocketSession.getId() + "】消息发送失败！");
+                    logger.error("向【{}】消息发送失败！", webSocketSession.getId());
                 }
             }
         }

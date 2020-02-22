@@ -43,6 +43,11 @@ dependencies {
     implementation('com.alibaba:druid-spring-boot-starter:1.1.13')
     implementation('mysql:mysql-connector-java')
     implementation('org.apache.commons:commons-lang3:3.7')
+    implementation('com.google.guava:guava:27.0.1-jre')
+    implementation('com.alibaba:fastjson:1.2.9')
+    implementation('io.jsonwebtoken:jjwt:0.9.1')
+    implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.3'
+    implementation project(':util')
     runtime('org.springframework.boot:spring-boot-devtools')
     compileOnly('org.projectlombok:lombok')
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')

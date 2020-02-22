@@ -36,6 +36,7 @@ public class MessageQueue {
      * @return
      */
     public boolean pushMessage(String message) {
+        LOGGER.debug("消息{}入队成功", message);
         return this.messageBlockingQueue.add(message);
     }
 
@@ -48,8 +49,9 @@ public class MessageQueue {
         String result = null;
         try {
             result = this.messageBlockingQueue.take();
+            LOGGER.debug("消息出队成功{}", result);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error("消息出队失败：{}", e.toString());
         }
         return result;
     }
