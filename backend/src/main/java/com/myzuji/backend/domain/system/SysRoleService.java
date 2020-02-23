@@ -12,4 +12,5 @@ public interface SysRoleService {
 
     List<SysRole> obtainAllSysRoles();
 
+    void save(SysRole sysRole);
 }

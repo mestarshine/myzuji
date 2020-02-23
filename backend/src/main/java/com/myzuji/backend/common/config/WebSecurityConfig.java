@@ -46,20 +46,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
         // 基于token，所以不需要session
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-            .antMatchers("/login.html", "/favicon.ico", "/druid/**", "/static/**")
+            .antMatchers("/", "/login.html", "/favicon.ico", "/druid/**", "/static/**", "/error")
             .permitAll().anyRequest().authenticated()
             .and()
-            .formLogin().loginProcessingUrl("/login.do")
-            .successHandler(authenticationSuccessHandler)
-            .failureHandler(authenticationFailureHandler)
-            .and()
-            .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
-            .and()
-            .logout().logoutUrl("/logout.html").logoutSuccessHandler(logoutSuccessHandler);
+            .formLogin().loginProcessingUrl("/login")
+            .successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler).and()
+            .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
+
+        http.logout().logoutUrl("/logout.html").logoutSuccessHandler(logoutSuccessHandler);
         // 解决不允许显示在iframe的问题
         http.headers().frameOptions().disable();
         http.headers().cacheControl();

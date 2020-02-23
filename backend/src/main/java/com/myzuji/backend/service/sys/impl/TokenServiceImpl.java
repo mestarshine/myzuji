@@ -1,12 +1,10 @@
 package com.myzuji.backend.service.sys.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.myzuji.backend.domain.system.SysLog;
 import com.myzuji.backend.domain.system.SysToken;
 import com.myzuji.backend.dto.LoginUser;
 import com.myzuji.backend.dto.Token;
 import com.myzuji.backend.rpt.sys.TokenRpt;
-import com.myzuji.backend.service.sys.SysLogService;
 import com.myzuji.backend.service.sys.TokenService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -20,11 +18,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.spec.SecretKeySpec;
+import javax.transaction.Transactional;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -35,11 +33,12 @@ import java.util.UUID;
  * @date 2020/02/22
  */
 @Service
+@Transactional
 public class TokenServiceImpl implements TokenService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TokenServiceImpl.class);
 
-    private static Key key = null;
+    private static Key KEY = null;
 
     private static final String LOGIN_USER_KEY = "LOGIN_USER_KEY";
 
@@ -52,9 +51,6 @@ public class TokenServiceImpl implements TokenService {
     @Autowired
     private TokenRpt tokenRpt;
 
-    @Autowired
-    private SysLogService logService;
-
     /**
      * 私钥
      */
@@ -63,14 +59,12 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public Token saveToken(LoginUser loginUser) {
-        loginUser.withToken(UUID.randomUUID().toString())
-            .withLoginTime(LocalDateTime.now())
-            .withExpireTime(getExpireTime());
+        loginUser.setToken(UUID.randomUUID().toString());
+        loginUser.setLoginTime(LocalDateTime.now());
+        loginUser.setExpireTime(getExpireTime());
 
         SysToken token = new SysToken(loginUser.getToken(), JSONObject.toJSONString(loginUser), loginUser.getExpireTime());
         tokenRpt.save(token);
-        // 登陆日志
-        logService.save(new SysLog(loginUser.getId(), "登陆", true, null));
 
         String jwtToken = createJWTToken(loginUser);
 
@@ -83,7 +77,8 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public void refresh(LoginUser loginUser) {
-        loginUser.withLoginTime(LocalDateTime.now()).withExpireTime(getExpireTime());
+        loginUser.setLoginTime(LocalDateTime.now());
+        loginUser.setExpireTime(getExpireTime());
 
         SysToken token = tokenRpt.getById(loginUser.getToken());
         token.withLoginUserContext(JSONObject.toJSONString(loginUser));
@@ -110,8 +105,6 @@ public class TokenServiceImpl implements TokenService {
             LoginUser loginUser = toLoginUser(token);
             if (loginUser != null) {
                 tokenRpt.delete(uuid);
-                logService.save(new SysLog(loginUser.getId(), "推出", true, null));
-
                 return true;
             }
         }
@@ -130,7 +123,9 @@ public class TokenServiceImpl implements TokenService {
         // 放入一个随机字符串，通过该串可找到登陆用户
         claims.put(LOGIN_USER_KEY, loginUser.getToken());
 
-        return Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS256, getKeyInstance()).compact();
+        String jwtToken = Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS256, getKeyInstance()).compact();
+
+        return jwtToken;
     }
 
     private LoginUser toLoginUser(SysToken token) {
@@ -148,16 +143,17 @@ public class TokenServiceImpl implements TokenService {
 
 
     private Key getKeyInstance() {
-        if (key == null) {
+        if (KEY == null) {
             synchronized (TokenServiceImpl.class) {
-                if (key == null) {// 双重锁
+                // 双重锁
+                if (KEY == null) {
                     byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(jwtSecret);
-                    key = new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS256.getJcaName());
+                    KEY = new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS256.getJcaName());
                 }
             }
         }
 
-        return key;
+        return KEY;
     }
 
     private String getUUIDFromJWT(String jwt) {

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  * @author shine
  * @date 2020/02/22
  */
-@Entity
+@MappedSuperclass
 public abstract class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 5479867594878656479L;

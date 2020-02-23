@@ -15,15 +15,20 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 public class LoginController {
 
-    @RequestMapping(value = "/",method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public RedirectView login() {
         return new RedirectView("/login.html");
     }
 
-    @RequestMapping(value = "/login.html" ,method = RequestMethod.GET)
+    @RequestMapping(value = "/login.html", method = RequestMethod.GET)
     public ModelAndView toLogin(ModelAndView mv) {
         mv.setViewName("login");
         return mv;
     }
 
+    @RequestMapping(value = "/index.html", method = RequestMethod.GET)
+    public ModelAndView index(ModelAndView mv) {
+        mv.setViewName("index");
+        return mv;
+    }
 }

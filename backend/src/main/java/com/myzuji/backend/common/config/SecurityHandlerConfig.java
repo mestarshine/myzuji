@@ -35,6 +35,11 @@ public class SecurityHandlerConfig {
     @Autowired
     private TokenService tokenService;
 
+    private static boolean isAjaxRequest(HttpServletRequest request) {
+        String ajaxFlag = request.getHeader("X-Requested-With");
+        return ajaxFlag != null && "XMLHttpRequest".equals(ajaxFlag);
+    }
+
     /**
      * 登陆成功，返回Token
      *
@@ -48,7 +53,6 @@ public class SecurityHandlerConfig {
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
                 LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-
                 Token token = tokenService.saveToken(loginUser);
                 ResponseUtil.responseJson(response, HttpStatus.OK.value(), token);
             }
@@ -73,8 +77,12 @@ public class SecurityHandlerConfig {
                 } else {
                     msg = exception.getMessage();
                 }
-                ResponseInfo info = new ResponseInfo(HttpStatus.UNAUTHORIZED.value() + "", msg);
-                ResponseUtil.responseJson(response, HttpStatus.UNAUTHORIZED.value(), info);
+                if (isAjaxRequest(request)) {
+                    ResponseInfo info = new ResponseInfo(HttpStatus.UNAUTHORIZED.value() + "", msg);
+                    ResponseUtil.responseJson(response, HttpStatus.UNAUTHORIZED.value(), info);
+                } else {
+                    response.sendRedirect("/login.html");
+                }
             }
         };
 
@@ -92,19 +100,14 @@ public class SecurityHandlerConfig {
             @Override
             public void commence(HttpServletRequest request, HttpServletResponse response,
                                  AuthenticationException authException) throws IOException, ServletException {
-                if(isAjaxRequest(request)){
-                ResponseInfo info = new ResponseInfo(HttpStatus.UNAUTHORIZED.value() + "", "请先登录");
-                ResponseUtil.responseJson(response, HttpStatus.UNAUTHORIZED.value(), info);
-                }else {
+                if (isAjaxRequest(request)) {
+                    ResponseInfo info = new ResponseInfo(HttpStatus.UNAUTHORIZED.value() + "", "请先登录");
+                    ResponseUtil.responseJson(response, HttpStatus.UNAUTHORIZED.value(), info);
+                } else {
                     response.sendRedirect("/login.html");
                 }
             }
         };
-    }
-
-    private static boolean isAjaxRequest(HttpServletRequest request) {
-        String ajaxFlag = request.getHeader("X-Requested-With");
-        return ajaxFlag != null && "XMLHttpRequest".equals(ajaxFlag);
     }
 
     /**
@@ -119,14 +122,18 @@ public class SecurityHandlerConfig {
             @Override
             public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-                ResponseInfo info = new ResponseInfo(HttpStatus.OK.value() + "", "退出成功");
 
                 String token = TokenFilter.getToken(request);
                 tokenService.deleteToken(token);
-
-                ResponseUtil.responseJson(response, HttpStatus.OK.value(), info);
+                if (isAjaxRequest(request)) {
+                    ResponseInfo info = new ResponseInfo(HttpStatus.OK.value() + "", "退出成功");
+                    ResponseUtil.responseJson(response, HttpStatus.OK.value(), info);
+                } else {
+                    response.sendRedirect("/login.html");
+                }
             }
         };
 
     }
+
 }

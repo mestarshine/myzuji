@@ -1,7 +1,6 @@
 package com.myzuji.backend.common.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.myzuji.backend.websocket.MessageQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +26,7 @@ public class ResponseUtil {
 
             response.getWriter().write(JSONObject.toJSONString(data));
         } catch (IOException e) {
-            LOGGER.error("响应参数转换失败：{}",e.toString());
+            LOGGER.error("响应参数转换失败：{}", e.toString());
         }
     }
 }

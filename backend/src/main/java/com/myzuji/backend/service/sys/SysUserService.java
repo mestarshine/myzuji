@@ -2,6 +2,8 @@ package com.myzuji.backend.service.sys;
 
 import com.myzuji.backend.domain.system.SysUser;
 
+import java.util.List;
+
 /**
  * 说明
  *
@@ -10,5 +12,8 @@ import com.myzuji.backend.domain.system.SysUser;
  */
 public interface SysUserService {
 
-    SysUser obtainUserByUserName(String userName);
+    SysUser obtainUserByLoginName(String loginName);
+
+    SysUser save(long parentId, String loginName, String password, String nickName, String headImgUrl, String phone,
+                 String email, List<Long> roleRight);
 }

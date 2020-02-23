@@ -1,6 +1,8 @@
 package com.myzuji.backend.domain.system;
 
 import com.myzuji.backend.domain.base.BaseEntity;
+import com.myzuji.util.ioc.Registry;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 
@@ -45,11 +47,14 @@ public class SysUser extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private UserStatusEnum userStatus;
 
+    public SysUser() {
+    }
+
     public SysUser(Long parentId, String loginName, String password, String nickName, String headImgUrl, String phone,
                    String email, String roleRight) {
         this.parentId = parentId;
         this.loginName = loginName;
-        this.password = password;
+        this.password = Registry.queryBean(BCryptPasswordEncoder.class).encode(password);
         this.nickName = nickName;
         this.headImgUrl = headImgUrl;
         this.phone = phone;

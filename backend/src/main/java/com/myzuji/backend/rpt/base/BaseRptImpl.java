@@ -1,17 +1,15 @@
 package com.myzuji.backend.rpt.base;
 
 import com.google.common.base.Preconditions;
-import com.myzuji.backend.common.interceptors.CommonsEntityInterceptor;
 import com.myzuji.backend.domain.base.BaseEntity;
 import com.myzuji.backend.domain.base.DBLockMode;
-import com.myzuji.util.ClassUtils;
+import com.myzuji.util.ClassUtil;
 import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.Predicate;
@@ -26,20 +24,17 @@ import java.util.List;
  */
 public class BaseRptImpl<T extends BaseEntity> implements BaseRpt<T> {
 
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
-    @Autowired
-    private CommonsEntityInterceptor commonsEntityInterceptor;
-
     private Class domainClass;
 
-    public SessionFactory getSessionFactory() {
-        return (SessionFactory) entityManagerFactory.unwrap(SessionFactory.class)
-            .withOptions().interceptor(commonsEntityInterceptor);
-    }
+    @Autowired
+    private SessionFactory sessionFactory;
 
     public Session getSession() {
-        return getSessionFactory().getCurrentSession();
+        return sessionFactory.getCurrentSession();
+    }
+
+    public CriteriaBuilder criteriaBuilder() {
+        return getSession().getCriteriaBuilder();
     }
 
     @Override
@@ -97,7 +92,7 @@ public class BaseRptImpl<T extends BaseEntity> implements BaseRpt<T> {
     @Override
     @SuppressWarnings({"unchecked"})
     public void deleteById(Long id) {
-        CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = criteriaBuilder();
         CriteriaDelete<T> criteriaDelete = criteriaBuilder.createCriteriaDelete(getDomainClass());
         Root<T> root = criteriaDelete.from(getDomainClass());
         Predicate predicate = criteriaBuilder.equal(root.get("id"), id);
@@ -124,9 +119,9 @@ public class BaseRptImpl<T extends BaseEntity> implements BaseRpt<T> {
         }
     }
 
-    private Class getDomainClass() {
+    protected Class getDomainClass() {
         if (domainClass == null) {
-            domainClass = ClassUtils.getGenericType(getClass(), 0);
+            domainClass = ClassUtil.getGenericType(getClass(), 0);
         }
         return domainClass;
     }

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 /**
  * 说明
@@ -26,7 +27,7 @@ import java.time.LocalDateTime;
 @Component
 public class TokenFilter extends OncePerRequestFilter {
 
-    private static final Long MINUTES_10 = 10 * 60 * 1000L;
+    private static final Long MINUTES_10 = 10L;
     public static final String TOKEN_KEY = "token";
 
     @Autowired
@@ -53,8 +54,10 @@ public class TokenFilter extends OncePerRequestFilter {
 
     private LoginUser checkLoginTime(LoginUser loginUser) {
         LocalDateTime expireTime = loginUser.getExpireTime();
-        if (expireTime.compareTo(LocalDateTime.now()) <= MINUTES_10) {
+        if (LocalDateTime.now().until(expireTime, ChronoUnit.MINUTES) <= MINUTES_10) {
+            String token = loginUser.getToken();
             loginUser = (LoginUser) dbUserDetailsService.loadUserByUsername(loginUser.getUsername());
+            loginUser.setToken(token);
             tokenService.refresh(loginUser);
         }
         return loginUser;

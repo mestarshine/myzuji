@@ -19,11 +19,14 @@ public class SysToken extends BaseEntity {
     @Column(name = "token")
     private String token;
 
-    @Column(name = "login_user_context")
+    @Column(name = "login_user_context", length = 10000)
     private String loginUserContext;
 
     @Column(name = "expire_time")
     private LocalDateTime expireTime;
+
+    public SysToken() {
+    }
 
     public SysToken(String token, String loginUserContext, LocalDateTime expireTime) {
         this.token = token;

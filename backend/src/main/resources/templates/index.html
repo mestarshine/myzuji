@@ -2,20 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout/head :: common_head('')"></head>
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
-    <header th:replace="layout/menu :: main_header"></header>
+<div class="wrapper" id="wrapper">
 
+    <header th:replace="layout/menu::menu_header"></header>
     <aside th:replace="layout/menu :: menu_sidebar"></aside>
-
     <div class="content-wrapper">
-        <iframe name="mainFrame" id="mainFrame" frameborder="0" width="100%"
-                src="https://baidu.com"></iframe>
+        <div th:replace="layout/menu::main_tab"></div>
+        <div class="mainContent" id="content-main">
+            <iframe class="zuji_iframe" name="mainFrame0" width="100%" height="100%" data-index="0"
+                    src="https://news.qq.com" frameborder="0" seamless></iframe>
+        </div>
     </div>
-
     <footer th:replace="layout/copyright :: copyright"></footer>
-
-    <aside th:replace="layout/menu :: menu_control_sidebar"></aside>
 </div>
 <div th:replace="layout/head :: common_js"></div>
+<script th:inline="javascript"> var ctx = [[@{/}]]; </script>
 </body>
 </html>
