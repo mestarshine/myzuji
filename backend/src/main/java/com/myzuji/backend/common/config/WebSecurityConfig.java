@@ -1,5 +1,6 @@
 package com.myzuji.backend.common.config;
 
+import com.myzuji.backend.common.filter.KaptchaAuthenticationFilter;
 import com.myzuji.backend.filter.TokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -47,11 +48,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
+        http.cors().disable();
         // 基于token，所以不需要session
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
+        http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(new KaptchaAuthenticationFilter("/login", authenticationFailureHandler),
+                UsernamePasswordAuthenticationFilter.class);
+
         http.authorizeRequests()
-            .antMatchers("/", "/login.html", "/favicon.ico", "/druid/**", "/static/**", "/error")
+            .antMatchers("/", "/login.html", "/captcha/**", "/favicon.ico", "/druid/**",
+                "/static/**", "/error")
             .permitAll().anyRequest().authenticated()
             .and()
             .formLogin().loginProcessingUrl("/login")

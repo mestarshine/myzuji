@@ -33,6 +33,7 @@ configurations {
 }
 
 dependencies {
+    implementation project(':util')
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.boot:spring-boot-starter-websocket')
@@ -41,15 +42,14 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
     implementation('org.springframework.boot:spring-boot-starter-security')
     implementation('com.alibaba:druid-spring-boot-starter:1.1.13')
-    implementation('mysql:mysql-connector-java')
     implementation('org.apache.commons:commons-lang3:3.7')
     implementation('com.google.guava:guava:27.0.1-jre')
     implementation('com.alibaba:fastjson:1.2.9')
     implementation('io.jsonwebtoken:jjwt:0.9.1')
+    implementation('com.github.penggle:kaptcha:2.3.2')
     implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.3'
-    implementation project(':util')
+    runtimeOnly('mysql:mysql-connector-java')
     runtime('org.springframework.boot:spring-boot-devtools')
-    compileOnly('org.projectlombok:lombok')
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
