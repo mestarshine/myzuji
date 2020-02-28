@@ -2,8 +2,9 @@ package com.myzuji.backend.dto;
 
 import com.myzuji.backend.domain.system.MenuTypeEnum;
 import com.myzuji.backend.domain.system.SysMenu;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,6 @@ public class MenuDTO {
 
     private Long id;
 
-    private LocalDateTime createTime;
-
     private Long parentId = 0L;
 
     private String menuName;
@@ -27,18 +26,17 @@ public class MenuDTO {
 
     private String href;
 
-    private MenuTypeEnum menuType;
+    private MenuTypeEnum menuType = MenuTypeEnum.SYS;
 
-    private Integer sort;
+    private Integer sort = 1;
 
     private boolean hasChildren = false;
 
     private List<MenuDTO> childrenMenus;
 
-    public MenuDTO(Long id, LocalDateTime createTime, Long parentId, String menuName, String icon, String href,
+    public MenuDTO(Long id, Long parentId, String menuName, String icon, String href,
                    MenuTypeEnum menuType, Integer sort) {
         this.id = id;
-        this.createTime = createTime;
         this.parentId = parentId;
         this.menuName = menuName;
         this.icon = icon;
@@ -53,7 +51,7 @@ public class MenuDTO {
     }
 
     private static MenuDTO menuDTO(SysMenu menu) {
-        return new MenuDTO(menu.getId(), menu.getCreateTime(), menu.getParentId(), menu.getMenuName(), menu.getIcon(),
+        return new MenuDTO(menu.getId(), menu.getParentId(), menu.getMenuName(), menu.getIcon(),
             menu.getHref(), menu.getMenuType(), menu.getSort());
     }
 
@@ -87,12 +85,17 @@ public class MenuDTO {
         return trees;
     }
 
-    public Long getId() {
-        return id;
+    public SysMenu menuBuild() {
+        if (StringUtils.isBlank(menuName) || StringUtils.isBlank(href)) {
+            return null;
+        }
+        SysMenu sysMenu = new SysMenu();
+        BeanUtils.copyProperties(this, sysMenu);
+        return sysMenu;
     }
 
-    public LocalDateTime getCreateTime() {
-        return createTime;
+    public Long getId() {
+        return id;
     }
 
     public Long getParentId() {

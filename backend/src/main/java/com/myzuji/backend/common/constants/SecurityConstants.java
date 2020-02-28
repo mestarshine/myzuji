@@ -14,7 +14,7 @@ public class SecurityConstants {
     public static final String CURRENT_ENABLED = "captchaEnabled";
 
     /**
-     * 验证码开关
+     * 验证码类型
      */
     public static final String CURRENT_TYPE = "captchaType";
 

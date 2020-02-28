@@ -13,4 +13,6 @@ import java.util.List;
 public interface SysMenuRpt {
 
     List<SysMenu> obtainAllSysMenus();
+
+    SysMenu update(SysMenu menu);
 }

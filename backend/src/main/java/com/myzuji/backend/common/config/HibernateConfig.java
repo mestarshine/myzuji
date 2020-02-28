@@ -33,7 +33,7 @@ public class HibernateConfig {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         sessionFactory.setEntityInterceptor(commonsEntityInterceptor);
-        sessionFactory.setPackagesToScan("com.myzuji.zujibackend");
+        sessionFactory.setPackagesToScan("com.myzuji.backend");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

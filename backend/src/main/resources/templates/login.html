@@ -6,12 +6,10 @@
 
     <title>管理系统-足迹</title>
     <meta name="keywords" content="足迹,足迹后台管理系统,后台管理系统,管理系统,ZuJi">
-    <meta name="description" content="若依基于SpringBoot2.0的权限管理系统 易读易懂、界面简洁美观。 核心技术采用Spring、MyBatis、Shiro没有任何其它重度依赖">
-    <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet"/>
-    <link th:href="@{/static/css/font-awesome.min.css}" rel="stylesheet"/>
-    <link th:href="@{/static/css/style.css}" rel="stylesheet"/>
-    <link th:href="@{/static/zuji/css/zuji-ui.css}" rel="stylesheet"/>
-    <link th:href="@{/static/css/login.css}" rel="stylesheet"/>
+    <meta name="description" content="足迹后台权限管理系统易读易懂、界面简洁美观">
+    <link th:href="@{/static/plugin/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/static/plugin/font-awesome/css/font-awesome.min.css}" rel="stylesheet"/>
+    <link th:href="@{/static/zuji/css/login.css}" rel="stylesheet"/>
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html"/>
     <![endif]-->
@@ -59,17 +57,17 @@
 
     </div>
 </div>
-<div class="footer">&copy; 2019 All Rights Reserved. MyZuJi</div>
+<div class="footer">&copy; 2020 All Rights Reserved. MyZuJi</div>
 <script th:inline="javascript"> var ctx = [[@{/}]]; var captchaType = [[${captchaType}]]; </script>
 <!-- 全局js -->
-<script src="/static/js/jquery.min.js" th:src="@{/static/js/jquery.min.js}"></script>
-<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script src="/static/plugin/jquery/js/jquery.3.2.1.min.js" th:src="@{/static/plugin/jquery/js/jquery.3.2.1.min.js}"></script>
+<script th:src="@{/static/plugin/bootstrap/js/bootstrap.min.js}"></script>
 <!-- 验证插件 -->
-<script th:src="@{/static/ajax/libs/validate/jquery.validate.min.js}"></script>
-<script th:src="@{/static/ajax/libs/validate/messages_zh.min.js}"></script>
-<script th:src="@{/static/ajax/libs/layer/layer.min.js}"></script>
-<script th:src="@{/static/ajax/libs/blockUI/jquery.blockUI.js}"></script>
+<script th:src="@{/static/plugin/jquery-validate/jquery.validate.min.js}"></script>
+<script th:src="@{/static/plugin/jquery-validate/messages_zh.min.js}"></script>
+<script th:src="@{/static/plugin/layer/layer.js}"></script>
+<script th:src="@{/static/plugin/jquery-blockui/jquery.blockUI.js}"></script>
 <script th:src="@{/static/zuji/js/zuji-ui.js}"></script>
-<script th:src="@{/static/zuji/login.js}"></script>
+<script th:src="@{/static/zuji/js/login.js}"></script>
 </body>
 </html>

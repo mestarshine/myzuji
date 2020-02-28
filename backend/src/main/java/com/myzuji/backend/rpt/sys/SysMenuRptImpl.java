@@ -19,4 +19,10 @@ public class SysMenuRptImpl extends BaseRptImpl<SysMenu> implements SysMenuRpt {
     public List<SysMenu> obtainAllSysMenus() {
         return getSession().createQuery("from SysMenu").getResultList();
     }
+
+    @Override
+    public SysMenu update(SysMenu menu) {
+        saveOrUpdate(menu);
+        return menu;
+    }
 }

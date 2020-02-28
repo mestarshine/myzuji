@@ -28,6 +28,7 @@ public class LoginUser implements UserDetails {
     private String username;
     private String password;
     private String roleRight;
+    private String userImg;
     private UserStatusEnum userStatus;
 
     @JsonIgnore
@@ -71,6 +72,7 @@ public class LoginUser implements UserDetails {
         this.password = sysUser.getPassword();
         this.roleRight = sysUser.getRoleRight();
         this.userStatus = sysUser.getUserStatus();
+        this.userImg = sysUser.getHeadImgUrl();
     }
 
     /**
@@ -90,15 +92,13 @@ public class LoginUser implements UserDetails {
     @JSONField(serialize = false)
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
+        if (sysRoles == null) {
+            sysRoles = SysRole.calculationRole(roleRight);
+        }
         sysRoles.stream().forEach(sysRole -> {
             authorities.add(new SimpleGrantedAuthority(sysRole.getId().toString()));
         });
         return authorities;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
     }
 
     @Override
@@ -134,12 +134,27 @@ public class LoginUser implements UserDetails {
         return password;
     }
 
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @JsonIgnore
+    @JSONField(serialize = false)
+    public String getUserImg() {
+        return userImg;
+    }
+
+    public void setUserImg(String userImg) {
+        this.userImg = userImg;
     }
 
     public String getRoleRight() {

@@ -14,7 +14,7 @@ public class Token extends BaseEntity {
 
     private static final long serialVersionUID = -8073450568180953594L;
 
-    private String tokenValue;
+    private String token;
     /**
      * 登陆时间戳（毫秒）
      */
@@ -22,12 +22,12 @@ public class Token extends BaseEntity {
 
     public Token(String token, LocalDateTime loginTime) {
         super();
-        this.tokenValue = token;
+        this.token = token;
         this.loginTime = loginTime;
     }
 
-    public String getTokenValue() {
-        return tokenValue;
+    public String getToken() {
+        return token;
     }
 
     public LocalDateTime getLoginTime() {

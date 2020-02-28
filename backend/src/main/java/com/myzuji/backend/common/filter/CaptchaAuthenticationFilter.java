@@ -22,11 +22,11 @@ import java.io.IOException;
  * @author shine
  * @date 2020/02/24
  */
-public class KaptchaAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
+public class CaptchaAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
     private String servletPath;
 
-    public KaptchaAuthenticationFilter(String servletPath, AuthenticationFailureHandler authenticationFailureHandler) {
+    public CaptchaAuthenticationFilter(String servletPath, AuthenticationFailureHandler authenticationFailureHandler) {
         super(servletPath);
         this.servletPath = servletPath;
         setAuthenticationFailureHandler(authenticationFailureHandler);

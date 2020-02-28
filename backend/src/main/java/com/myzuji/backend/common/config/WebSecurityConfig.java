@@ -1,6 +1,6 @@
 package com.myzuji.backend.common.config;
 
-import com.myzuji.backend.common.filter.KaptchaAuthenticationFilter;
+import com.myzuji.backend.common.filter.CaptchaAuthenticationFilter;
 import com.myzuji.backend.filter.TokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class)
-            .addFilterBefore(new KaptchaAuthenticationFilter("/login", authenticationFailureHandler),
+            .addFilterBefore(new CaptchaAuthenticationFilter("/login", authenticationFailureHandler),
                 UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeRequests()
