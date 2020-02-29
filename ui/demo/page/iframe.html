@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Dashboard</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../static/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="../static/ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../static/admin-lte/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="../static/admin-lte/css/skins/_all-skins.min.css">
+    <!-- Morris chart -->
+    <link rel="stylesheet" href="../static/morris-js/css/morris.css">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="../static/jquery-jvectormap/css/jquery-jvectormap.css">
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="../static/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="../static/bootstrap-daterangepicker/css/daterangepicker.css">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="../static/bootstrap-wysihtml5/css/bootstrap3-wysihtml5.min.css">
+    <link rel="stylesheet" href="../static/zuji/css/zuji-ui.css">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper" id="wrapper">
+
+    <header class="main-header">
+        <!--Logo -->
+        <a href="index2.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>A</b>LT</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>Admin</b>LTE</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="javascript:void(0)" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav navbar-header-top">
+                    <li>
+                        <a title="全屏显示" href="javascript:void(0)" id="fullScreen"><i class="fa fa-arrows-alt"></i></a>
+                    </li>
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="../static/admin-lte/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <span class="hidden-xs">Alexander Pierce</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="text-center">
+                                <a href="javascript:void(0)" class="tab_close_current">
+                                    <i class="fa fa-user"></i>个人中心</a>
+                            </li>
+                            <li class="text-center">
+                                <a href="javascript:void(0)" class="tab_close_other">
+                                    <i class="fa fa-key"></i>修改密码</a>
+                            </li>
+                            <li class="text-center">
+                                <a href="javascript:void(0)" class="tab_close_all">
+                                    <i class="fa fa-sign-out"></i>退出登陆</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="../static/admin-lte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>Alexander Pierce</p>
+                    <a href="javascript:void(0)"><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
+            </div>
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+                </div>
+            </form>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">MAIN NAVIGATION</li>
+                <li class="active treeview">
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="active">
+                            <a href="javascript:void(0)" data-url="index.html" class="menu_item"><i
+                                class="fa fa-circle-o"></i> Dashboard v1</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" data-url="index2.html" class="menu_item"><i
+                                class="fa fa-circle-o"></i> Dashboard v2</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-files-o"></i>
+                        <span>Layout Options</span>
+                        <span class="pull-right-container"><span class="label label-primary pull-right">4</span></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="javascript:void(0)" data-url="layout/top-nav.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Top Navigation</a></li>
+                        <li><a href="javascript:void(0)" data-url="layout/boxed.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Boxed</a></li>
+                        <li><a href="javascript:void(0)" data-url="layout/fixed.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Fixed</a></li>
+                        <li><a href="javascript:void(0)" data-url="layout/collapsed-sidebar.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-pie-chart"></i>
+                        <span>Charts</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="javascript:void(0)" data-url="charts/chartjs.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> ChartJS</a></li>
+                        <li><a href="javascript:void(0)" data-url="charts/morris.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Morris</a></li>
+                        <li><a href="javascript:void(0)" data-url="charts/flot.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Flot</a></li>
+                        <li><a href="javascript:void(0)" data-url="charts/inline.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Inline charts</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-laptop"></i>
+                        <span>UI Elements</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="javascript:void(0)" data-url="UI/general.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> General</a></li>
+                        <li><a href="javascript:void(0)" data-url="UI/icons.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Icons</a></li>
+                        <li><a href="javascript:void(0)" data-url="UI/buttons.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Buttons</a></li>
+                        <li><a href="javascript:void(0)" data-url="UI/sliders.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Sliders</a></li>
+                        <li><a href="javascript:void(0)" data-url="UI/timeline.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Timeline</a></li>
+                        <li><a href="javascript:void(0)" data-url="UI/modals.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Modals</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-edit"></i> <span>Forms</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="javascript:void(0)" data-url="forms/general.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> General Elements</a></li>
+                        <li><a href="javascript:void(0)" data-url="forms/advanced.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Advanced Elements</a></li>
+                        <li><a href="javascript:void(0)" data-url="forms/editors.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Editors</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-table"></i> <span>Tables</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="javascript:void(0)" data-url="tables/simple.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Simple tables</a></li>
+                        <li><a href="javascript:void(0)" data-url="tables/data.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Data tables</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" data-url="plugins/calendar.html" class="menu_item">
+                        <i class="fa fa-calendar"></i> <span>Calendar</span>
+                        <span class="pull-right-container">
+                          <small class="label pull-right bg-red">3</small>
+                          <small class="label pull-right bg-blue">17</small>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" data-url="mailbox/mailbox.html" class="menu_item">
+                        <i class="fa fa-envelope"></i> <span>Mailbox</span>
+                        <span class="pull-right-container">
+                          <small class="label pull-right bg-yellow">12</small>
+                          <small class="label pull-right bg-green">16</small>
+                          <small class="label pull-right bg-red">5</small>
+                        </span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-folder"></i> <span>Examples</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="javascript:void(0)" data-url="examples/invoice.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Invoice</a></li>
+                        <li><a href="javascript:void(0)" data-url="examples/profile.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Profile</a></li>
+                        <li><a href="javascript:void(0)" data-url="examples/login.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Login</a></li>
+                        <li><a href="javascript:void(0)" data-url="examples/register.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Register</a></li>
+                        <li><a href="javascript:void(0)" data-url="examples/lockscreen.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Lockscreen</a></li>
+                        <li><a href="javascript:void(0)" data-url="examples/404.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> 404 Error</a></li>
+                        <li><a href="javascript:void(0)" data-url="examples/500.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> 500 Error</a></li>
+                        <li><a href="javascript:void(0)" data-url="examples/blank.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Blank Page</a></li>
+                        <li><a href="javascript:void(0)" data-url="examples/pace.html" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Pace Page</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-share"></i> <span>Multilevel</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="javascript:void(0)" data-url="https://news.qq.com/" class="menu_item"><i
+                            class="fa fa-circle-o"></i> Level One</a></li>
+                        <li class="treeview">
+                            <a href="javascript:void(0)"><i class="fa fa-circle-o"></i> Level One
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="javascript:void(0)" data-url="https://news.qq.com/" class="menu_item"><i
+                                    class="fa fa-circle-o"></i> Level Two</a></li>
+                                <li class="treeview">
+                                    <a href="javascript:void(0)"><i class="fa fa-circle-o"></i> Level Two
+                                        <span class="pull-right-container"><i
+                                            class="fa fa-angle-left pull-right"></i></span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li><a href="javascript:void(0)" data-url="https://news.qq.com/"
+                                               class="menu_item"><i class="fa fa-circle-o"></i> Level Three</a>
+                                        </li>
+                                        <li><a href="javascript:void(0)" data-url="https://news.qq.com/"
+                                               class="menu_item"><i class="fa fa-circle-o"></i> Level Three</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="javascript:void(0)"><i class="fa fa-circle-o"></i> Level One</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-pie-chart"></i>
+                        <span>Tools</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="javascript:void(0)" data-url="/widgets.html" class="menu_item"><i
+                            class="fa fa-th"></i> Widgets</a></li>
+                        <li><a href="javascript:void(0)" data-url="/calendar.html" class="menu_item"><i
+                            class="fa fa-calendar"></i> Calendar</a></li>
+                        <li><a href="javascript:void(0)" data-url="/mailbox/mailbox.html" class="menu_item"><i
+                            class="fa fa-envelope"></i> Mailbox</a></li>
+                        <li><a href="javascript:void(0)" data-url="https://adminlte.io/docs" class="menu_item"><i
+                            class="fa fa-book"></i> Documentation</a></li>
+                    </ul>
+                </li>
+                <li><a href="javascript:void(0)" data-url="https://adminlte.io/docs" class="menu_item"><i
+                    class="fa fa-book"></i> <span>Documentation</span></a></li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <div class="nav-tabs-custom  nav-tabs-header">
+            <ul class="nav nav-tabs nav-tabs-left">
+                <li class="tab_left">
+                    <a href="javascript:void(0)" class="nav-tab-icon">
+                        <i class="fa fa-backward"></i>
+                    </a>
+                </li>
+            </ul>
+            <nav class="nav-tabs-header-content">
+                <ul class="nav nav-tabs" id="nav-tabs">
+                    <li class="tabs-header-menu active" data-index="0">
+                        <a href="javascript:void(0)">首页</a>
+                    </li>
+                </ul>
+            </nav>
+            <ul class="nav nav-tabs nav-tabs-right">
+                <li class="tab_right">
+                    <a href="javascript:void(0)" class="nav-tab-icon">
+                        <i class="fa fa-forward"></i>
+                    </a>
+                </li>
+                <li class=" dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" aria-expanded="false">
+                        <span>页签操作</span>
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="javascript:void(0)" class="tab_close_current">关闭当前</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="tab_close_other">关闭其他</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="tab_close_all">全部关闭</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="tab_show_active">当前页面</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="tab_max_current">全屏显示</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="">
+                    <a href="javascript:void(0)" class="nav-tab-icon-right tab_reload">
+                        <i class="fa fa-refresh"></i> <span>刷新</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="mainContent" id="content-main">
+            <iframe class="zuji_iframe" name="mainFrame0" width="100%" height="100%" data-index="0"
+                    src="https://news.qq.com" frameborder="0" seamless></iframe>
+        </div>
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 2.4.0
+        </div>
+        <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+        reserved.
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane" id="control-sidebar-home-tab">
+                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                                <p>Will be 23 on April 24th</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-user bg-yellow"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                                <p>New phone +1(800)555-1234</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                                <p>nora@example.com</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                                <p>Execution time 5 seconds</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+                <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Custom Template Design
+                                <span class="label label-danger pull-right">70%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Update Resume
+                                <span class="label label-success pull-right">95%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Laravel Integration
+                                <span class="label label-warning pull-right">50%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Back End Framework
+                                <span class="label label-primary pull-right">68%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+            </div>
+            <!-- /.tab-pane -->
+            <!-- Stats tab content -->
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+            <!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <form method="post">
+                    <h3 class="control-sidebar-heading">General Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Report panel usage
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Some information about this general settings option
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Allow mail redirect
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Other sets of options are available
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Expose author name in posts
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Allow the user to show his name in blog posts
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Show me as online
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Turn off notifications
+                            <input type="checkbox" class="pull-right">
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Delete chat history
+                            <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+                </form>
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="../static/jquery/js/jquery.3.2.1.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../static/jquery-ui/js/jquery-ui.1.11.4.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="../static/bootstrap/js/bootstrap.min.js"></script>
+<!-- Morris.js charts -->
+<script src="../static/raphael/js/raphael.min.js"></script>
+<script src="../static/morris-js/js/morris.min.js"></script>
+<!-- Sparkline -->
+<script src="../static/jquery-sparkline/js/jquery.sparkline.min.js"></script>
+<!-- jvectormap -->
+<script src="../static/jquery-jvectormap/js/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="../static/jquery-jvectormap/js/jquery-jvectormap-world-mill-en.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="../static/jquery-knob/js/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="../static/moment/js/moment.min.js"></script>
+<script src="../static/bootstrap-daterangepicker/js/daterangepicker.js"></script>
+<!-- datepicker -->
+<script src="../static/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="../static/bootstrap-wysihtml5/js/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- Slimscroll -->
+<script src="../static/jquery-slimscroll/js/jquery.slimscroll.min.js"></script>
+<!--fullscreen-->
+<script src="../static/jquery-fullscreen/js/jquery.fullscreen.js"></script>
+<!-- FastClick -->
+<script src="../static/fastclick/js/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../static/admin-lte/js/adminlte.min.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<!--<script src="../static/admin-lte/js/pages/dashboard.js"></script>-->
+<!-- AdminLTE for demo purposes -->
+<script src="../static/admin-lte/js/demo.js"></script>
+<script src="../static/layer/layer.js"></script>
+<script src="../static/jquery-blockui/jquery.blockUI.js"></script>
+<script src="../static/zuji/js/zuji-ui.js"></script>
+<script src="../static/zuji/js/tab.js"></script>
+</body>
+</html>

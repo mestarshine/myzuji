@@ -1,0 +1,124 @@
+/**
+ * 通用css样式布局处理
+ * Copyright (c) 2019 zuji
+ */
+html{
+    height: 100% !important;
+}
+body{
+    height: 100% !important;
+}
+.wrapper{
+    height: 100% !important;
+}
+.wrapper .content-wrapper{
+    height: 100% !important;
+}
+.navbar-header-top .user-menu .dropdown-menu > li > a{
+    padding: 10px;
+}
+.navbar-header-top > .user-menu > .dropdown-menu{
+    width: 150px;
+}
+
+/* 导航页签 */
+.nav-tabs-header {
+    border: 0;
+    background: #fafafa;
+    position: relative;
+    margin: 0;
+}
+
+.nav-tabs-header > .nav-tabs-left {
+    position: absolute;
+    left: 0;
+    background-color: #f4f4f4;
+}
+
+.nav-tabs-header > .nav-tabs-right {
+    position: absolute;
+    right: 3px;
+    top: 0;
+    background-color: #f4f4f4;
+}
+
+.nav-tabs-header .nav-tabs > li {
+    border: 0;
+    margin: 0;
+}
+
+.nav-tabs-header .nav-tabs > li > a {
+    color: #999;
+    padding: 10px 5px;
+    cursor: pointer;
+}
+
+.nav-tabs-header > .nav-tabs > li > .nav-tab-icon {
+    width: 35px;
+    padding: 10px;
+}
+
+.nav-tabs-header > .nav-tabs > li > .nav-tab-icon-right {
+    padding: 10px;
+}
+
+.nav-tabs-header .nav-tabs li.active,
+.nav-tabs-header .nav-tabs li:focus,
+.nav-tabs-header .nav-tabs li:hover {
+    color: #444;
+    border-bottom-color: #3c8dbc !important;
+}
+
+.nav-tabs-header .nav-tabs li.active > a,
+.nav-tabs-header .nav-tabs li:focus > a,
+.nav-tabs-header .nav-tabs li:hover > a {
+    color: #444;
+    background-color: #fff;
+}
+
+.nav-tabs-header > .nav-tabs-header-content {
+    align-items: center;
+    overflow: hidden;
+    margin-left: 35px;
+    width: 10000px;
+}
+
+.nav-tabs-header > .nav-tabs-header-content > .nav-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    border: none;
+    float: left;
+}
+
+.nav-tabs-header > .nav-tabs-header-content li {
+    white-space: nowrap;
+    border-bottom: 1px solid transparent;
+}
+
+.nav-tabs-header > .nav-tabs-header-content li > a {
+    padding: 10px 15px;
+}
+
+.nav-tabs-header > .nav-tabs-header-content li.active > a {
+    border-top-color: transparent;
+    border-left-color: #f4f4f4;
+    border-right-color: #f4f4f4;
+}
+
+.nav-tabs-header > .nav-tabs-header-content .tabs-header-menu > a > i {
+    color: #eee;
+}
+
+.nav-tabs-header > .nav-tabs-header-content .tabs-header-menu > a > i.active,
+.nav-tabs-header > .nav-tabs-header-content .tabs-header-menu > a > i:focus,
+.nav-tabs-header > .nav-tabs-header-content .tabs-header-menu > a > i:hover {
+    color: #3c8dbc;
+}
+
+.nav-tabs-header > .nav-tabs > li.dropdown > .dropdown-menu {
+    min-width: 100px;
+}
+
+#content-main {
+    height: calc(100% - 51px);
+}
