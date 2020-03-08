@@ -6,7 +6,7 @@ package com.myzuji.study.java.lang;
  * @author shine
  * @date 2020/02/01
  */
-public class StudyString {
+public class StringStudy {
 
     public static void main(String[] args) {
         System.out.println("String =====================");
