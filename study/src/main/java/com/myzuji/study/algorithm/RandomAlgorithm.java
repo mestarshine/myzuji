@@ -1,4 +1,4 @@
-package com.myzuji.study.java.lang;
+package com.myzuji.study.algorithm;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

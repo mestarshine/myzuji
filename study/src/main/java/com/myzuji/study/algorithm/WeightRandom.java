@@ -1,4 +1,4 @@
-package com.myzuji.study.java.lang;
+package com.myzuji.study.algorithm;
 
 import javafx.util.Pair;
 

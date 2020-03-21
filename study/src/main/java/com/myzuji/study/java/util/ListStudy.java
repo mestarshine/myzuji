@@ -1,4 +1,4 @@
-package com.myzuji.study.java.lang;
+package com.myzuji.study.java.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
