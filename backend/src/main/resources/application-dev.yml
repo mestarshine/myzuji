@@ -1,0 +1,8 @@
+captcha:
+    #验证码开关
+    enabled: false
+    #数学验证码
+    type: math
+    #字符验证码
+    #type: char
+

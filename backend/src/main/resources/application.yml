@@ -17,16 +17,10 @@ spring:
     resources:
         chain:
             cache: false
+    profiles:
+        active: dev
 trace: false
 token:
     jwtSecret: (XIAO:)_$^11244^%$_(WEI:)_@@++--(LAO:)_++++_.sds_(SHI:)
     expire:
         seconds: 7200
-captcha:
-    #验证码开关
-    enabled: true
-    #数学验证码
-    type: math
-    #字符验证码
-    #type: char
-
