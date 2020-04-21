@@ -1,0 +1,10 @@
+trace: false
+captcha:
+    #验证码开关
+    enabled: true
+    #数学验证码
+    type: math
+    #字符验证码
+    #type: char
+
+
