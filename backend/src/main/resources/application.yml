@@ -1,0 +1,32 @@
+spring:
+    jpa:
+        open-in-view: true
+    #热部署生效
+    devtools:
+        restart:
+            enabled: true
+            #设置重启的目录
+            additional-paths: src/main/java
+            #classpath目录下的WEB-INF文件夹内容修改不重启
+            exclude: resources/**
+    thymeleaf:
+        cache: false
+    output:
+        ansi:
+            enabled: detect
+    resources:
+        chain:
+            cache: false
+trace: false
+token:
+    jwtSecret: (XIAO:)_$^11244^%$_(WEI:)_@@++--(LAO:)_++++_.sds_(SHI:)
+    expire:
+        seconds: 7200
+captcha:
+    #验证码开关
+    enabled: true
+    #数学验证码
+    type: math
+    #字符验证码
+    #type: char
+
