@@ -1,0 +1,55 @@
+# 抽象工厂模式
+@startuml
+
+abstract class Pizza {
+     String name
+
+     abstract void prepare()
+     void bake()
+     void cut()
+     void box()
+
+}
+class BJCheesePizza{
+    void prepare()
+}
+class BJPepperPizza{
+    void prepare()
+}
+class LDCheesePizza{
+    void prepare()
+}
+class LDPepperPizza{
+    void prepare()
+}
+
+Pizza <|-- BJCheesePizza
+Pizza <|-- BJPepperPizza
+Pizza <|-- LDCheesePizza
+Pizza <|-- LDPepperPizza
+
+interface AbsFactory{
+    Pizza createPizza()
+}
+
+class BJFactory
+class LDFactory
+
+class OrderPizza
+
+class PizzaStore
+
+BJCheesePizza <.. BJFactory
+BJPepperPizza <.. BJFactory
+LDCheesePizza <.. LDFactory
+LDPepperPizza <.. LDFactory
+
+BJFactory --|> AbsFactory
+LDFactory --|> AbsFactory
+
+OrderPizza o- AbsFactory
+
+AbsFactory <.. PizzaStore
+OrderPizza <.. PizzaStore
+
+@enduml

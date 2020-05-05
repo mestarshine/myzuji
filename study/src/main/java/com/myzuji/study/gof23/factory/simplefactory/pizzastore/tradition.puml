@@ -1,0 +1,44 @@
+# 传统的方法的优缺点
+# 优点：比较好理解，简单易操作
+# 缺点：违反类设计模式的 ocp 原则，即对扩展开放，对修改关闭
+@startuml
+
+abstract class Pizza {
+     String name;
+
+     abstract void prepare()
+     void bake()
+     void cut()
+     void box()
+
+}
+class CheesePizza{
+    void prepare()
+}
+class GreekPizza{
+    void prepare()
+}
+class PepperPizza{
+    void prepare()
+}
+class OrderPizza
+class OrderPizza2
+class PizzaStore
+
+Pizza <|-- CheesePizza
+Pizza <|-- GreekPizza
+Pizza <|-- PepperPizza
+
+Pizza <... OrderPizza
+CheesePizza <... OrderPizza
+GreekPizza <... OrderPizza
+PepperPizza <... OrderPizza
+OrderPizza <... PizzaStore
+
+Pizza <... OrderPizza2
+CheesePizza <... OrderPizza2
+GreekPizza <... OrderPizza2
+PepperPizza <... OrderPizza2
+OrderPizza2 <... PizzaStore
+
+@enduml
