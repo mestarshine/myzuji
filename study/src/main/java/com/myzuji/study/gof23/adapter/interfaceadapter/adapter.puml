@@ -1,0 +1,17 @@
+@startuml
+
+Interface Interface{
+    void operation1()
+    void operation2()
+    void operation3()
+    void operation4()
+}
+
+abstract class AbsAdapter
+note right of AbsAdapter : 抽象类，默认实现接口的所有方法，java8 后可以接口可以有默认实现，
+class Adapter
+
+Interface <|-- AbsAdapter
+Adapter .> AbsAdapter
+
+@enduml
