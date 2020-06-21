@@ -22,9 +22,6 @@ public class Audio {
             audioFormat = audioInputStream.getFormat();
             dataLine_info = new DataLine.Info(SourceDataLine.class, audioFormat);
             sourceDataLine = (SourceDataLine) AudioSystem.getLine(dataLine_info);
-            //FloatControl volctrl=(FloatControl)sourceDataLine.getControl(FloatControl.Type.MASTER_GAIN);
-            //volctrl.setValue(-40);//
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -37,7 +34,6 @@ public class Audio {
                 int len = 0;
                 sourceDataLine.open(audioFormat, 1024 * 1024 * 15);
                 sourceDataLine.start();
-                System.out.println(audioInputStream.markSupported());
                 audioInputStream.mark(12358946);
                 while ((len = audioInputStream.read(b)) > 0) {
                     sourceDataLine.write(b, 0, len);
@@ -59,6 +55,7 @@ public class Audio {
             int len = 0;
             sourceDataLine.open(audioFormat, 1024 * 5);
             sourceDataLine.start();
+            audioInputStream.mark(12358946);
             while ((len = audioInputStream.read(b)) > 0) {
                 sourceDataLine.write(b, 0, len);
             }
