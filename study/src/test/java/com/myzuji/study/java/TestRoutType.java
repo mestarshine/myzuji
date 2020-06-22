@@ -6,7 +6,7 @@ package com.myzuji.study.java;
  * @author shine
  * @date 2020/02/01
  */
-public class Test {
+public class TestRoutType {
 
     public static void main(String[] args) {
         RoutType.TypeEnum type = RoutType.TypeEnum.CARD;
