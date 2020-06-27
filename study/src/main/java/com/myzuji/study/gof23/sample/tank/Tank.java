@@ -1,0 +1,125 @@
+package com.myzuji.study.gof23.sample.tank;
+
+import java.awt.*;
+import java.util.Random;
+
+public class Tank {
+
+    private static final int SPEED = 2;
+
+    public static int WIDTH = ResourceMgr.tankU.getWidth();
+    public static int HEIGHT = ResourceMgr.tankU.getHeight();
+
+    private final Random random = new Random();
+    private final TankFrame tankFrame;
+    private int x, y;
+    private Dir dir = Dir.DOWN;
+    private boolean moving = true;
+    private boolean living = true;
+    private Group group = Group.BAD;
+
+    public Tank(int x, int y, Dir dir, TankFrame tf, Group group) {
+        super();
+        this.x = x;
+        this.y = y;
+        this.dir = dir;
+        this.tankFrame = tf;
+        this.group = group;
+    }
+
+    public void paint(Graphics g) {
+        if (!living) {
+            tankFrame.tanks.remove(this);
+        }
+
+        switch (dir) {
+            case LEFT:
+                g.drawImage(ResourceMgr.tankL, x, y, null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.tankU, x, y, null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.tankR, x, y, null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.tankD, x, y, null);
+                break;
+        }
+
+        move();
+
+    }
+
+    private void move() {
+        if (!moving) {
+            return;
+        }
+        switch (dir) {
+            case LEFT:
+                x -= SPEED;
+                break;
+            case UP:
+                y -= SPEED;
+                break;
+            case DOWN:
+                y += SPEED;
+                break;
+            case RIGHT:
+                x += SPEED;
+                break;
+            default:
+                break;
+        }
+
+        if (this.group == Group.BAD && random.nextInt(100) > 95) {
+            this.fire();
+        }
+
+        if (this.group == Group.BAD && random.nextInt(100) > 95) {
+            randomDir();
+        }
+    }
+
+    private void randomDir() {
+        this.dir = Dir.values()[random.nextInt(4)];
+    }
+
+    public void fire() {
+        int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
+        int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+
+        tankFrame.bullets.add(new Bullet(bX, bY, this.dir, this.tankFrame, this.group));
+        if (this.group == Group.GOOD) {
+            new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();
+        }
+    }
+
+    public void die() {
+        this.living = false;
+    }
+
+    public void setDir(Dir dir) {
+        this.dir = dir;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+}
