@@ -1,4 +1,4 @@
-package com.myzuji.study.java.syn;
+package com.myzuji.study.java.sync;
 
 import java.util.concurrent.TimeUnit;
 
@@ -9,16 +9,16 @@ import java.util.concurrent.TimeUnit;
  * @author shine
  * @date 2020/8/8
  */
-public class ExceptionSynTest {
+public class ExceptionSyncTest {
 
     int count = 0;
 
     public static void main(String[] args) {
-        ExceptionSynTest exceptionSynTest = new ExceptionSynTest();
+        ExceptionSyncTest exceptionSyncTest = new ExceptionSyncTest();
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                exceptionSynTest.doSomething();
+                exceptionSyncTest.doSomething();
             }
         };
         new Thread(runnable, "t1").start();

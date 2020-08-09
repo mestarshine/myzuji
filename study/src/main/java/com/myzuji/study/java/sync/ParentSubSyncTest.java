@@ -1,4 +1,4 @@
-package com.myzuji.study.java.syn;
+package com.myzuji.study.java.sync;
 
 import java.util.concurrent.TimeUnit;
 
@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
  * @author shine
  * @date 2020/8/8
  */
-public class ParentSubSynTest {
+public class ParentSubSyncTest {
 
 
     public static void main(String[] args) {
