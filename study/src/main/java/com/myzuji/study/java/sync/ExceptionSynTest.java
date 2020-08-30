@@ -1,4 +1,4 @@
-package com.myzuji.study.java.syn;
+package com.myzuji.study.java.sync;
 
 import java.util.concurrent.TimeUnit;
 
