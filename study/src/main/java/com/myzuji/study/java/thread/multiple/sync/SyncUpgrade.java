@@ -1,4 +1,4 @@
-package com.myzuji.study.java.sync;
+package com.myzuji.study.java.thread.multiple.sync;
 
 /**
  * JDK1.5 之前是重量级的，需要找操作系统来完成
