@@ -14,7 +14,10 @@ public class SingletonTest06 {
     }
 }
 
-//双重检查
+/**
+ * 双重检查
+ * 注意：需要添加 volatile ，防止指令重排序
+ */
 class Singleton {
 
     //本类内部创建对象实例
