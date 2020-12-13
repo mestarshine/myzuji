@@ -7,6 +7,8 @@ import com.myzuji.study.java.easyexcel.read.DemoData0;
 import lombok.Builder;
 import lombok.Data;
 
+import static com.myzuji.study.java.easyexcel.read.DemoData2Listener.merList;
+
 /**
  * 简单描述
  */
@@ -38,18 +40,21 @@ public class CsvTemp {
     private String reportDate;
 
     public static CsvTemp makeByDemoData(DemoData0 data) {
-        CsvTemp csvTemp = new CsvTempBuilder()
-            .orderNo(splitFlay + "" + data.getOrderNo())
-            .tradeDate(splitFlay + "" + DateUtils.format(data.getTradeTime(), "yyyyMMddHHmmss"))
-            .merName(splitFlay + "" + data.getMerName())
-            .tradeStatus("`SUCCESS")
-            .tradeAmount(splitFlay + "" + Math.round(data.getTradeAmount() * 100D))
-            .tradeSettleAmount(splitFlay + "" + String.format("%.0f", (data.getTradeAmount() * 100D) - (Math.round(data.getTradeAmount() * 0.02))))
-            .paymentAmount(splitFlay + "" + String.format("%.0f", data.getTradeAmount() * 100D))
-            .refundAmount("`0")
-            .refundSettleAmount("`0")
-            .reportDate(DateUtils.format(data.getTradeTime(), "yyyyMMdd"))
-            .build();
-        return csvTemp;
+        if (merList.containsKey(data.getUnionMerNo())) {
+            CsvTemp csvTemp = new CsvTempBuilder()
+                .orderNo(splitFlay + "" + data.getOrderNo())
+                .tradeDate(splitFlay + "" + DateUtils.format(data.getTradeTime(), "yyyyMMddHHmmss"))
+                .merName(splitFlay + "" + data.getMerName())
+                .tradeStatus("`SUCCESS")
+                .tradeAmount(splitFlay + "" + Math.round(data.getTradeAmount() * 100D))
+                .tradeSettleAmount(splitFlay + "" + String.format("%.0f", (data.getTradeAmount() * 100D) - (Math.round(data.getTradeAmount() * 0.02))))
+                .paymentAmount(splitFlay + "" + String.format("%.0f", data.getTradeAmount() * 100D))
+                .refundAmount("`0")
+                .refundSettleAmount("`0")
+                .reportDate(DateUtils.format(data.getTradeTime(), "yyyyMMdd"))
+                .build();
+            return csvTemp;
+        }
+        return null;
     }
 }

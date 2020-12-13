@@ -1,10 +1,7 @@
 package com.myzuji.study.java.easyexcel;
 
 import com.alibaba.excel.EasyExcel;
-import com.myzuji.study.java.easyexcel.read.DemoData0;
-import com.myzuji.study.java.easyexcel.read.DemoData0Listener;
-import com.myzuji.study.java.easyexcel.read.DemoData1;
-import com.myzuji.study.java.easyexcel.read.DemoData1Listener;
+import com.myzuji.study.java.easyexcel.read.*;
 import org.junit.Test;
 
 import java.io.File;
@@ -24,7 +21,7 @@ public class ReadTest {
     public void simpleRead() {
         String merFile = ReadTest.class.getResource("/").getPath() + "easyexcel" + File.separator + "demo" +
             File.separator + "demo.xlsx";
-        EasyExcel.read(merFile, DemoData0.class, new DemoData0Listener()).sheet().doRead();
+        EasyExcel.read(merFile, DemoData2.class, new DemoData2Listener()).sheet().doRead();
         // 有个很重要的点 DemoDataListener 不能被spring管理，要每次读取excel都要new,然后里面用到spring可以构造方法传进去
         // 写法1：
         String fileName = ReadTest.class.getResource("/").getPath() + "easyexcel" + File.separator + "demo" +
