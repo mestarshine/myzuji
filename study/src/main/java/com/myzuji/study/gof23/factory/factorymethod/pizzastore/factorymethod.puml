@@ -1,0 +1,50 @@
+# 工厂方法模式
+@startuml
+
+abstract class Pizza {
+     String name
+
+     abstract void prepare()
+     void bake()
+     void cut()
+     void box()
+
+}
+class BJCheesePizza{
+    void prepare()
+}
+class BJPepperPizza{
+    void prepare()
+}
+class LDCheesePizza{
+    void prepare()
+}
+class LDPepperPizza{
+    void prepare()
+}
+
+Pizza <|-- BJCheesePizza
+Pizza <|-- BJPepperPizza
+Pizza <|-- LDCheesePizza
+Pizza <|-- LDPepperPizza
+
+abstract class OrderPizza{
+    abstract Pizza createPizza()
+}
+
+class BJOrderPizza
+class LDOrderPizza
+class PizzaStore
+
+BJOrderPizza --|> OrderPizza
+LDOrderPizza --|> OrderPizza
+
+BJCheesePizza <.. BJOrderPizza
+BJPepperPizza <.. BJOrderPizza
+LDCheesePizza <.. LDOrderPizza
+LDPepperPizza <.. LDOrderPizza
+
+
+OrderPizza <.. PizzaStore
+
+@enduml

@@ -9,13 +9,14 @@ package com.myzuji.study.java.thread;
 public class ThreadDemo implements Runnable {
 
     private static final int THREAD_NUM = 5;
-    private String name;
+    private final String name;
     Thread thread;
 
     public ThreadDemo(String name) {
         this.name = name;
         this.thread = new Thread(this, name);
         System.out.println("new thread:" + thread);
+        thread.interrupt();
         thread.start();
     }
 

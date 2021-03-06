@@ -1,0 +1,20 @@
+@startuml
+
+abstract class Abstraction
+class RefinedAbstraction
+interface Implementor
+class ConcreteImplementorA
+class ConcreteImplementorB
+class Client
+
+Abstraction <|--- RefinedAbstraction
+Abstraction o-> Implementor : 聚合关系，                 调用与被调用
+
+Implementor <|... ConcreteImplementorA
+Implementor <|... ConcreteImplementorB
+
+Client ..|> Abstraction : 桥接模式的调用者
+Client ..|> Implementor : 桥接模式的调用者
+
+
+@enduml

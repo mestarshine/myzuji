@@ -1,0 +1,37 @@
+# 简单工厂模式
+@startuml
+
+abstract class Pizza {
+     String name;
+
+     abstract void prepare()
+     void bake()
+     void cut()
+     void box()
+
+}
+class CheesePizza{
+    void prepare()
+}
+class GreekPizza{
+    void prepare()
+}
+class PepperPizza{
+    void prepare()
+}
+
+Pizza <|-- CheesePizza
+Pizza <|-- GreekPizza
+Pizza <|-- PepperPizza
+
+class OrderPizza
+class OrderPizza2
+class PizzaStore
+class SimpleFactory
+
+SimpleFactory o... OrderPizza
+SimpleFactory o... OrderPizza2
+OrderPizza <... PizzaStore
+OrderPizza2 <... PizzaStore
+
+@enduml

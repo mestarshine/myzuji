@@ -1,0 +1,12 @@
+@startuml
+autonumber
+浏览器 -> DispatcherServlet: 发送登录请求
+DispatcherServlet -> Controller: 通过 HandlerMapping 都处理，找到用户希望请求都Controller
+Controller -> Controller: 执行目标方法
+Controller -> DispatcherServlet: 访问一个结果，该结果是一个对象 ModelAndView
+DispatcherServlet -> 登录成功页面: 调用 InternalResourceViewResolve 对返回的 ModelAndView 进行解析
+登录成功页面 -> 登录成功页面: 执行解析
+登录成功页面 -> 浏览器: 将字符串结果给 tomcat ，由 tomcat 生成一个静态页面，返回给浏览器
+浏览器 -> 浏览器: 浏览器本身解析返回对静态页面，并显示
+
+@enduml

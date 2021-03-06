@@ -1,0 +1,52 @@
+@startuml
+class Product
+class Builder {
+    buildPartA();
+    buildPartB();
+    buildPartC();
+    getResult();
+}
+class ConcreteBuilder {
+    buildPartA()
+    buildPartB()
+    buildPartC()
+    getResult()
+}
+class Director {
+    Builder builder
+    construct()
+}
+Director o-> Builder
+Builder *- Product
+Builder <|-- ConcreteBuilder
+
+
+
+class House
+
+note top of House: 产品
+
+class HouseBuilder{
+    House house = new House()
+    void buildBasic()
+    void buildWalls()
+    void roofed()
+    House build()
+}
+
+class CommonHouse
+class HighHouse
+class HouseDirector{
+    HouseBuilder houseBuilder
+}
+class Client
+
+HouseBuilder *- House
+HouseDirector o- HouseBuilder
+HouseBuilder <|-- CommonHouse
+HouseBuilder <|-- HighHouse
+
+HouseDirector <.. Client
+Client .> HighHouse
+Client .> CommonHouse
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+
+class Client
+class Cat
+interface Comparator<T>
+class Sorter<T>
+class CatHeightComparator<Cat>
+class CatWeightComparator<Cat>
+
+Comparator <|.. CatHeightComparator
+Comparator <|.. CatWeightComparator
+
+Client -- Comparator
+Client -- Cat
+Client -- Sorter
+
+
+@enduml
