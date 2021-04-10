@@ -2,14 +2,14 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-    <div th:fragment="copyright">
-        <footer class="main-footer">
-            <div class="pull-right hidden-xs">
-                <b>Version</b> 1.0.0
-            </div>
-            <strong>Copyright &copy; 2020 - <span th:text="${#dates.year(#dates.createNow())}"></span>
-                <a href="http://www.myzuji.cn/">zuji Studio</a>.</strong> All rights reserved.
-        </footer>
-    </div>
+<div th:fragment="copyright">
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 1.0.0
+        </div>
+        <strong>Copyright &copy; 2020 - <span th:text="${#dates.year(#dates.createNow())}"></span>
+            <a href="http://www.myzuji.cn/">zuji Studio</a>.</strong> All rights reserved.
+    </footer>
+</div>
 
 </html>

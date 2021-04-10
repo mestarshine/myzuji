@@ -19,11 +19,6 @@ public class Registry {
         instance = aInstance;
     }
 
-    @SuppressWarnings("unchecked")
-    public <T> T getBean(Class<T> t) {
-        return (T) beanMap.get(t);
-    }
-
     public static <T> T queryBean(Class<T> t) {
         return getInstance().getBean(t);
     }
@@ -40,15 +35,20 @@ public class Registry {
         }
     }
 
-    public String getProperty(String name) {
-        return propertiesMap.get(name);
-    }
-
     public static String queryProperty(String name) {
         return getInstance().getProperty(name);
     }
 
     public static void addBean(Class<?> class1, Object obj) {
         beanMap.put(class1, obj);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T getBean(Class<T> t) {
+        return (T) beanMap.get(t);
+    }
+
+    public String getProperty(String name) {
+        return propertiesMap.get(name);
     }
 }

@@ -27,12 +27,6 @@ public class WeightRandom<K, V extends Number> {
         }
     }
 
-    public K random() {
-        double randomWeight = this.weightMap.lastKey() * Math.random();
-        SortedMap<Double, K> tailMap = this.weightMap.tailMap(randomWeight, false);
-        return this.weightMap.get(tailMap.firstKey());
-    }
-
     public static void main(String[] args) {
         List<Pair> pairs = new ArrayList<>();
         Pair pair = new Pair(0, 1);
@@ -87,6 +81,12 @@ public class WeightRandom<K, V extends Number> {
         System.out.println("b：" + b);
         System.out.println("c：" + c);
         System.out.println("d：" + d);
+    }
+
+    public K random() {
+        double randomWeight = this.weightMap.lastKey() * Math.random();
+        SortedMap<Double, K> tailMap = this.weightMap.tailMap(randomWeight, false);
+        return this.weightMap.get(tailMap.firstKey());
     }
 }
 

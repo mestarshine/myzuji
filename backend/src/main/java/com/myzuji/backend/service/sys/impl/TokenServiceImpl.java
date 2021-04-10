@@ -37,11 +37,8 @@ import java.util.UUID;
 public class TokenServiceImpl implements TokenService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TokenServiceImpl.class);
-
-    private static Key KEY = null;
-
     private static final String LOGIN_USER_KEY = "LOGIN_USER_KEY";
-
+    private static Key KEY = null;
     /**
      * token过期秒数
      */

@@ -15,8 +15,8 @@ public class SystemStudy {
     }
 
     private static void arraycopy() {
-         byte[] a = {65, 66, 67, 68, 69, 70, 71, 72, 73, 74};
-         byte[] b = {77, 77, 77, 77, 77, 77, 77, 77, 77, 77};
+        byte[] a = {65, 66, 67, 68, 69, 70, 71, 72, 73, 74};
+        byte[] b = {77, 77, 77, 77, 77, 77, 77, 77, 77, 77};
         System.out.println("a = " + new String(a));
         System.out.println("b = " + new String(b));
         System.arraycopy(a, 0, b, 0, a.length);

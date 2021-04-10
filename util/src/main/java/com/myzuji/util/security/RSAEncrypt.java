@@ -35,13 +35,13 @@ public class RSAEncrypt {
     /**
      * 加密过程
      *
-     * @param key     公钥/私钥
+     * @param key           公钥/私钥
      * @param plainTextData 明文数据
      * @return
      * @throws Exception 加密过程中的异常信息
      */
     public static String encrypt(Key key, byte[] plainTextData)
-            throws Exception {
+        throws Exception {
         if (key == null) {
             throw new Exception("加密公钥为空, 请设置");
         }
@@ -76,7 +76,7 @@ public class RSAEncrypt {
      * @throws Exception 解密过程中的异常信息
      */
     public static String decrypt(Key key, String content, String encode)
-            throws Exception {
+        throws Exception {
         if (key == null) {
             throw new Exception("解密私钥为空, 请设置");
         }

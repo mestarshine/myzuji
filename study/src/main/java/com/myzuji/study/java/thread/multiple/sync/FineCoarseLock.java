@@ -5,7 +5,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * synchronized 优化
  * 同步代码块中的语句越少越好
- *
  */
 public class FineCoarseLock {
 

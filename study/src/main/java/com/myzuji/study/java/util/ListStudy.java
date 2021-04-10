@@ -46,7 +46,7 @@ public class ListStudy {
         int sum = 0;
         for (Integer integer : ia) {
             sum += integer;
-            System.out.println("sum is :"+sum);
+            System.out.println("sum is :" + sum);
         }
     }
 

@@ -29,10 +29,13 @@ import java.util.regex.Pattern;
 public class ClassUtil {
 
     /**
+     * 类型信息:null
+     */
+    public static final String CLASS_NAME_NULL = "null";
+    /**
      * 系统日志输出句柄
      */
     protected static Logger logger = LoggerFactory.getLogger(ClassUtil.class);
-
     /**
      * 在此包内的类型，在日志输出时需要深入
      */
@@ -236,7 +239,6 @@ public class ClassUtil {
         return codeSource.getLocation();
     }
 
-
     /**
      * @return
      */
@@ -264,7 +266,6 @@ public class ClassUtil {
         }
         return false;
     }
-
 
     /**
      * 获取方法调用信息
@@ -660,7 +661,6 @@ public class ClassUtil {
         }
     }
 
-
     /**
      * 取得指定对象指定方法的相同方法引用(主要用于获取接口方法在指定对象所属类型的实现方法引用)
      *
@@ -690,11 +690,6 @@ public class ClassUtil {
         }
         return obj.getClass().getName();
     }
-
-    /**
-     * 类型信息:null
-     */
-    public static final String CLASS_NAME_NULL = "null";
 
     /**
      * 判断两个类直接的父子关系

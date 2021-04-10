@@ -29,6 +29,21 @@ public class BaseRptImpl<T extends BaseEntity> implements BaseRpt<T> {
     @Autowired
     private SessionFactory sessionFactory;
 
+    public static LockMode convert(DBLockMode lockMode) {
+        switch (lockMode) {
+            case NONE:
+                return LockMode.NONE;
+            case WRITE:
+                return LockMode.PESSIMISTIC_WRITE;
+            case WRITE_NOWAIT:
+                return LockMode.UPGRADE_NOWAIT;
+            case READ_ONLY:
+                return LockMode.READ;
+            default:
+                throw new RuntimeException("预期之外的数据库锁类型[" + lockMode + "]");
+        }
+    }
+
     public Session getSession() {
         return sessionFactory.getCurrentSession();
     }
@@ -102,21 +117,6 @@ public class BaseRptImpl<T extends BaseEntity> implements BaseRpt<T> {
     @Override
     public void delete(T domain) {
         getSession().delete(domain);
-    }
-
-    public static LockMode convert(DBLockMode lockMode) {
-        switch (lockMode) {
-            case NONE:
-                return LockMode.NONE;
-            case WRITE:
-                return LockMode.PESSIMISTIC_WRITE;
-            case WRITE_NOWAIT:
-                return LockMode.UPGRADE_NOWAIT;
-            case READ_ONLY:
-                return LockMode.READ;
-            default:
-                throw new RuntimeException("预期之外的数据库锁类型[" + lockMode + "]");
-        }
     }
 
     protected Class getDomainClass() {

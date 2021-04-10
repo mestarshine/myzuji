@@ -34,20 +34,20 @@ public class BackendApplicationTests {
     @Ignore
     public void saveUserTest() {
         List<Long> right = Arrays.asList(1L);
-        sysUserService.save(0L,"admin","123123","admin",null,
-            "13681917565","363161476@qq.com",right);
+        sysUserService.save(0L, "admin", "123123", "admin", null,
+            "13681917565", "363161476@qq.com", right);
     }
 
     @Test
     @Ignore
-    public void saveRoleTest(){
+    public void saveRoleTest() {
         SysRole sysRole = new SysRole(0L, "管理员", null, null, null, null, null);
         sysRoleService.save(sysRole);
     }
 
     @Test
     @Ignore
-    public void obtainUserByLoginNameTest(){
+    public void obtainUserByLoginNameTest() {
         SysUser sysUser = sysUserService.obtainUserByLoginName("admin");
         System.out.println(sysUser);
     }

@@ -18,13 +18,13 @@ public class Deadlock implements Runnable {
         System.out.println("Back in main thread");
     }
 
+    public static void main(String[] args) {
+        new Deadlock();
+    }
+
     @Override
     public void run() {
         b.bar(a);
         System.out.println("Back in other thread");
-    }
-
-    public static void main(String[] args) {
-        new Deadlock();
     }
 }
