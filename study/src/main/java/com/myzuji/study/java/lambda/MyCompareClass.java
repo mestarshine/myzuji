@@ -17,10 +17,6 @@ public class MyCompareClass {
         this.val = val;
     }
 
-    public int getVal() {
-        return val;
-    }
-
     static int compareMcc(MyCompareClass a, MyCompareClass b) {
         return a.getVal() - b.getVal();
     }
@@ -34,5 +30,9 @@ public class MyCompareClass {
         mcc.add(new MyCompareClass(6));
         mcc.add(new MyCompareClass(7));
         MyCompareClass maxValObject = Collections.max(mcc, MyCompareClass::compareMcc);
+    }
+
+    public int getVal() {
+        return val;
     }
 }

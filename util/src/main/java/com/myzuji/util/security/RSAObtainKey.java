@@ -75,7 +75,7 @@ public class RSAObtainKey {
      * @throws CertificateException
      */
     public static String getPublicKey(String path) throws IOException,
-            CertificateException {
+        CertificateException {
         InputStream inStream = new FileInputStream(path);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         int ch;
@@ -116,7 +116,7 @@ public class RSAObtainKey {
      * @throws Exception 加载私钥时产生的异常
      */
     public static RSAPrivateKey loadPrivateKeyByStr(String privateKeyStr)
-            throws Exception {
+        throws Exception {
         try {
             byte[] buffer = Base64.decodeBase64(privateKeyStr);
             PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(buffer);

@@ -32,6 +32,10 @@ public class SM2Tool {
 
     public static final Logger logger = LoggerFactory.getLogger(SM2Tool.class);
 
+    static {
+        Security.addProvider(new BouncyCastleProvider());
+    }
+
     public static Map<String, String> genSMKeyPair() {
         Map<String, String> key = null;
         final KeyPair smKeyPair = generateSm2KeyPair();
@@ -91,10 +95,6 @@ public class SM2Tool {
             logger.info("公钥：{}，明文：{}，签名：{}，验签错误：{}", publicKey, content, sign, e.getMessage());
         }
         return false;
-    }
-
-    static {
-        Security.addProvider(new BouncyCastleProvider());
     }
 
     public static void main(String[] args) throws NoSuchAlgorithmException, CryptoException, InvalidKeySpecException, InvalidKeyException {

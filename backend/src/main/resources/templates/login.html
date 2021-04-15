@@ -2,14 +2,14 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
 
     <title>管理系统-足迹</title>
-    <meta name="keywords" content="足迹,足迹后台管理系统,后台管理系统,管理系统,ZuJi">
-    <meta name="description" content="足迹后台权限管理系统易读易懂、界面简洁美观">
-    <link th:href="@{/static/plugin/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
-    <link th:href="@{/static/plugin/font-awesome/css/font-awesome.min.css}" rel="stylesheet"/>
-    <link th:href="@{/static/zuji/css/login.css}" rel="stylesheet"/>
+    <meta content="足迹,足迹后台管理系统,后台管理系统,管理系统,ZuJi" name="keywords">
+    <meta content="足迹后台权限管理系统易读易懂、界面简洁美观" name="description">
+    <link rel="stylesheet" th:href="@{/static/plugin/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/plugin/font-awesome/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/zuji/css/login.css}"/>
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html"/>
     <![endif]-->
@@ -30,26 +30,29 @@
         <form id="login-form">
             <fieldset>
                 <div class="form-group has-feedback">
-                    <input type="text" name="username" id="username" class="form-control input-lg" placeholder="Username">
+                    <input class="form-control input-lg" id="username" name="username" placeholder="Username"
+                           type="text">
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" name="password" id="password" class="form-control input-lg"
-                           placeholder="Password">
+                    <input class="form-control input-lg" id="password" name="password" placeholder="Password"
+                           type="password">
                 </div>
                 <div class="form-group has-feedback row" th:if="${captchaEnabled==true}">
                     <div class="col-xs-6">
-                        <input type="text" name="validateCode" class="code form-control input-lg" placeholder="验证码" maxlength="5"
-                               autocomplete="off">
+                        <input autocomplete="off" class="code form-control input-lg" maxlength="5" name="validateCode"
+                               placeholder="验证码"
+                               type="text">
                     </div>
                     <div class="col-xs-6">
                         <a href="javascript:void(0);" title="点击更换验证码">
-                            <img th:src="@{captcha/captchaImage(type=${captchaType})}" class="imgcode input-lg" style="padding: 0;"/>
+                            <img class="imgcode input-lg" style="padding: 0;"
+                                 th:src="@{captcha/captchaImage(type=${captchaType})}"/>
                         </a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <button id="btnSubmit" data-loading="正在验证登录，请稍后...">登录</button>
+                        <button data-loading="正在验证登录，请稍后..." id="btnSubmit">登录</button>
                     </div>
                 </div>
             </fieldset>
@@ -60,7 +63,8 @@
 <div class="footer">&copy; 2020 All Rights Reserved. MyZuJi</div>
 <script th:inline="javascript"> var ctx = [[@{/}]]; var captchaType = [[${captchaType}]]; </script>
 <!-- 全局js -->
-<script src="/static/plugin/jquery/js/jquery.3.2.1.min.js" th:src="@{/static/plugin/jquery/js/jquery.3.2.1.min.js}"></script>
+<script src="/static/plugin/jquery/js/jquery.3.2.1.min.js"
+        th:src="@{/static/plugin/jquery/js/jquery.3.2.1.min.js}"></script>
 <script th:src="@{/static/plugin/bootstrap/js/bootstrap.min.js}"></script>
 <!-- 验证插件 -->
 <script th:src="@{/static/plugin/jquery-validate/jquery.validate.min.js}"></script>

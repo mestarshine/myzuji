@@ -1,8 +1,6 @@
 package com.myzuji.study.java.lang;
 
 
-import java.lang.Runtime;
-
 /**
  * 通过 Runtime 获取内存相关信息
  *
@@ -14,7 +12,7 @@ public class MemoryDemo {
     public static void main(String[] args) {
         long mem1, mem2;
         Integer[] someints = new Integer[1000];
-        System.out.println("Total memory is :"+ Runtime.getRuntime().totalMemory());
+        System.out.println("Total memory is :" + Runtime.getRuntime().totalMemory());
         mem1 = Runtime.getRuntime().freeMemory();
         System.out.println("Initial free memory :" + mem1);
         Runtime.getRuntime().gc();

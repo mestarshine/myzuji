@@ -2,7 +2,7 @@
  * 通用方法封装处理
  * Copyright (c) 2020 zuji
  */
-$(function() {
+$(function () {
     // select2复选框事件绑定
     if ($.fn.select2 !== undefined) {
         $("select.form-control:not(.noselect2)").each(function () {
@@ -27,14 +27,14 @@ $(function() {
     }
     // laydate 时间控件绑定
     if ($(".select-time").length > 0) {
-        layui.use('laydate', function() {
+        layui.use('laydate', function () {
             var laydate = layui.laydate;
             var startDate = laydate.render({
                 elem: '#startTime',
                 max: $('#endTime').val(),
                 theme: 'molv',
                 trigger: 'click',
-                done: function(value, date) {
+                done: function (value, date) {
                     // 结束时间大于开始时间
                     if (value !== '') {
                         endDate.config.min.year = date.year;
@@ -52,7 +52,7 @@ $(function() {
                 min: $('#startTime').val(),
                 theme: 'molv',
                 trigger: 'click',
-                done: function(value, date) {
+                done: function (value, date) {
                     // 开始时间小于结束时间
                     if (value !== '') {
                         startDate.config.max.year = date.year;
@@ -129,7 +129,7 @@ $(function() {
     }
     // tree表格树 展开/折叠
     var expandFlag;
-    $("#expandAllBtn").click(function() {
+    $("#expandAllBtn").click(function () {
         var dataExpand = $.common.isEmpty($.table._option.expandAll) ? true : $.table._option.expandAll;
         expandFlag = $.common.isEmpty(expandFlag) ? dataExpand : expandFlag;
         if (!expandFlag) {
@@ -137,12 +137,12 @@ $(function() {
         } else {
             $('#' + $.table._option.id).bootstrapTreeTable('collapseAll');
         }
-        expandFlag = expandFlag ? false: true;
+        expandFlag = expandFlag ? false : true;
     })
 });
 
 /** 刷新选项卡 */
-var refreshItem = function(){
+var refreshItem = function () {
     var topWindow = $(window.parent.document);
     var currentId = $('.page-tabs-content', topWindow).find('.active').attr('data-id');
     var target = $('.zuji_iframe[data-id="' + currentId + '"]', topWindow);
@@ -151,13 +151,13 @@ var refreshItem = function(){
 }
 
 /** 关闭选项卡 */
-var closeItem = function(){
+var closeItem = function () {
     var topWindow = $(window.parent.document);
     var panelUrl = window.frameElement.getAttribute('data-panel');
     $('.page-tabs-content .active i', topWindow).click();
-    if($.common.isNotEmpty(panelUrl)){
+    if ($.common.isNotEmpty(panelUrl)) {
         $('.menuTab[data-id="' + panelUrl + '"]', topWindow).addClass('active').siblings('.menuTab').removeClass('active');
-        $('.mainContent .zuji_iframe', topWindow).each(function() {
+        $('.mainContent .zuji_iframe', topWindow).each(function () {
             if ($(this).data('id') == panelUrl) {
                 $(this).show().siblings('.zuji_iframe').hide();
                 return false;
@@ -169,18 +169,18 @@ var closeItem = function(){
 /** 创建选项卡 */
 function createMenuItem(dataUrl, menuName) {
     var panelUrl = window.frameElement.getAttribute('data-id');
-    dataIndex = $.common.random(1,100),
+    dataIndex = $.common.random(1, 100),
         flag = true;
     if (dataUrl == undefined || $.trim(dataUrl).length == 0) return false;
     var topWindow = $(window.parent.document);
     // 选项卡菜单已存在
-    $('.menuTab', topWindow).each(function() {
+    $('.menuTab', topWindow).each(function () {
         if ($(this).data('id') == dataUrl) {
             if (!$(this).hasClass('active')) {
                 $(this).addClass('active').siblings('.menuTab').removeClass('active');
-                $('.page-tabs-content').animate({ marginLeft: ""}, "fast");
+                $('.page-tabs-content').animate({marginLeft: ""}, "fast");
                 // 显示tab对应的内容区
-                $('.mainContent .zuji_iframe', topWindow).each(function() {
+                $('.mainContent .zuji_iframe', topWindow).each(function () {
                     if ($(this).data('id') == dataUrl) {
                         $(this).show().siblings('.zuji_iframe').hide();
                         return false;
@@ -216,20 +216,20 @@ var log = {
     log: function (msg) {
         console.log(msg);
     },
-    info: function(msg) {
+    info: function (msg) {
         console.info(msg);
     },
-    warn: function(msg) {
+    warn: function (msg) {
         console.warn(msg);
     },
-    error: function(msg) {
+    error: function (msg) {
         console.error(msg);
     }
 };
 
 /** 设置全局ajax处理 */
 $.ajaxSetup({
-    complete: function(XMLHttpRequest, textStatus) {
+    complete: function (XMLHttpRequest, textStatus) {
         if (textStatus == 'timeout') {
             $.modal.alertWarning("服务器超时，请稍后再试！");
             $.modal.closeLoading();

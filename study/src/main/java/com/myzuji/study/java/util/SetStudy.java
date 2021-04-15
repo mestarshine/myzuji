@@ -20,10 +20,10 @@ public class SetStudy {
      * NavigableSet接口继承自SortedSet接口。
      * 它的行为类似于SortedSet，除了SortedSet的排序机制之外我们还有导航方法。
      * 例如，与SortedSet中定义的顺序相比，NavigableSet接口可以以相反的顺序导航集合。
-     *
+     * <p>
      * 实现此接口的类是TreeSet和 ConcurrentSkipListSet
      */
-    static class NavigableSetStudy{
+    static class NavigableSetStudy {
 
         private void methodDemo() {
             NavigableSet<Integer> ns = new TreeSet<>();

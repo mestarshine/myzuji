@@ -27,14 +27,28 @@ import java.time.temporal.ChronoUnit;
 @Component
 public class TokenFilter extends OncePerRequestFilter {
 
-    private static final Long MINUTES_10 = 10L;
     public static final String TOKEN_KEY = "token";
-
+    private static final Long MINUTES_10 = 10L;
     @Autowired
     private TokenService tokenService;
 
     @Autowired
     private UserDetailsService dbUserDetailsService;
+
+    /**
+     * 根据参数或者header获取token
+     *
+     * @param request
+     * @return
+     */
+    public static String getToken(HttpServletRequest request) {
+        String token = request.getParameter(TOKEN_KEY);
+        if (StringUtils.isBlank(token)) {
+            token = request.getHeader(TOKEN_KEY);
+        }
+
+        return token;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -61,20 +75,5 @@ public class TokenFilter extends OncePerRequestFilter {
             tokenService.refresh(loginUser);
         }
         return loginUser;
-    }
-
-    /**
-     * 根据参数或者header获取token
-     *
-     * @param request
-     * @return
-     */
-    public static String getToken(HttpServletRequest request) {
-        String token = request.getParameter(TOKEN_KEY);
-        if (StringUtils.isBlank(token)) {
-            token = request.getHeader(TOKEN_KEY);
-        }
-
-        return token;
     }
 }

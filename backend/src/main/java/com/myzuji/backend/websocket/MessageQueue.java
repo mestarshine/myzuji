@@ -14,10 +14,8 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class MessageQueue {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MessageQueue.class);
-
     public static final int QUEUE_MAX_SIZE = 10;
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(MessageQueue.class);
     private static MessageQueue messageQueue = new MessageQueue();
 
     private BlockingQueue<String> messageBlockingQueue = new LinkedBlockingQueue<>(QUEUE_MAX_SIZE);

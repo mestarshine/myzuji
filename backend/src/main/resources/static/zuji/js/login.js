@@ -15,12 +15,12 @@ function init() {
     var token = localStorage.getItem("token");
     if (token != null && token.trim().length != 0) {
         $.ajax({
-            type : 'get',
-            url : '/users/current?token=' + token,
-            success : function(data) {
+            type: 'get',
+            url: '/users/current?token=' + token,
+            success: function (data) {
                 location.href = '/index.html';
             },
-            error : function(xhr, textStatus, errorThrown) {
+            error: function (xhr, textStatus, errorThrown) {
                 var msg = xhr.responseText;
                 var response = JSON.parse(msg);
                 var code = response.code;
@@ -33,6 +33,7 @@ function init() {
         });
     }
 }
+
 function validateRule() {
     var icon = "<i class='fa fa-times-circle'></i>";
     $("#login-form").validate({
@@ -76,11 +77,11 @@ function login() {
             "validateCode": validateCode,
             "rememberMe": rememberMe
         },
-        success : function(data) {
+        success: function (data) {
             localStorage.setItem("token", data.token);
-            location.href = ctx+'index.html';
+            location.href = ctx + 'index.html';
         },
-        error : function(xhr, textStatus, errorThrown) {
+        error: function (xhr, textStatus, errorThrown) {
             $.modal.closeLoading();
             var msg = xhr.responseText;
             var response = JSON.parse(msg);

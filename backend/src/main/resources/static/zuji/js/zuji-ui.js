@@ -23,9 +23,9 @@
             // 消息提示
             msg: function (content, type) {
                 if (type != undefined) {
-                    layer.msg(content, {icon: $.modal.icon(type), time: 1000, anim: 5,shade:0.5});
+                    layer.msg(content, {icon: $.modal.icon(type), time: 1000, anim: 5, shade: 0.5});
                 } else {
-                    layer.msg(content,{time: 1000,shade:0.5});
+                    layer.msg(content, {time: 1000, shade: 0.5});
                 }
             },
             // 错误消息
@@ -93,45 +93,45 @@
                     callBack(true);
                 });
             },
-            tipeType:function(type){
+            tipeType: function (type) {
                 var tips = "";
                 if (type == modal_tips_type.TOP) {
-                    tips=1;
+                    tips = 1;
                 } else if (type == modal_tips_type.RIGHT) {
-                    tips=2;
-                }else if (type == modal_tips_type.BOTTOM) {
-                    tips=3;
-                }else {
-                    tips=4;
+                    tips = 2;
+                } else if (type == modal_tips_type.BOTTOM) {
+                    tips = 3;
+                } else {
+                    tips = 4;
                 }
                 return tips;
             },
-            tips:function(content, id_select,type,color) {
+            tips: function (content, id_select, type, color) {
                 if ($.common.isNotEmpty(type) && $.common.isEmpty(color)) {
                     layer.open({
                         type: 4,
                         closeBtn: 0,
-                        tips: [$.modal.tipeType(type),'#000'],
+                        tips: [$.modal.tipeType(type), '#000'],
                         content: [content, '#' + id_select],
                         time: 2000
                     });
-                }else if ($.common.isEmpty(type)&& $.common.isNotEmpty(color)) {
+                } else if ($.common.isEmpty(type) && $.common.isNotEmpty(color)) {
                     layer.open({
                         type: 4,
                         closeBtn: 0,
-                        tips: [$.modal.tipeType(modal_tips_type.RIGHT),color],
+                        tips: [$.modal.tipeType(modal_tips_type.RIGHT), color],
                         content: [content, '#' + id_select],
                         time: 2000
                     });
-                }else if ($.common.isNotEmpty(type) && $.common.isNotEmpty(color)) {
+                } else if ($.common.isNotEmpty(type) && $.common.isNotEmpty(color)) {
                     layer.open({
                         type: 4,
                         closeBtn: 0,
-                        tips: [$.modal.tipeType(type),color],
+                        tips: [$.modal.tipeType(type), color],
                         content: [content, '#' + id_select],
                         time: 2000
                     });
-                }else {
+                } else {
                     layer.open({
                         type: 4,
                         closeBtn: 0,
@@ -141,16 +141,16 @@
                 }
             },
             // 错误提示
-            tipsError: function (content,id) {
-                $.modal.tips(content, id, null,'#dd4b39');
+            tipsError: function (content, id) {
+                $.modal.tips(content, id, null, '#dd4b39');
             },
             // 成功提示
-            tipsSuccess: function (content,id) {
-                $.modal.tips(content, id, null,'#00a65a');
+            tipsSuccess: function (content, id) {
+                $.modal.tips(content, id, null, '#00a65a');
             },
             // 警告提示
-            tipsWarning: function (content,id) {
-                $.modal.tips(content, id, null,'#f39c12');
+            tipsWarning: function (content, id) {
+                $.modal.tips(content, id, null, '#f39c12');
             },
             // 弹出层指定宽度
             open: function (title, url, width, height, callback) {
@@ -300,7 +300,7 @@
         common: {
             // 判断字符串是否为空
             isEmpty: function (value) {
-                if (value == undefined ||value == null || this.trim(value) == "") {
+                if (value == undefined || value == null || this.trim(value) == "") {
                     return true;
                 }
                 return false;
@@ -395,9 +395,9 @@ modal_status = {
     FAIL: "error",
     WARNING: "warning"
 };
-modal_tips_type ={
-    TOP:"top",
-    RIGHT:"right",
-    BOTTOM:"bottom",
-    LEFT:"left"
+modal_tips_type = {
+    TOP: "top",
+    RIGHT: "right",
+    BOTTOM: "bottom",
+    LEFT: "left"
 }

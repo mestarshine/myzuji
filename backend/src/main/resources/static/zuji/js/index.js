@@ -49,19 +49,20 @@ $(function () {
 
 function showLoginInfo() {
     $.ajax({
-        type : 'post',
-        url : '/user/current',
-        async : false,
-        success : function(data) {
+        type: 'post',
+        url: '/user/current',
+        async: false,
+        success: function (data) {
             if (data == null || data == "") {
-                location.href='/login.html';
+                location.href = '/login.html';
                 return;
             }
             $("#user-head-name").text(data.username);
-            $("#user-head-img").attr("src",data.headImgUrl);
+            $("#user-head-img").attr("src", data.headImgUrl);
         }
     });
 }
+
 function resetPwd() {
     var url = ctx + 'system/user/profile/resetPwd';
     $.modal.open("重置密码", url, '800', '500');
@@ -112,6 +113,7 @@ function cmainFrame() {
     bkbgjz.style.height = (bheight - 41) + 'px';
 
 }
+
 window.onresize = function () {
     cmainFrame();
 };

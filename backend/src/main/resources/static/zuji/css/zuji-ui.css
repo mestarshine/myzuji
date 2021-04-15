@@ -2,22 +2,27 @@
  * 通用css样式布局处理
  * Copyright (c) 2020 zuji
  */
-html{
+html {
     height: 100% !important;
 }
-body{
+
+body {
     height: 100% !important;
 }
-.wrapper{
+
+.wrapper {
     height: 100% !important;
 }
-.wrapper .content-wrapper{
+
+.wrapper .content-wrapper {
     height: 100% !important;
 }
-.navbar-header-top .user-menu .dropdown-menu > li > a{
+
+.navbar-header-top .user-menu .dropdown-menu > li > a {
     padding: 10px;
 }
-.navbar-header-top > .user-menu > .dropdown-menu{
+
+.navbar-header-top > .user-menu > .dropdown-menu {
     width: 150px;
 }
 

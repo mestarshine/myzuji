@@ -14,6 +14,7 @@ public class RightUtil {
 
     /**
      * 添加权限
+     *
      * @param rights 权限值
      * @return
      */
@@ -27,7 +28,8 @@ public class RightUtil {
 
     /**
      * 添加某个权限值
-     * @param sum 权限
+     *
+     * @param sum   权限
      * @param right 指定编码
      * @return
      */
@@ -37,7 +39,8 @@ public class RightUtil {
 
     /**
      * 是否拥有指定编码的权限
-     * @param sum 权限
+     *
+     * @param sum         权限
      * @param targetRight 指定编码
      * @return
      */
@@ -47,7 +50,8 @@ public class RightUtil {
 
     /**
      * 移除指定编码的权限
-     * @param sum 权限
+     *
+     * @param sum         权限
      * @param targetRight 指定编码
      * @return
      */
@@ -56,13 +60,13 @@ public class RightUtil {
     }
 
     public static void main(String[] args) {
-        Long[] i = new Long[]{1L, 2L, 3L, 4L,3L};
+        Long[] i = new Long[]{1L, 2L, 3L, 4L, 3L};
         BigInteger rights = addRight(Arrays.asList(i));
         System.out.println(rights);
-        System.out.println(isRight(rights,6L));
-        System.out.println(isRight(rights,3L));
+        System.out.println(isRight(rights, 6L));
+        System.out.println(isRight(rights, 3L));
         rights = removeRight(rights, 3L);
         System.out.println(rights);
-        System.out.println(isRight(rights,3L));
+        System.out.println(isRight(rights, 3L));
     }
 }

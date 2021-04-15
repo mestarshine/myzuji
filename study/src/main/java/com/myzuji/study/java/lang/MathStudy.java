@@ -28,9 +28,9 @@ public class MathStudy {
         System.out.println("3的对数：" + Math.log(3D));
         System.out.println("3以10为底对数：" + Math.log10(3D));
         System.out.println("3的(3+1)为底对数：" + Math.log1p(3D));
-        System.out.println("3的3次方：" + Math.pow(3D,3D));
-        System.out.println("3乘以2的6次方：" + Math.scalb(3D,6));
-        System.out.println("3乘以2的6次方：" + Math.scalb(3D,6));
+        System.out.println("3的3次方：" + Math.pow(3D, 3D));
+        System.out.println("3乘以2的6次方：" + Math.scalb(3D, 6));
+        System.out.println("3乘以2的6次方：" + Math.scalb(3D, 6));
         System.out.println("4的平方根：" + Math.sqrt(4D));
     }
 

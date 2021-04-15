@@ -23,6 +23,18 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     private static Map<String, WebSocketSession> users = Collections.emptyMap();
 
+    public static void sendMessageAllUser(String message) {
+        for (WebSocketSession webSocketSession : users.values()) {
+            if (webSocketSession.isOpen()) {
+                try {
+                    webSocketSession.sendMessage(new TextMessage(message));
+                } catch (IOException e) {
+                    logger.error("向【{}】消息发送失败！", webSocketSession.getId());
+                }
+            }
+        }
+    }
+
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
         logger.info("{} - 成功建立websocket连接!", session.getId());
@@ -34,17 +46,5 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         logger.info("{} - 关闭连接!", session.getId());
         users.remove(session.getId());
         super.afterConnectionClosed(session, status);
-    }
-
-    public static void sendMessageAllUser(String message) {
-        for (WebSocketSession webSocketSession : users.values()) {
-            if (webSocketSession.isOpen()) {
-                try {
-                    webSocketSession.sendMessage(new TextMessage(message));
-                } catch (IOException e) {
-                    logger.error("向【{}】消息发送失败！", webSocketSession.getId());
-                }
-            }
-        }
     }
 }
