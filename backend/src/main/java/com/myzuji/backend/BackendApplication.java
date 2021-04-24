@@ -2,6 +2,7 @@ package com.myzuji.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
@@ -13,23 +14,12 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @SpringBootApplication
 public class BackendApplication extends SpringBootServletInitializer {
 
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(BackendApplication.class);
+    }
+
     public static void main(String[] args) {
-        System.out.println("                                开启足迹                \n" +
-            "         ,----,                     ,---._           \n" +
-            "       .'   .`|                   .-- -.' \\    ,---, \n" +
-            "    .'   .'   ;                   |    |   :,`--.' | \n" +
-            "  ,---, '    .'       ,--,        :    ;   ||   :  : \n" +
-            "  |   :     ./      ,'_ /|        :        |:   |  ' \n" +
-            "  ;   | .'  /  .--. |  | :        |    :   :|   :  | \n" +
-            "  `---' /  ; ,'_ /| :  . |        :         '   '  ; \n" +
-            "    /  ;  /  |  ' | |  . .        |    ;   ||   |  | \n" +
-            "   ;  /  /--,|  | ' |  | |    ___ l         '   :  ; \n" +
-            "  /  /  / .`|:  | : ;  ; |  /    /\\    J   :|   |  ' \n" +
-            "./__;       :'  :  `--'   \\/  ../  `..-    ,'   :  | \n" +
-            "|   :     .' :  ,      .-./\\    \\         ; ;   |.'  \n" +
-            ";   |  .'     `--`----'     \\    \\      ,'  '---'    \n" +
-            "`---'                        \"---....--'             \n" +
-            "                                                     ");
         SpringApplication.run(BackendApplication.class, args);
     }
 }
