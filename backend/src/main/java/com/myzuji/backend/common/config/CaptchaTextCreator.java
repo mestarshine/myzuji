@@ -11,7 +11,7 @@ import java.util.Random;
  * @date 2020/02/24
  */
 public class CaptchaTextCreator extends DefaultTextCreator {
-    private static final String[] KC_NUMBERS = "0,1,2,3,4,5,6,7,8,9,10".split(",");
+    private static final String[] KC_NUMBERS = "0,1,2,3,4,5,6,7,8,9".split(",");
 
     @Override
     public String getText() {
