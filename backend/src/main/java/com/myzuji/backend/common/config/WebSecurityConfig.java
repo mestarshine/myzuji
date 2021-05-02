@@ -52,9 +52,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 基于token，所以不需要session
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class)
-            .addFilterBefore(new CaptchaAuthenticationFilter("/login", authenticationFailureHandler),
-                UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new CaptchaAuthenticationFilter("/login", authenticationFailureHandler),
+                UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeRequests()
             .antMatchers("/", "/login.html", "/captcha/**", "/favicon.ico", "/druid/**",
