@@ -25,6 +25,9 @@ public class MyThread {
         }
     }
 
+    /**
+     * Callable 是增强型的 Runnable 带有返回值，且能抛出异常
+     */
     static class MyThreadCallable implements Callable<String> {
         @Override
         public String call() throws Exception {
