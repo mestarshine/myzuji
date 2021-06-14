@@ -18,6 +18,12 @@ public class ThreadState {
      * new ReentrantLock().lock()       线程处于 WAITING 状态
      * new ReentrantLock().unlock()     线程处于 RUNNABLE 状态
      *
+     * 状态直接按转换
+     * RUNNING              --> SHUTDOWN    调用shutdown()
+     * RUNNING or SHUTDOWN  --> STOP        调用 shutdownNow()
+     * SHUTDOWN             --> TIDYING     队列和线程池都是空的
+     * STOP                 --> TIDYING     线程池为空
+     * TIDYING              --> TERMINATED  钩子函数 terminated() 执行完成
      * @param args
      * @throws InterruptedException
      */
