@@ -344,10 +344,10 @@ public class MyThreadPoolExecutor extends AbstractExecutorService {
      * RUNNING:  Accept new tasks and process queued tasks
      * SHUTDOWN: Don't accept new tasks, but process queued tasks
      * STOP:     Don't accept new tasks, don't process queued tasks,
-     * and interrupt in-progress tasks
+     *           and interrupt in-progress tasks
      * TIDYING:  All tasks have terminated, workerCount is zero,
-     * the thread transitioning to state TIDYING
-     * will run the terminated() hook method
+     *           the thread transitioning to state TIDYING
+     *           will run the terminated() hook method
      * TERMINATED: terminated() has completed
      * <p>
      * The numerical order among these values matters, to allow
@@ -828,6 +828,7 @@ public class MyThreadPoolExecutor extends AbstractExecutorService {
         try {
             for (MyThreadPoolExecutor.Worker w : workers) {
                 Thread t = w.thread;
+                //w.tryLock() 与 runWorker中的 getTask() 有关系
                 if (!t.isInterrupted() && w.tryLock()) {
                     try {
                         t.interrupt();
@@ -946,13 +947,13 @@ public class MyThreadPoolExecutor extends AbstractExecutorService {
 
             // Check if queue empty only if necessary.
             // 线程处于关闭状态不在新增任务
-            if (rs >= SHUTDOWN &&  //线程池关闭了
+            if (rs >= SHUTDOWN &&  //线程池关闭了，当前状态可能为 shutdown，stop，tidying，terminated，既非运行状态
                 !(rs == SHUTDOWN &&  // shutdown 状态（不可以接收外部任务，但是需要执行内部队列的任务）
-                    firstTask == null &&  // 是不是新提交的任务
+                    firstTask == null &&  // 是不是新提交的任务，当处于shutdown状态时，添加核心任务在此失败
                     !workQueue.isEmpty())) { // 队列是否为空
                 return false;
             }
-
+            // 工作线程计数
             for (; ; ) {
                 // 工作线程数
                 int wc = workerCountOf(c);
@@ -961,11 +962,11 @@ public class MyThreadPoolExecutor extends AbstractExecutorService {
                     return false;
                 }
                 if (compareAndIncrementWorkerCount(c)) {// 工作线程 CAS 自增
-                    break retry;
+                    break retry;    // 通过标号跳出循环，继续执行循环体外面的代码
                 }
                 c = ctl.get();  // Re-read ctl
                 if (runStateOf(c) != rs) {
-                    continue retry;
+                    continue retry;     // 通过标号跳出最里面的循环
                 }
                 // else CAS failed due to workerCount change; retry inner loop
             }
@@ -989,8 +990,8 @@ public class MyThreadPoolExecutor extends AbstractExecutorService {
                     // shut down before lock acquired.
                     int rs = runStateOf(ctl.get());
 
-                    if (rs < SHUTDOWN ||
-                        (rs == SHUTDOWN && firstTask == null)) {
+                    if (rs < SHUTDOWN ||  // 运行状态
+                        (rs == SHUTDOWN && firstTask == null)) { // 添加核心线程为false
                         if (t.isAlive()) // precheck that t is startable
                         {
                             throw new IllegalThreadStateException();
@@ -1057,11 +1058,13 @@ public class MyThreadPoolExecutor extends AbstractExecutorService {
      * @param completedAbruptly if the worker died due to user exception
      */
     private void processWorkerExit(MyThreadPoolExecutor.Worker w, boolean completedAbruptly) {
+        // beforeExecute（） 或 afterExecute() 用户造成的异常，工作计数减一
         if (completedAbruptly) // If abrupt, then workerCount wasn't adjusted
         {
             decrementWorkerCount();
         }
 
+        // 从工作组中移除 worker
         final ReentrantLock mainLock = this.mainLock;
         mainLock.lock();
         try {
@@ -1074,8 +1077,11 @@ public class MyThreadPoolExecutor extends AbstractExecutorService {
         tryTerminate();
 
         int c = ctl.get();
+        // 当线程处于 running 或 shutdown 进入 if
         if (runStateLessThan(c, STOP)) {
+            // 当时用户造成的异常（true），则新建一个线程
             if (!completedAbruptly) {
+                // 保证至少有一个线程在执行任务
                 int min = allowCoreThreadTimeOut ? 0 : corePoolSize;
                 if (min == 0 && !workQueue.isEmpty()) {
                     min = 1;
@@ -1197,6 +1203,7 @@ public class MyThreadPoolExecutor extends AbstractExecutorService {
         try {
             // 第一次直接执行，后面从任务队列中取
             while (task != null || (task = getTask()) != null) {
+                // 线程运行时不能终止
                 w.lock();
                 // If pool is stopping, ensure thread is interrupted;
                 // if not, ensure thread is not interrupted.  This
@@ -1211,6 +1218,7 @@ public class MyThreadPoolExecutor extends AbstractExecutorService {
                     wt.interrupt();
                 }
                 try {
+                    // 钩子函数
                     beforeExecute(wt, task);
                     Throwable thrown = null;
                     try {
@@ -1225,6 +1233,7 @@ public class MyThreadPoolExecutor extends AbstractExecutorService {
                         thrown = x;
                         throw new Error(x);
                     } finally {
+                        // 钩子函数，线程执行异常可以通过 该钩子函数获取
                         afterExecute(task, thrown);
                     }
                 } finally {
@@ -1235,6 +1244,7 @@ public class MyThreadPoolExecutor extends AbstractExecutorService {
             }
             completedAbruptly = false;
         } finally {
+            // beforeExecute（） 或 afterExecute() 抛出异常 completedAbruptly 为 true
             processWorkerExit(w, completedAbruptly);
         }
     }
@@ -1474,9 +1484,13 @@ public class MyThreadPoolExecutor extends AbstractExecutorService {
         final ReentrantLock mainLock = this.mainLock;
         mainLock.lock();
         try {
+            // 检查访问权限
             checkShutdownAccess();
+            // 改变运行状态
             advanceRunState(SHUTDOWN);
+            // 中断空闲的线程
             interruptIdleWorkers();
+            // 执行钩子函数
             onShutdown(); // hook for ScheduledThreadPoolExecutor
         } finally {
             mainLock.unlock();
