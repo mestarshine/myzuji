@@ -11,11 +11,11 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.44'
-    compile "net.sf.json-lib:json-lib:2.4:jdk15"
-    compile 'org.apache.kafka:connect-api:2.3.0'
+    implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.44'
+    implementation "net.sf.json-lib:json-lib:2.4:jdk15"
+    implementation 'org.apache.kafka:connect-api:2.3.0'
     implementation 'com.lmax:disruptor:3.4.2'
-    implementation 'com.alibaba:easyexcel:2.2.7'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile 'org.projectlombok:lombok:1.18.12'
+    implementation 'org.projectlombok:lombok:1.18.12'
+    testImplementation 'com.alibaba:easyexcel:2.2.7'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
