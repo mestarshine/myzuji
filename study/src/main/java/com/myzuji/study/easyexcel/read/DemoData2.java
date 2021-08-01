@@ -1,11 +1,13 @@
-package com.myzuji.study.java.easyexcel.read;
+package com.myzuji.study.easyexcel.read;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 基础数据类.这里的排序和excel里面的排序一致
  **/
-@Data
+@Getter
+@Setter
 public class DemoData2 {
     private String merCode;
     private String unionParMerNo;

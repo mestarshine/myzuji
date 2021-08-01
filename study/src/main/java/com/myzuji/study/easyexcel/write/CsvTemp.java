@@ -1,18 +1,20 @@
-package com.myzuji.study.java.easyexcel.write;
+package com.myzuji.study.easyexcel.write;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.util.DateUtils;
-import com.myzuji.study.java.easyexcel.read.DemoData0;
+import com.myzuji.study.easyexcel.read.DemoData0;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import static com.myzuji.study.java.easyexcel.read.DemoData2Listener.merList;
+import static com.myzuji.study.easyexcel.read.DemoData2Listener.merList;
 
 /**
  * 简单描述
  */
-@Data
+@Getter
+@Setter
 @Builder
 public class CsvTemp {
     @ExcelIgnore

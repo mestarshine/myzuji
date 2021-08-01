@@ -1,13 +1,15 @@
-package com.myzuji.study.java.easyexcel.write;
+package com.myzuji.study.easyexcel.write;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 简单描述
  */
-@Data
+@Getter
+@Setter
 public class Huizong {
 
     @ExcelIgnore

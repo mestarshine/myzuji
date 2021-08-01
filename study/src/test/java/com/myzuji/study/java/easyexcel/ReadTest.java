@@ -1,8 +1,11 @@
 package com.myzuji.study.java.easyexcel;
 
 import com.alibaba.excel.EasyExcel;
-import com.myzuji.study.java.easyexcel.read.*;
-import org.junit.Test;
+import com.myzuji.study.easyexcel.read.DemoData1;
+import com.myzuji.study.easyexcel.read.DemoData1Listener;
+import com.myzuji.study.easyexcel.read.DemoData3;
+import com.myzuji.study.easyexcel.read.DemoData3Listener;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 

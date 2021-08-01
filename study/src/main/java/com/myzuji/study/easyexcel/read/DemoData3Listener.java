@@ -1,4 +1,4 @@
-package com.myzuji.study.java.easyexcel.read;
+package com.myzuji.study.easyexcel.read;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;

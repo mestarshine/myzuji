@@ -1,8 +1,8 @@
-package com.myzuji.study.java.easyexcel.read;
+package com.myzuji.study.easyexcel.read;
 
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
-import com.myzuji.study.java.easyexcel.write.CsvTemp;
+import com.myzuji.study.easyexcel.write.CsvTemp;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.myzuji.study.java.easyexcel.read;
+package com.myzuji.study.easyexcel.read;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
@@ -6,9 +6,8 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.WriteTable;
-import com.myzuji.study.java.easyexcel.ReadTest;
-import com.myzuji.study.java.easyexcel.write.CsvTemp;
-import com.myzuji.study.java.easyexcel.write.Huizong;
+import com.myzuji.study.easyexcel.write.CsvTemp;
+import com.myzuji.study.easyexcel.write.Huizong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +22,7 @@ import java.util.List;
  * 模板的读取类
  */
 // 有个很重要的点 DemoDataListener 不能被spring管理，要每次读取excel都要new,然后里面用到spring可以构造方法传进去
-public class DemoData0Listener extends AnalysisEventListener<com.myzuji.study.java.easyexcel.read.DemoData0> {
+public class DemoData0Listener extends AnalysisEventListener<com.myzuji.study.easyexcel.read.DemoData0> {
     private static final Logger LOGGER = LoggerFactory.getLogger(DemoData0Listener.class);
     /**
      * 每隔5条存储数据库，实际使用中可以3000条，然后清理list ，方便内存回收
@@ -36,11 +35,11 @@ public class DemoData0Listener extends AnalysisEventListener<com.myzuji.study.ja
     /**
      * 假设这个是一个DAO，当然有业务逻辑这个也可以是一个service。当然如果不用存储这个对象没用。
      */
-    private final com.myzuji.study.java.easyexcel.read.DemoDAO demoDAO;
+    private final com.myzuji.study.easyexcel.read.DemoDAO demoDAO;
 
     public DemoData0Listener() {
         // 这里是demo，所以随便new一个。实际使用如果到了spring,请使用下面的有参构造函数
-        demoDAO = new com.myzuji.study.java.easyexcel.read.DemoDAO();
+        demoDAO = new com.myzuji.study.easyexcel.read.DemoDAO();
     }
 
     /**
@@ -48,7 +47,7 @@ public class DemoData0Listener extends AnalysisEventListener<com.myzuji.study.ja
      *
      * @param demoDAO
      */
-    public DemoData0Listener(com.myzuji.study.java.easyexcel.read.DemoDAO demoDAO) {
+    public DemoData0Listener(com.myzuji.study.easyexcel.read.DemoDAO demoDAO) {
         this.demoDAO = demoDAO;
     }
 
@@ -59,7 +58,7 @@ public class DemoData0Listener extends AnalysisEventListener<com.myzuji.study.ja
      * @param context
      */
     @Override
-    public void invoke(com.myzuji.study.java.easyexcel.read.DemoData0 data, AnalysisContext context) {
+    public void invoke(com.myzuji.study.easyexcel.read.DemoData0 data, AnalysisContext context) {
 //        LOGGER.info("解析到一条数据:{}", JSON.toJSONString(data));
         CsvTemp csvTemp = CsvTemp.makeByDemoData(data);
 
@@ -69,7 +68,7 @@ public class DemoData0Listener extends AnalysisEventListener<com.myzuji.study.ja
             huizong.cal(csvTemp);
             huizongHashMap.put(csvTemp.getReportDate(), huizong);
             if (!excelWriterHashMap.containsKey(reportDate)) {
-                ExcelWriter excelWriter = EasyExcel.write(ReadTest.class.getResource("/").getPath() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + reportDate + ".xlsx", CsvTemp.class).build();
+                ExcelWriter excelWriter = EasyExcel.write(DemoData0Listener.class.getResource("/").getPath() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + reportDate + ".xlsx", CsvTemp.class).build();
                 excelWriterHashMap.put(reportDate, excelWriter);
             }
             List<CsvTemp> list;

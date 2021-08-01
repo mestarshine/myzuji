@@ -1,4 +1,4 @@
-package com.myzuji.study.java.easyexcel.read;
+package com.myzuji.study.easyexcel.read;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
@@ -6,19 +6,22 @@ import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 模板的读取类
  */
 // 有个很重要的点 DemoDataListener 不能被spring管理，要每次读取excel都要new,然后里面用到spring可以构造方法传进去
-public class DemoData1Listener extends AnalysisEventListener<com.myzuji.study.java.easyexcel.read.DemoData1> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DemoData1Listener.class);
+public class DemoData2Listener extends AnalysisEventListener<DemoData2> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DemoData2Listener.class);
     /**
      * 每隔5条存储数据库，实际使用中可以3000条，然后清理list ，方便内存回收
      */
     private static final int BATCH_COUNT = 5000;
+    public static Map<String, String> merList = new HashMap<String, String>();
 
-
-    public DemoData1Listener() {
+    public DemoData2Listener() {
     }
 
     /**
@@ -28,8 +31,9 @@ public class DemoData1Listener extends AnalysisEventListener<com.myzuji.study.ja
      * @param context
      */
     @Override
-    public void invoke(com.myzuji.study.java.easyexcel.read.DemoData1 data, AnalysisContext context) {
+    public void invoke(DemoData2 data, AnalysisContext context) {
         LOGGER.info("解析到一条数据:{}", JSON.toJSONString(data));
+        merList.put(data.getMerCode(), data.getUnionParMerNo());
     }
 
     /**
