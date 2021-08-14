@@ -1,7 +1,5 @@
 package com.myzuji.study.java.thread.pool.concurrent;
 
-import sun.security.util.SecurityConstants;
-
 import java.security.*;
 import java.util.Collection;
 import java.util.List;
@@ -213,7 +211,7 @@ public class MyExecutors {
                 // Calls to getContextClassLoader from this class
                 // never trigger a security check, but we check
                 // whether our callers have this permission anyways.
-                sm.checkPermission(SecurityConstants.GET_CLASSLOADER_PERMISSION);
+//                sm.checkPermission(SecurityConstants.GET_CLASSLOADER_PERMISSION);
 
                 // Whether setContextClassLoader turns out to be necessary
                 // or not, we fail fast if permission is not available.
@@ -298,7 +296,7 @@ public class MyExecutors {
                 // Calls to getContextClassLoader from this class
                 // never trigger a security check, but we check
                 // whether our callers have this permission anyways.
-                sm.checkPermission(SecurityConstants.GET_CLASSLOADER_PERMISSION);
+//                sm.checkPermission(SecurityConstants.GET_CLASSLOADER_PERMISSION);
 
                 // Fail fast
                 sm.checkPermission(new RuntimePermission("setContextClassLoader"));

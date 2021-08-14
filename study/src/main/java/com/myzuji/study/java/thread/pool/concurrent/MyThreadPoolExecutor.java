@@ -456,7 +456,8 @@ public class MyThreadPoolExecutor extends AbstractExecutorService {
      * SHUTDOWN to TIDYING).  This accommodates special-purpose
      * queues such as DelayQueues for which poll() is allowed to
      * return null even if it may later return non-null when delays
-     * expire.
+     * expire.<br/>
+     * 工作队列
      */
     private final BlockingQueue<Runnable> workQueue;
 
@@ -477,7 +478,8 @@ public class MyThreadPoolExecutor extends AbstractExecutorService {
 
     /**
      * Set containing all worker threads in pool. Accessed only when
-     * holding mainLock.
+     * holding mainLock.<br/>
+     * 线程容器
      */
     private final HashSet<MyThreadPoolExecutor.Worker> workers = new HashSet<MyThreadPoolExecutor.Worker>();
 
@@ -1700,7 +1702,7 @@ public class MyThreadPoolExecutor extends AbstractExecutorService {
         int wc = workerCountOf(ctl.get());
         if (wc < corePoolSize) {
             addWorker(null, true);
-        } else if (wc == 0) {
+        } else if (wc == 0) { // corePoolSize =0 时才回执行，保证至少有一个线程执行
             addWorker(null, false);
         }
     }
