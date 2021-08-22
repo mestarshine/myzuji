@@ -50,6 +50,7 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.3'
     implementation('mysql:mysql-connector-java')
     implementation('org.springframework.boot:spring-boot-devtools')
+    compileOnly 'org.projectlombok:lombok:1.18.20'
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
