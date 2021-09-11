@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <!--
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,23 +18,8 @@
 
 <configuration>
     <property>
-        <name>dfs.replication</name>
-        <value>1</value>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
     </property>
-    <property>
-        <name>dfs.namenode.name.dir</name>
-        <value>/var/bigdata/hadoop/local/dfs/name</value>
-    </property>
-    <property>
-        <name>dfs.datanode.data.dir</name>
-        <value>/var/bigdata/hadoop/local/dfs/data</value>
-    </property>
-    <property>
-        <name>dfs.namenode.secondary.http-address</name>
-        <value>node01:50090</value>
-    </property>
-    <property>
-        <name>dfs.namenode.checkpoint.dir</name>
-        <value>/var/bigdata/hadoop/local/dfs/secondary</value>
-    </property>
+
 </configuration>

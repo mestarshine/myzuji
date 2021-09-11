@@ -19,6 +19,10 @@
 <configuration>
     <property>
         <name>fs.defaultFS</name>
-        <value>hdfs://node01:9000</value>
+        <value>hdfs://mycluster</value>
+    </property>
+    <property>
+        <name>ha.zookeeper.quorum</name>
+        <value>node02:2181,node03:2181,node04:2181</value>
     </property>
 </configuration>

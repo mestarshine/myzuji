@@ -22,7 +22,7 @@ public class HDFSTest {
     @BeforeEach
     void conn() throws Exception {
         configuration = new Configuration(true);
-        fileSystem = FileSystem.get(URI.create("hdfs://node01:9000"), configuration, "root");
+        fileSystem = FileSystem.get(URI.create("hdfs://mycluster"), configuration, "hadoop");
 
     }
 
