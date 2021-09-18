@@ -1,4 +1,4 @@
-package com.myzuji.study.bigdata;
+package com.myzuji.study.bigdata.hdfs;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hadoop.conf.Configuration;
@@ -28,13 +28,23 @@ public class HDFSTest {
 
     @Test
     void mkdir() throws IOException {
-        Path path = new Path("/bigdata/abc");
+        Path path = new Path("/data/wc/");
         if (fileSystem.exists(path)) {
             fileSystem.delete(path, true);
         }
 
-        fileSystem.create(path);
+//        fileSystem.create(path);
 
+    }
+
+    @Test
+    void put() throws IOException {
+        Path inputPath = new Path("/tmp/test.txt");
+        Path outPath = new Path("/data/wc/input/test.txt");
+        if (fileSystem.exists(outPath)) {
+            fileSystem.delete(outPath, true);
+        }
+        fileSystem.completeLocalOutput(outPath, inputPath);
     }
 
     @AfterAll
