@@ -1,7 +1,8 @@
 package com.myzuji.util;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
@@ -19,7 +20,7 @@ public class SM2ToolTest {
     @Test
     public void genSMKeyPairTest() {
         Map<String, String> key = genSMKeyPair();
-        Assert.assertNotNull("密钥生成失败", key);
+        Assertions.assertNotNull(key, "密钥生成失败");
         System.out.println("pri:" + key.get("privateKey"));
         System.out.println("pub:" + key.get("publicKey"));
     }
@@ -29,7 +30,7 @@ public class SM2ToolTest {
         String pri = "MI`GTAgEAMBMGByqGSM49AgEGCCqBHM9VAYItBHkwdwIBAQQgIaL7KnN9lFMPreIjCoKhjRe2cfduaMHHN9YitKy8SFGgCgYIKoEcz1UBgi2hRANCAATwZCTbWFI1eORRlWzT4YLOhPQ4kyAUBStaf+2+Gi/LU+FKtfWnOlMpc/+PsQbzlD7EjSCXWEOI6OhPO2kA58xJ";
         String content = "SM2你好";
         String signInfo = sign(pri, content);
-        Assert.assertNotNull(signInfo);
+        Assertions.assertNotNull(signInfo);
         System.out.println(("signInfo:" + signInfo));
     }
 

@@ -1,7 +1,7 @@
 package com.myzuji.util;
 
 import com.myzuji.util.security.CertUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class RSATest {
 
