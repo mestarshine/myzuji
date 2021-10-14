@@ -93,8 +93,4 @@ public class Bullet {
     private void die() {
         this.living = false;
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> learning-temp
 }
