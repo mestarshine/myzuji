@@ -1,4 +1,4 @@
-package com.myzuji.study.bigdata.mapreduce.wc;
+package com.myzuji.bigdata.mapreduce.wc;
 
 
 import lombok.extern.slf4j.Slf4j;

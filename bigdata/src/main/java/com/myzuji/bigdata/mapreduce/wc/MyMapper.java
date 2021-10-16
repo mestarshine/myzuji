@@ -1,4 +1,4 @@
-package com.myzuji.study.bigdata.mapreduce.wc;
+package com.myzuji.bigdata.mapreduce.wc;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
