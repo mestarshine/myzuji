@@ -14,6 +14,7 @@ public class Tkey implements WritableComparable<Tkey> {
     private int month;
     private int day;
     private int wd;
+    private String location;
 
     @Override
     public int compareTo(Tkey tkey) {
@@ -34,6 +35,7 @@ public class Tkey implements WritableComparable<Tkey> {
         out.write(month);
         out.write(day);
         out.write(wd);
+        out.writeUTF(location);
     }
 
     @Override
@@ -42,5 +44,6 @@ public class Tkey implements WritableComparable<Tkey> {
         this.month = in.readInt();
         this.day = in.readInt();
         this.wd = in.readInt();
+        this.location = in.readUTF();
     }
 }

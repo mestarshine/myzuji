@@ -19,6 +19,9 @@ public class MyTopN {
 
         job.setJobName("topN");
 
+        //map 多维度处理方式之一，将数据量小的直接拉取到本地计算
+        job.addCacheFile(new Path("/data/topn/dic/dic.txt").toUri());
+
         // client 端端代理梳理
         // 1. mapTask
         // 2. input
