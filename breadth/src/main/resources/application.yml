@@ -1,0 +1,11 @@
+# 集成MySQL数据库的配置
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/stocks?useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+        username: root
+        password: root
+    jpa:
+        generate-ddl: true
+        database: mysql
+        show-sql: true
