@@ -8,4 +8,4 @@ spring:
     jpa:
         generate-ddl: true
         database: mysql
-        show-sql: true
+        show-sql: false
