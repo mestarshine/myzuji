@@ -4,4 +4,6 @@ include 'backend'
 include 'util'
 include 'breadth'
 include 'bigdata'
+include 'study:learnjava'
+findProject(':study:learnjava')?.name = 'learnjava'
 
