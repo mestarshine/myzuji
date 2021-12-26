@@ -1,0 +1,19 @@
+server:
+    port: 6001
+
+spring:
+    application:
+        name: config-server
+    cloud:
+        config:
+            server:
+                git: https://github.com/xxx/xxxx.git
+                username: xxx
+                password: xxxx
+                timeout: 15
+eureka:
+    client:
+        service-url:
+            defaultZone: http://eureka1/eureka
+    instance:
+        instance-id: config-server
