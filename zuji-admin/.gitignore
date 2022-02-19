@@ -3,6 +3,8 @@ node_modules
 dist
 .npmrc
 .cache
+!build
+.vscode/
 
 tests/server/static
 tests/server/static/upload
