@@ -23,7 +23,7 @@ public class CaptchaConfig {
         // 是否有边框 默认为true 我们可以自己设置yes，no
         captchaSetting(properties, "kaptcha.border", "yes", "kaptcha.border.color", "229,230,231", "kaptcha.textproducer.font.color", "blue", "kaptcha.image.width", "160", "kaptcha.image.height", "60");
         // 验证码文本字符大小 默认为40
-        captchaSetting(properties, "kaptcha.textproducer.font.size", "30", "kaptcha.session.key", "kaptchaCode", "kaptcha.textproducer.char.space", "3", "kaptcha.textproducer.char.length", "5", "kaptcha.textproducer.font.names", "Arial,Courier");
+        captchaSetting(properties, "kaptcha.textproducer.font.size", "30", "kaptcha.session.key", "kaptchaCode", "kaptcha.textproducer.char.space", "3", "kaptcha.textproducer.char.length", "5", "kaptcha.textproducer.font.names", "Arial,Courier,Heavy");
         // 验证码噪点颜色 默认为Color.BLACK
         properties.setProperty("kaptcha.noise.color", "white");
         Config config = new Config(properties);
@@ -37,9 +37,9 @@ public class CaptchaConfig {
         Properties properties = new Properties();
         captchaSetting(properties, "kaptcha.border", "yes", "kaptcha.border.color", "229,230,231", "kaptcha.textproducer.font.color", "blue", "kaptcha.image.width", "160", "kaptcha.image.height", "60");
         // 验证码文本字符大小 默认为40
-        captchaSetting(properties, "kaptcha.textproducer.font.size", "35", "kaptcha.session.key", "kaptchaCodeMath", "kaptcha.textproducer.impl", "com.myzuji.zujibackend.common.config.KaptchaTextCreator", "kaptcha.textproducer.char.space", "3", "kaptcha.textproducer.char.length", "6");
-        // 验证码文本字体样式 默认为new Font("Arial", 1, fontSize), new Font("Courier", 1, fontSize)
-        properties.setProperty("kaptcha.textproducer.font.names", "Arial,Courier");
+        captchaSetting(properties, "kaptcha.textproducer.font.size", "35", "kaptcha.session.key", "kaptchaCodeMath", "kaptcha.textproducer.impl", "com.myzuji.backend.common.config.CaptchaTextCreator", "kaptcha.textproducer.char.space", "3", "kaptcha.textproducer.char.length", "6");
+        // 验证码文本字体样式
+        properties.setProperty("kaptcha.textproducer.font.names", "Arial,Courier,Heavy");
         // 验证码噪点颜色 默认为Color.BLACK
         properties.setProperty("kaptcha.noise.color", "white");
         // 干扰实现类

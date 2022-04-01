@@ -29,7 +29,5 @@ build/
 hs_err_pid*
 
 # gradle Files
-.gradle/
-gradle
-gradlew.bat
-gradlew
+.gradle
+.gradletasknamecache

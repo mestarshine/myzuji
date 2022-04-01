@@ -53,8 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class)
-            .addFilterBefore(new CaptchaAuthenticationFilter("/login", authenticationFailureHandler),
-                UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(new CaptchaAuthenticationFilter("/login", authenticationFailureHandler), TokenFilter.class);
 
         http.authorizeRequests()
             .antMatchers("/", "/login.html", "/captcha/**", "/favicon.ico", "/druid/**",
@@ -70,7 +69,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
         http.headers().cacheControl();
 
-        http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

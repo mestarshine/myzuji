@@ -23,12 +23,6 @@ public class LoginController {
     @Value("${captcha.enabled}")
     private boolean captchaEnabled;
 
-    /**
-     * 验证码类型
-     */
-    @Value("${captcha.type}")
-    private String captchaType;
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public RedirectView login() {
         return new RedirectView("/login.html");
@@ -37,7 +31,6 @@ public class LoginController {
     @RequestMapping(value = "/login.html", method = RequestMethod.GET)
     public ModelAndView toLogin(ModelAndView mv) {
         mv.addObject(SecurityConstants.CURRENT_ENABLED, captchaEnabled);
-        mv.addObject(SecurityConstants.CURRENT_TYPE, captchaType);
         mv.setViewName("login");
         return mv;
     }

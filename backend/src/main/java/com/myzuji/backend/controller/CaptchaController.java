@@ -2,6 +2,7 @@ package com.myzuji.backend.controller;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,12 @@ import java.io.IOException;
 @RequestMapping("/captcha")
 public class CaptchaController {
 
+    /**
+     * 验证码类型
+     */
+    @Value("${captcha.type}")
+    private String captchaType;
+
     @Resource(name = "captchaProducer")
     private Producer captchaProducer;
 
@@ -46,16 +53,15 @@ public class CaptchaController {
             response.setHeader("Pragma", "no-cache");
             response.setContentType("image/jpeg");
 
-            String type = request.getParameter("type");
             String capStr;
-            String code = null;
-            BufferedImage bi = null;
-            if ("math".equals(type)) {
+            String code;
+            BufferedImage bi;
+            if ("math".equals(captchaType)) {
                 String capText = captchaProducerMath.createText();
                 capStr = capText.substring(0, capText.lastIndexOf("@"));
                 code = capText.substring(capText.lastIndexOf("@") + 1);
                 bi = captchaProducerMath.createImage(capStr);
-            } else if ("char".equals(type)) {
+            } else {
                 capStr = code = captchaProducer.createText();
                 bi = captchaProducer.createImage(capStr);
             }
