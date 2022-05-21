@@ -85,7 +85,7 @@ public class MyWebSecurityConfiguration {
 }
 ```
 
-源码解析：
+### 源码解析：
 
 ```java
 
@@ -115,3 +115,75 @@ public @interface EnableWebSecurity {
      中使用的多例模式，用户使用通过 `HttpSecurity`可以使用他进行自定义鉴权配置
 > 6. 使用注解 `@EnableGlobalAuthentication` 启用全局认证机制，即全局的 `AuthenticationManager`，`AuthenticationManager`
      会在运行时对请求着进行身份验证。
+
+## 3.2 `@EnableGlobalAuthentication`
+
+`@EnableGlobalAuthentication` 是包含在了 `@EnableWebSecurity` 注解中的，作用通过导入认证管理器 `AuthenticationManager`
+来启用全局认证机制。
+
+### 用法
+
+```java
+//用法一
+@Configuration
+@EnableGlobalAuthentication
+public class MyGlobalAuthenticationConfiguration {
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails user = User.withDefaultPasswordEncoder()
+            .username("user")
+            .password("password")
+            .roles("USER")
+            .build();
+        UserDetails admin = User.withDefaultPasswordEncoder()
+            .username("admin")
+            .password("password")
+            .roles("ADMIN", "USER")
+            .build();
+        return new InMemoryUserDetailsManager(user, admin);
+    }
+}
+
+//用法二
+@Configuration
+@EnableWebSecurity
+public class MyWebSecurityConfiguration {
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails user = User.withDefaultPasswordEncoder()
+            .username("user")
+            .password("password")
+            .roles("USER")
+            .build();
+        UserDetails admin = User.withDefaultPasswordEncoder()
+            .username("admin")
+            .password("password")
+            .roles("ADMIN", "USER")
+            .build();
+        return new InMemoryUserDetailsManager(user, admin);
+    }
+
+    // Possibly more bean methods ...
+}
+```
+
+### 源码解析：
+
+```java
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Documented
+@Import(AuthenticationConfiguration.class)
+public @interface EnableGlobalAuthentication {
+}
+```
+
+`EnableGlobalAuthentication` 的核心逻辑就在 `AuthenticationConfiguration`，`AuthenticationConfiguration`
+在 `Spring Security` 扮演着非常重要的作用，它内部包含了 `AuthenticationManager` 用于核心的认证工作。后面将会重点讲解该类。
+
+## 3.3 `@EnableMethodSecurity`
+
+## AuthenticationManager
