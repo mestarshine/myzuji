@@ -186,4 +186,14 @@ public @interface EnableGlobalAuthentication {
 
 ## 3.3 `@EnableMethodSecurity`
 
+在5.6版本之前一直使用 `@EnableGlobalMethodSecurity` 注解来配置方法安全的授权，之后引入了 `@EnableMethodSecurity`
+注解，而其默认是开启的。
+几个属性值：
+
+1. `prePostEnabled` 默认为true，使用表达式的方式类计算方法的安全性
+    * @PreAuthorize 在方法调用之前,基于表达式的计算结果来限制对方法的访问
+    * @PostAuthorize 允许方法调用,但是如果表达式计算结果为false,将抛出一个安全性异常
+    * @PostFilter 允许方法调用,但必须按照表达式来过滤方法的结果
+    * @PreFilter 允许方法调用,但必须在进入方法之前过滤输入值
+
 ## AuthenticationManager
