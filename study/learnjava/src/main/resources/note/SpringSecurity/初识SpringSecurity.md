@@ -196,4 +196,34 @@ public @interface EnableGlobalAuthentication {
     * @PostFilter 允许方法调用,但必须按照表达式来过滤方法的结果
     * @PreFilter 允许方法调用,但必须在进入方法之前过滤输入值
 
-## AuthenticationManager
+# `Spring Security` 核心组件
+
+## `SecurityContextHolder`
+
+`SecurityContextHolder` 持有安全上下文（`securityContext`）的信息，可以通过 `SecurityContextHolder.getContext()` 的静态方法获取。
+当前操作的用户是谁，该用户是否已经被认证，他拥有哪些角色权等等，这些都被保存在 `SecurityContextHolder` 中。
+`SecurityContextHolder` 默认使用 `ThreadLocalSecurityContextHolderStrategy` 策略来存储认证信息。看到ThreadLocal
+也就意味着，这是一种与线程绑定的策略。在web环境下，`Spring Security` 在用户登录时自动绑定认证信息到当前线程，在用户退出时，自动清除当前线程的认证信息。
+`SecurityContextHolderFilter` 负载使用 `SecurityContextRepository` 在请求之间加载 `SecurityContext`。
+
+`SecurityContextHolder` 可以设置指定JVM策略（`SecurityContext` 的存储策略），有三种
+
+* `MODE_THREADLOCAL`：SecurityContext 存储在线程中。
+* `MODE_INHERITABLETHREADLOCAL`：SecurityContext 存储在线程中，但子线程可以获取到父线程中的 SecurityContext。
+* `MODE_GLOBAL`：SecurityContext 在所有线程中都相同。
+
+`SecurityContextHolder` 默认使用 `MODE_THREADLOCAL` 模式，即存储在当前线程中。
+
+## `SecurityContext`
+
+## `Authentication`
+
+## `GrantedAuthority`
+
+## `UserDetails`
+
+## `UserDetailsService`
+
+## `AuthenticationManager`
+
+## `DaoAuthenticationProvider`
