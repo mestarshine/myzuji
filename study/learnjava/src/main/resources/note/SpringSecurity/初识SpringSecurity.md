@@ -215,6 +215,9 @@ public @interface EnableGlobalAuthentication {
 `SecurityContextHolder` 默认使用 `MODE_THREADLOCAL` 模式，即存储在当前线程中。
 
 ## `SecurityContext`
+安全上下文信息接口，用户通过 `Spring Security` 的效验后，验证信息存储在 `SecurityContext` 中。
+指定义了两个方法，实际上其主要作用就是获取 `Authentication` 对象，如果用户未鉴权，那 `Authentication` 对象将会是空的。
+该示例可以通过 `SecurityContextHolder.getContext()` 静态方法可获取到 `SecurityContext`。
 
 ## `Authentication`
 
