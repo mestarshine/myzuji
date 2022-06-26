@@ -215,17 +215,101 @@ public @interface EnableGlobalAuthentication {
 `SecurityContextHolder` 默认使用 `MODE_THREADLOCAL` 模式，即存储在当前线程中。
 
 ## `SecurityContext`
+
 安全上下文信息接口，用户通过 `Spring Security` 的效验后，验证信息存储在 `SecurityContext` 中。
 指定义了两个方法，实际上其主要作用就是获取 `Authentication` 对象，如果用户未鉴权，那 `Authentication` 对象将会是空的。
 该示例可以通过 `SecurityContextHolder.getContext()` 静态方法可获取到 `SecurityContext`。
 
 ## `Authentication`
 
+`Authentication` 是一个接口直接继承 `Principal`，而 `Principal` 位于 `java.security` 包中。由此可见，`Authentication` 在
+Spring 中是最高级别的身份/认证抽象。由这个顶级接口，可以获取到用户的 `Principal`（用户信息），`Credentials`（密码），`Authority`
+（权限）等信息。 在用户登录认证之前相关信息会封装为一个 `Authentication` 具体实现类的对象，在登录认证成功之后又会生成一个信息更全面，
+包含用户权限等信息的 `Authentication` 对象，然后把它保存在 `SecurityContextHolder` 所持有的 `SecurityContext` 中，
+供后续的程序进行调用，如访问权限的鉴定等。
+
+接口相关方法：
+
+```java
+public interface Authentication extends Principal, Serializable {
+
+    // 用户权限信息（权限列表）默认是 GrantedAuthority 接口的一些实现类 ,通常是代表权限的字符串列表
+    Collection<? extends GrantedAuthority> getAuthorities();
+
+    // 密码信息，用户输入的密码字符串，在认证过后通常会被移除，用于保障安全
+    Object getCredentials();
+
+    // 细节信息，web应用中的实现接口通常为 WebAuthenticationDetails，它记录了访问者的ip地址和sessionId的值。
+    Object getDetails();
+
+    // 最重要的身份信息，在未认证的情况下获取到的是用户名，在已认证的情况下获取到的是 UserDetails (UserDetails也是一个接口，里边的方法有getUsername,getPassword等)，
+    // 大部分情况下返回的是UserDetails接口的实现类，也是框架中的常用接口之一。
+    Object getPrincipal();
+
+    // 获取当前 Authentication 是否已认证
+    boolean isAuthenticated();
+
+    // 设置当前 Authentication 是否已认证（true or false
+    void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException;
+
+}
+```
+
 ## `GrantedAuthority`
+
+`Authenticatio.getAuthorities()` 方法返回一个 `GrantedAuthority` 对象数组。
+该接口表示了当前用户所拥有的权限（或者角色）信息。用于配置 Web 授权、方法授权、域对象授权等，
+该属性通常由 `UserDetailsService` 加载给 `UserDetails`。 这些信息有授权负责对象 `AccessDecisionManager` 来使用，
+并决定最终用户是否可以访问某资源（URL或方法调用或域对象）。鉴权时并不会使用到该对象。如果一个用户有几千个这种权限，内存消耗将会非常巨大。
 
 ## `UserDetails`
 
+`UserDetails` 存储的就是用户信息，这个接口规范了用户详细信息所拥有的字段，譬如用户名、密码、账号是否过期、是否锁定等。
+在 `Spring Security` 中，获取当前登录的用户的信息,一般情况是需要在这个接口上面进行扩展，用来对接自己系统的用户。
+
+接口方法如下：
+
+```java
+public interface UserDetails extends Serializable {
+
+    // 获取用户权限，本质上是用户角色信息
+    Collection<? extends GrantedAuthority> getAuthorities();
+
+    // 获取密码
+    String getPassword();
+
+    // 获取用户名
+    String getUsername();
+
+    // 账户是否过期
+    boolean isAccountNonExpired();
+
+    // 账户是否被锁定
+    boolean isAccountNonLocked();
+
+    // 密码是否过期
+    boolean isCredentialsNonExpired();
+
+    // 账户是否可用
+    boolean isEnabled();
+
+}
+```
+
 ## `UserDetailsService`
+
+这个接口只提供一个接口 `loadUserByUsername(String username)`，用来获取 `UserDetails`，它代表了最详细的用户信息，
+这个接口涵盖了一些必要的用户信息字段，
+一般情况我们都是通过扩展这个接口来显示获取我们的用户信息，然后组装成一个 `UserDetails` 并返回。
+用户登录时传递的用户名和密码也是通过这里这查找出来的用户名和密码进行校验，但是真正的校验不在这里，
+而是由 `AuthenticationManager` 以及 `AuthenticationProvider` 负责的，需要强调的是，如果用户不存在，不应返回NULL，而要抛出异常UsernameNotFoundException
+
+与 `Authentication` 接口很类似，比如它们都拥有 `username`，`authorities`，区分他们也是本文的重点内容之一。
+`Authentication.getCredentials()`与`UserDetails.getPassword()`需要被区分对待，前者是用户提交的密码凭证，后者是用户正确的密码，
+认证器其实就是对这两者的比对。`Authentication.getAuthorities()`实际是由`UserDetails.getAuthorities()`传递而形成的。
+`Authentication.getUserDetails()` 其中的 `UserDetails` 用户详细信息便是经过了 `AuthenticationProvider` 之后被填充的
+`UserDetailsService` 和 `AuthenticationProvider` 两者的职责常常被人们搞混，`UserDetailsService`
+只负责从特定的地方加载用户信息，可以是数据库、redis缓存、接口等。
 
 ## `AuthenticationManager`
 
