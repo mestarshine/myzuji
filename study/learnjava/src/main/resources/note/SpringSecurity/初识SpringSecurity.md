@@ -313,4 +313,44 @@ public interface UserDetails extends Serializable {
 
 ## `AuthenticationManager`
 
-## `DaoAuthenticationProvider`
+`AuthenticationManager`是认证相关的核心接口，它的作用就是校验 `Authentication`
+，如果验证失败会抛出 `AuthenticationException` 异常。
+`AuthenticationException` 是一个抽象类，因此代码逻辑并不能实例化一个 `AuthenticationException` 异常并抛出，
+实际上抛出的异常通常是其实现类，如 `DisabledException`,`LockedException`,`BadCredentialsException`
+等。`BadCredentialsException`可能会比较常见，即密码错误的时候。
+
+这个接口只有一个方法 `authenticate()`,方法运行后可能会有三种情况：
+
+* 验证成功，返回一个带有用户信息的Authentication。
+* 验证失败，抛出一个AuthenticationException异常。
+* 无法判断，返回null。
+
+`AuthenticationManager` 是认证相关的核心接口，也是发起认证的出发点，因为在实际需求中，我们可能会允许用户使用用户名+密码登录，
+同时允许用户使用邮箱+密码， 手机号码+密码登录，甚至，可能允许用户使用指纹登录，所以说 `AuthenticationManager` 一般不直接认证，
+`AuthenticationManager` 接口的常用实现类 `ProviderManager ` 内部会维护一个 `List<AuthenticationProvider>` 列表，存放多种认证方式，
+实际上这是委托者模式的应用（Delegate）。也就是说，核心的认证入口始终只有一个：AuthenticationManager，
+不同的认证方式：用户名+密码（`UsernamePasswordAuthenticationToken`），
+邮箱+密码，手机号码+密码登录则对应了三个 `AuthenticationProvider`。其中有一个重要的实现类是 `ProviderManager`
+
+## `ProviderManager`
+
+`ProviderManager` 是 `AuthenticationManager` 最常见的实现，它也不自己处理验证，
+而是将验证委托给其所配置的 `AuthenticationProvider` 列表，然后会依次调用每一个 `AuthenticationProvider` 进行认证，
+或者通过简单地返回null来跳过验证。
+如果所有实现都返回null，那么 `ProviderManager` 将抛出一个 `ProviderNotFoundException`
+。这个过程中只要有一个 `AuthenticationProvider` 验证成功，
+就不会再继续做更多验证，会直接以该认证结果作为 `ProviderManager` 的认证结果。
+
+## `AuthenticationProvider`
+
+`AuthenticationProvider` 接口提供了两个方法，一个是真正的认证，另一个是满足什么样的身份信息才进行如上认证。
+
+Spring 提供了几种AuthenticationProvider的实现：
+
+1. `AnonymousAuthenticationProvider` 匿名用户身份信息认证
+2. `DaoAuthenticationProvider` 从数据库中读取用户信息验证身份
+3. `JaasAuthenticationProvider`  从 `JASS` 登陆配置中获取用户信息验证身份
+4. `JwtAuthenticationProvider` 基于JWT进行用户信息验证
+5. `RememberMeAuthenticationProvider` 已存 cookie 中的用户信息身份验证
+6. `RunAsImplAuthenticationProvider` 对身份已被管理器替换的用户进行验证
+7. `TestingAuthenticationProvider` 单元测试时使用
