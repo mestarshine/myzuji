@@ -166,6 +166,7 @@ class ZhZhHyBaseInfoRepositoryTest {
      * @throws IOException
      */
     @Test
+    @Ignore
     void stockBaseInfoTest() throws IOException, InterruptedException {
         LocalDateTime now = LocalDateTime.now();
         Iterable<ZhHyBaseInfo> hyBaseInfoIterable = zhHyBaseInfoRepository.findAll();
@@ -264,6 +265,7 @@ class ZhZhHyBaseInfoRepositoryTest {
     }
 
     @Test
+    @Ignore
     void findStocksInfo() {
         ZhStocksInfo zhStocksInfo = zhStocksInfoRepository.findByStockCode("002124");
         assert "002124".equals(zhStocksInfo.getStockCode());

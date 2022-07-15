@@ -3,6 +3,7 @@ package com.myzuji.breadth.repository;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 import com.gargoylesoftware.htmlunit.util.Cookie;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -4114,6 +4115,7 @@ public class HhsStockTest {
      * @throws IOException
      */
     @Test
+    @Ignore
     void updateZjhhy1() throws IOException {
         String url = "http://q.10jqka.com.cn/zjhhy/";
         wc.getOptions().setJavaScriptEnabled(true);
@@ -4135,6 +4137,7 @@ public class HhsStockTest {
     }
 
     @Test
+    @Ignore
     void updateZjhhy2() throws IOException {
         String url = "http://q.10jqka.com.cn/zjhhy/";
         wc.getOptions().setJavaScriptEnabled(true);
@@ -4154,6 +4157,7 @@ public class HhsStockTest {
     }
 
     @Test
+    @Ignore
     void hyDetail() throws IOException, InterruptedException {
         String url = "http://q.10jqka.com.cn/zjhhy/detail/code/C";
         final HtmlPage htmlPage = wc.getPage(url);
@@ -4181,7 +4185,7 @@ public class HhsStockTest {
         List<HtmlTable> htmlElementList = htmlPage.getByXPath("/html/body/div[2]/div[2]/div[3]/table");
         HtmlTable table = htmlElementList.get(0);
         for (int i = 1; i < table.getRowCount(); i++) {
-            System.out.println(table.getCellAt(i, 1).asNormalizedText() + "");
+            System.out.println(table.getCellAt(i, 1).asNormalizedText());
         }
     }
 
@@ -4191,7 +4195,7 @@ public class HhsStockTest {
      * @throws IOException
      */
     @Test
-//    @Ignore
+    @Ignore
     public void stockInfo() throws IOException {
         String url = "http://basic.10jqka.com.cn/300801/company.html";
         final HtmlPage htmlPage = wc.getPage(url);
@@ -4214,6 +4218,7 @@ public class HhsStockTest {
     }
 
     @Test
+    @Ignore
     public void parse() throws IOException {
         final WebClient wc = new WebClient();
         HtmlPage htmlPage = wc.loadHtmlCodeIntoCurrentWindow(html.toString());
@@ -4241,6 +4246,7 @@ public class HhsStockTest {
     }
 
     @Test
+    @Ignore
     void test1() throws InterruptedException {
         for (int i = 0; i < 5; i++) {
             LocalDateTime now = LocalDateTime.now();
