@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>跟打器</title>
+    <link href="css/typepad.css" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <div class="side-menu">
+        <div class="info">
+            <div class="info-item word-az">
+                <h6>A-Z</h6>
+                <p></p>
+            </div>
+            <div class="info-item word-space">
+                <h6>Space</h6>
+                <p></p>
+            </div>
+            <div class="info-item word-backspace">
+                <h6>BackSpace</h6>
+                <p></p>
+            </div>
+            <div class="info-item word-number">
+                <h6>Number</h6>
+                <p></p>
+            </div>
+            <div class="info-item word-shift">
+                <h6>Shift</h6>
+                <p></p>
+            </div>
+            <div class="info-item word-function">
+                <h6>Function Key</h6>
+                <p></p>
+            </div>
+            <div class="info-item word-meta">
+                <h6>Command</h6>
+                <p></p>
+            </div>
+            <div class="info-item word-alt">
+                <h6>Alt</h6>
+                <p></p>
+            </div>
+            <div class="info-item word-ctrl">
+                <h6>Ctrl</h6>
+                <p></p>
+            </div>
+        </div>
+        <div class="tool-bar">
+            <button class="btn btn-primary" onclick="">乱序</button>
+            <button class="btn btn-blue" onclick="resetCount()">重置</button>
+        </div>
+    </div>
+
+    <div class="type-pad">
+        <div class="content">
+            <p class="text"></p>
+        </div>
+        <div class="typing">
+            <label class="hidden" for="pad"></label>
+            <textarea class="text" cols="30" id="pad" rows="10"></textarea>
+        </div>
+    </div>
+
+</div>
+<script src="js/typepad.ts"></script>
+</body>
+</html>
