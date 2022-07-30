@@ -32,9 +32,10 @@ const ARTICLE = {
 const content = $('.content p');
 const pad = $('#pad');
 let count = new Count();
+let currentWords = ARTICLE.gxbtujdc;
 
 window.onload = () => {
-    content.innerText = ARTICLE.gxbtujdc;
+    content.innerText = currentWords;
     pad.onkeydown = (e) => {
         console.log(e)
         if (e.key === 'Tab' || (e.metaKey && e.key === 'r')) {
@@ -85,3 +86,24 @@ function resetCount() {
     updateCountInfo()
 }
 
+function shuffleWords() {
+    let array = currentWords.split('');
+    currentWords = shuffle(array).join('');
+    content.innerText = currentWords;
+    resetCount();
+}
+
+/**
+ * 数组乱序算法
+ */
+function shuffle(arr) {
+    let length = arr.length,
+        r = length,
+        rand = 0;
+
+    while (r) {
+        rand = Math.floor(Math.random() * r--);
+        [arr[r], arr[rand]] = [arr[rand], arr[r]];
+    }
+    return arr;
+}
