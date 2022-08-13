@@ -22,6 +22,71 @@ class Count {
     }
 }
 
+class Engine {
+    isStarted = false;
+    isPaused = false;
+    timeStart; //ms
+    duration; // ms
+    handleRefresh;
+    refreshRate = 1000; // ms
+
+    start() {
+        this.isStarted = true;
+        this.timeStart = (new Date()).getTime();
+        this.startRefresh();
+    }
+
+    startRefresh() {
+        this.handleRefresh = setInterval(() => {
+            let timeNow = (new Date()).getTime()
+            this.duration = timeNow - this.timeStart;
+            this.showTime();
+        }, this.refreshRate)
+    }
+
+    stopRefresh() {
+        clearInterval(this.handleRefresh);
+    }
+
+    showTime() {
+        if (this.isStarted) {
+            let secondAll = this.duration / 1000;
+            let minute = Math.floor(secondAll / 60);
+            let second = Math.floor(secondAll % 60);
+            $('.minute').innerText = minute >= 10 ? minute : `0${minute}`;
+            $('.second').innerText = second >= 10 ? second : `0${second}`;
+        } else {
+            $('.minute').innerText = '--';
+            $('.second').innerText = '--';
+        }
+    }
+
+    pause() {
+        this.isPaused = true;
+        this.stopRefresh()
+    }
+
+    resume() {
+        this.isPaused = false;
+        this.startRefresh();
+
+    }
+
+    reset() {
+        pad.value = ''
+        count.init();
+        updateCountInfo()
+        this.isPaused = false;
+        this.isStarted = false;
+        this.stopRefresh();
+        this.showTime();
+    }
+
+    shuffle() {
+        shuffleWords();
+    }
+}
+
 function $(selector) {
     return document.querySelector(selector)
 }
@@ -32,22 +97,40 @@ const ARTICLE = {
 const content = $('.content p');
 const pad = $('#pad');
 let count = new Count();
+let engine = new Engine();
 let currentWords = ARTICLE.gxbtujdc;
 
 window.onload = () => {
     content.innerText = currentWords;
+    updateCountInfo();
+
+    pad.onblur = () => {
+        if (engine.isStarted && !engine.isPaused) {
+            engine.pause();
+        }
+    }
+
+    pad.onfocus = () => {
+        if (engine.isStarted && engine.isPaused) {
+            engine.resume();
+        }
+    }
+
+    // key pressed
     pad.onkeydown = (e) => {
-        console.log(e)
-        if (e.key === 'Tab' || (e.metaKey && e.key === 'r')) {
+        if (e.key === 'Tab' || ((e.metaKey || e.ctrlKey) && e.key === 'r') || ((e.metaKey || e.ctrlKey) && e.key === 's')) {
             e.preventDefault();
         }
+        if (REG.az.test(e.key) && !engine.isStarted) {
+            engine.start()
+        }
+    }
+
+    pad.onkeyup = (e) => {
+        e.preventDefault();
         countKeys(e);
     }
-    pad.oninput = () => {
-        console.log(pad.value)
-    }
 }
-// REG
 const REG = {
     az: /^[a-zA-Z]$/,
     space: /^ $/,
@@ -78,28 +161,22 @@ function updateCountInfo() {
     for (let type in count) {
         $(`.word-${type} p`).innerText = count[type];
     }
-}
-
-function resetCount() {
-    pad.value = ''
-    count.init();
-    updateCountInfo()
+    $('.count-total').innerText = currentWords.length;
+    $('.count-current').innerText = pad.value.length;
 }
 
 function shuffleWords() {
     let array = currentWords.split('');
     currentWords = shuffle(array).join('');
     content.innerText = currentWords;
-    resetCount();
+    engine.reset();
 }
 
 /**
  * 数组乱序算法
  */
 function shuffle(arr) {
-    let length = arr.length,
-        r = length,
-        rand = 0;
+    let length = arr.length, r = length, rand = 0;
 
     while (r) {
         rand = Math.floor(Math.random() * r--);

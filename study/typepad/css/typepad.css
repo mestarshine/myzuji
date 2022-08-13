@@ -19,6 +19,7 @@ body {
 }
 
 .side-menu {
+    margin-right: 10px;
     flex-shrink: 0;
     width: 200px;
     display: flex;
@@ -150,6 +151,7 @@ body {
     -moz-border-radius: 3px;
     border-radius: 3px;
     border: 1px solid transparent;
+    cursor: pointer;
 }
 
 .btn:active {
