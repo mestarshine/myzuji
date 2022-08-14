@@ -23,10 +23,12 @@ class Count {
 }
 
 class Engine {
+    isFinished = false;
     isStarted = false;
     isPaused = false;
     timeStart; //ms
-    duration; // ms
+    timeEnd; // ms
+    duration = 0; // ms
     handleRefresh;
     refreshRate = 1000; // ms
 
@@ -84,10 +86,15 @@ class Engine {
     }
 
     shuffle() {
-        shuffleWords();
+        let array = currentWords.split('');
+        currentWords = shuffle(array).join('');
+        content.innerText = currentWords;
+        engine.reset();
+        updateCountInfo();
     }
 
     compare() {
+        correctWordsCount = 0;
         let typedWords = pad.value;
         let arrayOrigin = currentWords.split('');
         let arrayTyped = typedWords.split('');
@@ -97,8 +104,10 @@ class Engine {
         let wordsWrong = '';
         arrayTyped.forEach((current, index) => {
             let origin = arrayOrigin[index];
+            origin = origin ? origin : ' ';
             let currentCharacterIsCorrect = current === origin;
             if (currentCharacterIsCorrect) {
+                correctWordsCount++;
                 wordsCorrect = wordsCorrect.concat(origin);
             } else {
                 wordsWrong = wordsWrong.concat(origin);
@@ -124,6 +133,14 @@ class Engine {
         html = html.concat(untypedString)
         content.innerHTML = html;
     }
+
+    finish() {
+        this.isStarted = false;
+        this.isFinished = true;
+        this.stopRefresh();
+        this.timeEnd = (new Date()).getTime();
+        updateCountInfo();
+    }
 }
 
 const ARTICLE = {
@@ -134,6 +151,7 @@ const pad = $('#pad');
 let count = new Count();
 let engine = new Engine();
 let currentWords = ARTICLE.gxbtujdc;
+let correctWordsCount = 0;
 const REG = {
     az: /^[a-zA-Z]$/,
     space: /^ $/,
@@ -167,12 +185,21 @@ window.onload = () => {
         }
     }
 
-    // key pressed
+
+    /**
+     * ⌘ + R: 重置
+     * ⌘ + L: 乱序
+     */
     pad.onkeydown = (e) => {
-        if (e.key === 'Tab' || ((e.metaKey || e.ctrlKey) && e.key === 'r') || ((e.metaKey || e.ctrlKey) && e.key === 's')) {
+        if (e.key === 'Tab' || ((e.metaKey || e.ctrlKey) && e.key === 's') || ((e.metaKey || e.ctrlKey) && e.key === 's')) {
             e.preventDefault();
-        }
-        if (REG.az.test(e.key) && !engine.isStarted) {
+        } else if ((e.metaKey || e.ctrlKey) && e.key === 'r') {
+            e.preventDefault();
+            engine.reset();
+        } else if ((e.metaKey || e.ctrlKey) && e.key === 'l') {
+            e.preventDefault();
+            engine.shuffle();
+        } else if (REG.az.test(e.key) && !engine.isStarted) {
             engine.start()
         }
     }
@@ -181,6 +208,12 @@ window.onload = () => {
         e.preventDefault();
         countKeys(e);
         engine.compare();
+        // 末字时结束的时候
+        if (pad.value.length >= currentWords.length) {
+            if (pad.value === currentWords) {
+                engine.finish();
+            }
+        }
     }
 }
 
@@ -203,13 +236,12 @@ function updateCountInfo() {
     }
     $('.count-total').innerText = currentWords.length;
     $('.count-current').innerText = pad.value.length;
-}
 
-function shuffleWords() {
-    let array = currentWords.split('');
-    currentWords = shuffle(array).join('');
-    content.innerText = currentWords;
-    engine.reset();
+    if (!engine.isStarted && !engine.isFinished) {
+        $('.speed').innerText = '--';
+    } else {
+        $('.speed').innerText = (correctWordsCount / engine.duration * 1000 * 60).toFixed(2);
+    }
 }
 
 /**
