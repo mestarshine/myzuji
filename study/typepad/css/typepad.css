@@ -187,6 +187,10 @@ body {
     background-color: #0062cc;
 }
 
+.type-pad {
+    width: 100%;
+}
+
 .content {
     background-color: white;
     padding: 10px;
@@ -217,3 +221,12 @@ body {
     line-height: 1.5;
 }
 
+.correct {
+    background-color: #4CD964;
+    color: white !important;
+}
+
+.wrong {
+    background-color: #FF3B30;
+    color: white !important;
+}

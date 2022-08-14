@@ -60,7 +60,7 @@
 
         </div>
         <div class="tool-bar">
-            <button class="btn btn-primary" onclick="shuffleWords()">乱序</button>
+            <button class="btn btn-primary" onclick="engine.shuffle()">乱序</button>
             <button class="btn btn-blue" onclick="engine.reset()">重置</button>
             <button class="btn btn-blue" onclick="engine.pause()">暂停</button>
             <button class="btn btn-blue" onclick="engine.resume()">继续</button>
@@ -73,7 +73,7 @@
         </div>
         <div class="typing">
             <label class="hidden" for="pad"></label>
-            <textarea class="text" cols="30" id="pad" rows="10"></textarea>
+            <textarea class="text" id="pad" rows="10"></textarea>
         </div>
     </div>
 

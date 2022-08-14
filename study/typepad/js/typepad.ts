@@ -17,8 +17,8 @@ class Count {
         this.meta = 0;
         this.alt = 0;
         this.function = 0;
-        this.backspace = 0;
         this.space = 0;
+        this.backspace = 0;
     }
 }
 
@@ -67,6 +67,7 @@ class Engine {
     }
 
     resume() {
+        this.timeStart = (new Date()).getTime() - this.duration;
         this.isPaused = false;
         this.startRefresh();
 
@@ -85,10 +86,44 @@ class Engine {
     shuffle() {
         shuffleWords();
     }
-}
 
-function $(selector) {
-    return document.querySelector(selector)
+    compare() {
+        let typedWords = pad.value;
+        let arrayOrigin = currentWords.split('');
+        let arrayTyped = typedWords.split('');
+        let html = '';
+        let lastCharacterIsCorrect = false; // 上一个字符是正确的
+        let wordsCorrect = '';
+        let wordsWrong = '';
+        arrayTyped.forEach((current, index) => {
+            let origin = arrayOrigin[index];
+            let currentCharacterIsCorrect = current === origin;
+            if (currentCharacterIsCorrect) {
+                wordsCorrect = wordsCorrect.concat(origin);
+            } else {
+                wordsWrong = wordsWrong.concat(origin);
+            }
+
+            if (wordsCorrect && !lastCharacterIsCorrect && index) {
+                html = html.concat(`<span class="wrong">${wordsWrong}</span>`);
+                wordsWrong = '';
+            } else if (wordsWrong && lastCharacterIsCorrect && index) {
+                html = html.concat(`<span class="correct">${wordsCorrect}</span>`);
+                wordsCorrect = '';
+            }
+            if ((index + 1) === typedWords.length) {
+                if (wordsCorrect) {
+                    html = html.concat(`<span class="correct">${wordsCorrect}</span>`);
+                } else {
+                    html = html.concat(`<span class="wrong">${wordsWrong}</span>`);
+                }
+            }
+            lastCharacterIsCorrect = current === origin;
+        })
+        let untypedString = currentWords.substring(arrayTyped.length)
+        html = html.concat(untypedString)
+        content.innerHTML = html;
+    }
 }
 
 const ARTICLE = {
@@ -99,6 +134,22 @@ const pad = $('#pad');
 let count = new Count();
 let engine = new Engine();
 let currentWords = ARTICLE.gxbtujdc;
+const REG = {
+    az: /^[a-zA-Z]$/,
+    space: /^ $/,
+    backspace: /^Backspace$/,
+    number: /\d/,
+    shift: /^Shift$/,
+    function: /^(Control|Alt|Meta|Shift|Tab)$/,
+    meta: /^Meta$/,
+    alt: /^Alt$/,
+    ctrl: /^(Control|Alt|Meta|Shift)$/,
+    delete: /^Delete$/,
+}
+
+function $(selector) {
+    return document.querySelector(selector)
+}
 
 window.onload = () => {
     content.innerText = currentWords;
@@ -129,19 +180,8 @@ window.onload = () => {
     pad.onkeyup = (e) => {
         e.preventDefault();
         countKeys(e);
+        engine.compare();
     }
-}
-const REG = {
-    az: /^[a-zA-Z]$/,
-    space: /^ $/,
-    backspace: /^Backspace$/,
-    number: /\d/,
-    shift: /^Shift$/,
-    function: /^(Control|Alt|Meta|Shift|Tab)$/,
-    meta: /^Meta$/,
-    alt: /^Alt$/,
-    ctrl: /^(Control|Alt|Meta|Shift)$/,
-    delete: /^Delete$/,
 }
 
 function countKeys(e) {
