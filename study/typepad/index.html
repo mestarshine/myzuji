@@ -2,13 +2,31 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>跟打器</title>
     <link href="css/typepad.css" rel="stylesheet">
 </head>
 <body>
 <div id="app">
     <div class="side-menu">
+        <div class="speed-info info-item">
+            <div class="time">
+                <div class="minute">--</div>
+                <div class="second">--</div>
+            </div>
+            <div class="speed">--</div>
+            <div class="count">
+                <p class="count-current">0</p>
+                <p class="count-total"></p>
+                <p class="count-keyrate"></p>
+            </div>
+
+        </div>
         <div class="key-info info-item">
+            <div class="key-info-item word-all">
+                <h6>ALL</h6>
+                <p></p>
+            </div>
             <div class="key-info-item word-az">
                 <h6>A-Z</h6>
                 <p></p>
@@ -46,28 +64,15 @@
                 <p></p>
             </div>
         </div>
+    </div>
 
-        <div class="speed-info info-item">
-            <div class="time">
-                <div class="minute">--</div>
-                <div class="second">--</div>
-            </div>
-            <div class="speed">0</div>
-            <div class="count">
-                <p class="count-current">0</p>
-                <p class="count-total"></p>
-            </div>
-
-        </div>
+    <div class="type-pad">
         <div class="tool-bar">
             <button class="btn btn-primary" onclick="engine.shuffle()">乱序</button>
             <button class="btn btn-blue" onclick="engine.reset()">重置</button>
             <button class="btn btn-blue" onclick="engine.pause()">暂停</button>
             <button class="btn btn-blue" onclick="engine.resume()">继续</button>
         </div>
-    </div>
-
-    <div class="type-pad">
         <div class="content">
             <p class="text"></p>
         </div>
