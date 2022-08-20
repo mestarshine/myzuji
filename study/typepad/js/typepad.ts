@@ -1,4 +1,5 @@
 class Count {
+    all = 0;
     az = 0;
     number = 0;
     ctrl = 0;
@@ -10,6 +11,7 @@ class Count {
     backspace = 0;
 
     init() {
+        this.all = 0;
         this.az = 0;
         this.number = 0;
         this.ctrl = 0;
@@ -42,6 +44,7 @@ class Engine {
         this.handleRefresh = setInterval(() => {
             let timeNow = (new Date()).getTime()
             this.duration = timeNow - this.timeStart;
+            this.updateCountInfo();
             this.showTime();
         }, this.refreshRate)
     }
@@ -76,9 +79,10 @@ class Engine {
     }
 
     reset() {
+        content.innerHTML = currentWords
         pad.value = ''
         count.init();
-        updateCountInfo()
+        this.updateCountInfo();
         this.isPaused = false;
         this.isStarted = false;
         this.stopRefresh();
@@ -90,7 +94,6 @@ class Engine {
         currentWords = shuffle(array).join('');
         content.innerText = currentWords;
         engine.reset();
-        updateCountInfo();
     }
 
     compare() {
@@ -139,7 +142,26 @@ class Engine {
         this.isFinished = true;
         this.stopRefresh();
         this.timeEnd = (new Date()).getTime();
-        updateCountInfo();
+        this.updateCountInfo();
+    }
+
+    updateCountInfo() {
+        for (let type in count) {
+            $(`.word-${type} p`).innerText = count[type];
+        }
+        $('.count-total').innerText = currentWords.length;
+        $('.count-current').innerText = pad.value.length;
+
+        // speed
+        if (!engine.isStarted && !engine.isFinished) {
+            $('.speed').innerText = '--';
+            $('.count-keyrate').innerText = '--';
+        } else {
+            $('.speed').innerText = (correctWordsCount / engine.duration * 1000 * 60).toFixed(2);
+
+            let keyCount = count.all - count.function;
+            $('.count-keyrate').innerText = (keyCount / engine.duration * 1000).toFixed(2);
+        }
     }
 }
 
@@ -153,6 +175,7 @@ let engine = new Engine();
 let currentWords = ARTICLE.gxbtujdc;
 let correctWordsCount = 0;
 const REG = {
+    all: /.*/,
     az: /^[a-zA-Z]$/,
     space: /^ $/,
     backspace: /^Backspace$/,
@@ -171,7 +194,7 @@ function $(selector) {
 
 window.onload = () => {
     content.innerText = currentWords;
-    updateCountInfo();
+    engine.updateCountInfo();
 
     pad.onblur = () => {
         if (engine.isStarted && !engine.isPaused) {
@@ -225,25 +248,9 @@ function countKeys(e) {
             }
         }
     }
-
-    updateCountInfo()
 }
 
 // Update infos
-function updateCountInfo() {
-    for (let type in count) {
-        $(`.word-${type} p`).innerText = count[type];
-    }
-    $('.count-total').innerText = currentWords.length;
-    $('.count-current').innerText = pad.value.length;
-
-    if (!engine.isStarted && !engine.isFinished) {
-        $('.speed').innerText = '--';
-    } else {
-        $('.speed').innerText = (correctWordsCount / engine.duration * 1000 * 60).toFixed(2);
-    }
-}
-
 /**
  * 数组乱序算法
  */
