@@ -24,6 +24,13 @@ class Count {
     }
 }
 
+class Options {
+    chapter = 1;
+    isShuffle = false;
+    count = 15;
+    article = ARTICLE.one;
+}
+
 class Engine {
     isFinished = false;
     isStarted = false;
@@ -164,6 +171,35 @@ class Engine {
             $('.count-keyrate').innerText = (keyCount / engine.duration * 1000).toFixed(2);
         }
     }
+
+    changeArticle() {
+        let article = $('#article').value;
+        let isShuffle = $('#mode').checked;
+        let radios = document.querySelectorAll('input[type=radio]');
+        let count = 0;
+        for (let i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                count = Number(radios[i].value);
+            }
+        }
+        option.article = article;
+        option.isShuffle = isShuffle;
+        option.count = count;
+
+        switch (article) {
+            case 'one':
+                currentOriginWords = isShuffle ? shuffle(ARTICLE.one.split('')) : ARTICLE.one.split('');
+                currentWords = currentOriginWords.slice(0, Number(count)).join('');
+                break;
+            case 'two':
+                currentOriginWords = isShuffle ? shuffle(ARTICLE.two.split('')) : ARTICLE.two.split('');
+                currentWords = currentOriginWords.slice(0, Number(count)).join('');
+                break;
+            default:
+                break;
+        }
+        this.reset();
+    }
 }
 
 const ARTICLE = {
@@ -176,6 +212,8 @@ let count = new Count();
 let engine = new Engine();
 let currentWords = ARTICLE.one;
 let correctWordsCount = 0;
+let option = new Options();
+let currentOriginWords = [];
 const REG = {
     all: /.*/,
     az: /^[a-zA-Z]$/,
@@ -195,6 +233,7 @@ function $(selector) {
 }
 
 window.onload = () => {
+    engine.changeArticle();
     content.innerText = currentWords;
     engine.updateCountInfo();
 
@@ -216,12 +255,12 @@ window.onload = () => {
      * ⌘ + L: 乱序
      */
     pad.onkeydown = (e) => {
-        if (e.key === 'Tab' || ((e.metaKey || e.ctrlKey) && (/[qwfg]/.test(e.key)))) {
+        if (e.key === 'Tab' || ((e.metaKey || e.ctrlKey) && (/[qewfgyplt]/.test(e.key)))) {
             e.preventDefault();
         } else if ((e.metaKey || e.ctrlKey) && e.key === 'r') {
             e.preventDefault();
             engine.reset();
-        } else if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+        } else if ((e.metaKey || e.ctrlKey) && e.key === 'l') {
             e.preventDefault();
             engine.shuffle();
         } else if (REG.az.test(e.key) && !e.ctrlKey && !e.metaKey && !e.altKey && !engine.isStarted && !engine.isFinished) {
@@ -266,20 +305,4 @@ function shuffle(arr) {
         [arr[r], arr[rand]] = [arr[rand], arr[r]];
     }
     return arr;
-}
-
-function changeArticle() {
-    let article = $('#article').value;
-    switch (article) {
-        case 'one':
-            currentWords = ARTICLE.one;
-            break;
-        case 'two':
-            currentWords = ARTICLE.two;
-            break;
-        default:
-            break;
-    }
-    engine.reset();
-    engine.updateCountInfo();
 }

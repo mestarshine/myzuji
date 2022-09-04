@@ -81,21 +81,23 @@
             <button class="btn btn-blue" onclick="engine.reset()">重置</button>
             <button class="btn btn-blue" onclick="engine.pause()">暂停</button>
             <button class="btn btn-blue" onclick="engine.resume()">继续</button>
-            <select id="article" name="" onchange="changeArticle()">
+            <select id="article" name="" onchange="engine.changeArticle()">
                 <option value="one">一级简码</option>
                 <option value="two">二级简码</option>
             </select>
             <div>
-                <input checked id="count10" name="count" onchange="changeArticle()" type="radio" value="10"><label
+                <input checked id="count10" name="count" onchange="engine.changeArticle()" type="radio"
+                       value="10"><label
                 for="count10">10</label>
-                <input id="count15" name="count" onchange="changeArticle()" type="radio" value="15"><label
+                <input id="count15" name="count" onchange="engine.changeArticle()" type="radio" value="15"><label
                 for="count15">15</label>
-                <input id="count20" name="count" onchange="changeArticle()" type="radio" value="20"><label
+                <input id="count20" name="count" onchange="engine.changeArticle()" type="radio" value="20"><label
                 for="count20">20</label>
-                <input id="count50" name="count" onchange="changeArticle()" type="radio" value="50"><label
+                <input id="count50" name="count" onchange="engine.changeArticle()" type="radio" value="50"><label
                 for="count50">50</label>
-                <input id="count100" name="count" onchange="changeArticle()" type="radio" value="100"><label
+                <input id="count100" name="count" onchange="engine.changeArticle()" type="radio" value="100"><label
                 for="count100">100</label>
+                <input id="mode" onchange="engine.changeArticle()" type="checkbox"><label for="mode">乱序</label>
             </div>
         </div>
         <div class="content">
