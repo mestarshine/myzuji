@@ -26,11 +26,13 @@ class Count {
 
 class Options {
     chapter = 1;
+    chapterTotal = 1;
     isShuffle = false;
     count = 15;
     article = ARTICLE.one;
 }
 
+//跟打器引擎
 class Engine {
     isFinished = false;
     isStarted = false;
@@ -68,8 +70,8 @@ class Engine {
             $('.minute').innerText = minute >= 10 ? minute : `0${minute}`;
             $('.second').innerText = second >= 10 ? second : `0${second}`;
         } else {
-            $('.minute').innerText = '--';
-            $('.second').innerText = '--';
+            $('.minute').innerText = '00';
+            $('.second').innerText = '00';
         }
     }
 
@@ -78,6 +80,7 @@ class Engine {
         this.stopRefresh()
     }
 
+    // 继续
     resume() {
         this.timeStart = (new Date()).getTime() - this.duration;
         this.isPaused = false;
@@ -85,6 +88,7 @@ class Engine {
 
     }
 
+    // 重置计数器
     reset() {
         content.innerHTML = currentWords
         pad.value = ''
@@ -97,6 +101,7 @@ class Engine {
         this.showTime();
     }
 
+    // 乱序当前段
     shuffle() {
         let array = currentWords.split('');
         currentWords = shuffle(array).join('');
@@ -145,6 +150,7 @@ class Engine {
         content.innerHTML = html;
     }
 
+    // 当前段打完
     finish() {
         this.isStarted = false;
         this.isFinished = true;
@@ -153,6 +159,7 @@ class Engine {
         this.updateCountInfo();
     }
 
+    // 更新界面信息
     updateCountInfo() {
         for (let type in count) {
             $(`.word-${type} p`).innerText = count[type];
@@ -163,45 +170,66 @@ class Engine {
         // speed
         if (!engine.isStarted && !engine.isFinished) {
             $('.speed').innerText = '--';
-            $('.count-keyrate').innerText = '--';
+            $('.count-key-rate').innerText = '--';
         } else {
             $('.speed').innerText = (correctWordsCount / engine.duration * 1000 * 60).toFixed(2);
 
             let keyCount = count.all - count.function;
-            $('.count-keyrate').innerText = (keyCount / engine.duration * 1000).toFixed(2);
+            $('.count-key-rate').innerText = (keyCount / engine.duration * 1000).toFixed(2);
+
+            $('.count-key-length').innerText = (keyCount / currentWords.length).toFixed(2);
         }
+        // option
+        $('.chapter-current').innerText = option.chapter;
+        $('.chapter-total').innerText = option.chapterTotal;
     }
 
     changeArticle() {
         let article = $('#article').value;
         let isShuffle = $('#mode').checked;
         let radios = document.querySelectorAll('input[type=radio]');
-        let count = 0;
+        let perCount = 0;
         for (let i = 0; i < radios.length; i++) {
             if (radios[i].checked) {
-                count = Number(radios[i].value);
+                perCount = Number(radios[i].value);
             }
         }
-        option.article = article;
-        option.isShuffle = isShuffle;
-        option.count = count;
 
         switch (article) {
             case 'one':
                 currentOriginWords = isShuffle ? shuffle(ARTICLE.one.split('')) : ARTICLE.one.split('');
-                currentWords = currentOriginWords.slice(0, Number(count)).join('');
+                currentWords = currentOriginWords.slice(0, Number(perCount)).join('');
                 break;
             case 'two':
                 currentOriginWords = isShuffle ? shuffle(ARTICLE.two.split('')) : ARTICLE.two.split('');
-                currentWords = currentOriginWords.slice(0, Number(count)).join('');
+                currentWords = currentOriginWords.slice(0, Number(perCount)).join('');
                 break;
             default:
                 break;
         }
         this.reset();
     }
+
+    // 上一段
+    prevChapter() {
+        if (option.chapter !== 1) {
+            currentWords = currentOriginWords.slice(option.count * (option.chapter - 2), option.count * (option.chapter - 1)).join('');
+            option.chapter--;
+            engine.reset();
+        }
+    }
+
+    // 下一段
+    nextChapter() {
+        if (option.chapter !== option.chapterTotal) {
+            currentWords = currentOriginWords.slice(option.count * option.chapter, option.count * (option.chapter + 1)).join('');
+            option.chapter++;
+            engine.reset();
+        }
+    }
 }
 
+// 默认文章
 const ARTICLE = {
     one: '一地在要工上是中国同和的有人我主产不为这民了发以经',
     two: '五于天末开下理事画现麦珠表珍万玉平求来珲与击妻到互二土城霜域起进喜载南才垢协夫无裁增示赤过志地雪去盏三夺大厅左还百右奋面故原胡春克太磁耗矿达成顾碌友龙本村顶林模相查可楞贾格析棚机构术样档杰枕杨李根权楷七著其苛工牙划或苗黄攻区功共获芳蒋东蔗劳世节切芭药上歧非盯虑止旧占卤贞睡睥肯具餐眩瞳眇眯瞎卢眼皮此量时晨果暴申日蝇曙遇昨蝗明蛤晚景暗晃显晕电最归紧昆号叶顺呆呀中虽吕喂员吃听另只兄咬吖吵嘛喧叫啊啸吧哟车团因困羁四辊回田轴图斩男界罗较圈辘连思辄轨轻累峡周央岢曲由则迥崭山败刚骨内见丹赠峭赃迪岂邮峻幽生等知条长处得各备向笔稀务答物入科秒秋管乐秀很么第后质振打找年提损摆制手折摇失换护拉朱扩近气报热把指且脚须采毁用胆加舅觅胜貌月办胸脑脱膛脏边力服妥肥脂全会做体代个介保佃仙八风佣从你信位偿伙伫假他分公化印钱然钉错外旬名甸负儿铁解欠多久匀销炙锭饭迎争色锴请计诚订谋让刘就谓市放义衣六询方说诮变这记诎良充率着斗头亲并站间问单端道前准次门立冰普决闻兼痛北光法尖河江小温溃渐油少派肖没沟流洋水淡学泥池当汉涨业庄类灯度店烛燥烟庙庭煌粗府底广料应火迷断籽数序庇定守害宁宽官审宫军宙客宾农空冤社实宵灾之密字安它那导居怵展收慢避惭届必怕惟懈心习尿屡忱已敢恨怪惯卫际随阿陈耻阳职阵出降孤阴队隐及联孙耿院也子限取陛建寻姑杂媒肀旭如姻妯九婢退妗婚娘嫌录灵嫁刀好妇即姆马对参戏台观矣能难允叉巴邓艰又纯线顷缃红引费强细纲张缴组给约统弱纱继缩纪级绿经比',
@@ -232,6 +260,7 @@ function $(selector) {
     return document.querySelector(selector)
 }
 
+// 初始化
 window.onload = () => {
     engine.changeArticle();
     content.innerText = currentWords;
@@ -251,8 +280,11 @@ window.onload = () => {
 
 
     /**
-     * ⌘ + R: 重置
-     * ⌘ + L: 乱序
+     * 按键过滤器
+     * ⌘ + r: 重置
+     * ⌘ + l: 乱序
+     * ⌘ + u: 上一段
+     * ⌘ + j: 下一段
      */
     pad.onkeydown = (e) => {
         if (e.key === 'Tab' || ((e.metaKey || e.ctrlKey) && (/[qewfgyplt]/.test(e.key)))) {
@@ -263,6 +295,12 @@ window.onload = () => {
         } else if ((e.metaKey || e.ctrlKey) && e.key === 'l') {
             e.preventDefault();
             engine.shuffle();
+        } else if ((e.metaKey || e.ctrlKey) && e.key === 'u') {
+            engine.prevChapter();
+            e.preventDefault();
+        } else if ((e.metaKey || e.ctrlKey) && e.key === 'j') {
+            engine.nextChapter();
+            e.preventDefault();
         } else if (REG.az.test(e.key) && !e.ctrlKey && !e.metaKey && !e.altKey && !engine.isStarted && !engine.isFinished) {
             engine.start()
         }
@@ -291,6 +329,7 @@ function countKeys(e) {
             }
         }
     }
+    $('.count-key-backspace').innerText = count.backspace;
 }
 
 // Update infos
