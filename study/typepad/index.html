@@ -18,15 +18,15 @@
             <div class="speed">--</div>
             <div class="count pt-2">
                 <div class="count-item">
-                    <p class="count-key-backspace">0</p>
-                    <p class="small">当前</p>
+                    <p class="count-key-backspace">--</p>
+                    <p class="small">回删</p>
                 </div>
                 <div class="count-item">
-                    <p class="count-key-length">0</p>
+                    <p class="count-key-length">--</p>
                     <p class="small">码长</p>
                 </div>
                 <div class="count-item">
-                    <p class="count-key-rate">0</p>
+                    <p class="count-key-rate">--</p>
                     <p class="small">击键</p>
                 </div>
             </div>
@@ -88,33 +88,35 @@
 
     <div class="type-pad">
         <div class="tool-bar mt-2">
-            <div class="tool-bar-group operation-btns">
-                <button class="btn btn-primary" onclick="engine.shuffle()">乱序</button>
-                <button class="btn btn-blue" onclick="engine.reset()">重置</button>
-                <button class="btn btn-blue" onclick="engine.pause()">暂停</button>
-                <button class="btn btn-blue" onclick="engine.resume()">继续</button>
+            <div class="btn-group">
+                <div class="btn">当前段</div>
+                <div class="btn" onclick="engine.shuffle()">乱序</div>
+                <div class="btn" onclick="engine.reset()">重置</div>
+                <div class="btn" onclick="engine.pause()">暂停</div>
+                <div class="btn" onclick="engine.resume()">继续</div>
             </div>
-            <div class="tool-bar-group operation-article">
-                <select id="article" name="" onchange="engine.changeArticle()">
+            <div class="btn-group">
+                <select class="btn" id="article" onchange="engine.changeArticle()">
                     <option value="one">一级简码</option>
                     <option value="two">二级简码</option>
                 </select>
-                <div class="count-selector">
-                    <input checked id="count10" name="count" onchange="engine.changeArticle()" type="radio" value="10">
-                    <label for="count10">10</label>
-                    <input id="count15" name="count" onchange="engine.changeArticle()" type="radio" value="15">
-                    <label for="count15">15</label>
-                    <input id="count20" name="count" onchange="engine.changeArticle()" type="radio" value="20">
-                    <label for="count20">20</label>
-                    <input id="count50" name="count" onchange="engine.changeArticle()" type="radio" value="50">
-                    <label for="count50">50</label>
-                    <input id="count100" name="count" onchange="engine.changeArticle()" type="radio" value="100">
-                    <label for="count100">100</label>
-                </div>
             </div>
-            <div class="tool-bar-group shuffle">
-                <span>乱序</span>
-                <input id="mode" onchange="engine.changeArticle()" type="checkbox"><label for="mode"></label>
+            <div class="btn-group">
+                <input checked class="btn" id="count10" name="count" onchange="engine.changeArticle()" type="radio"
+                       value="10"><label class="btn" for="count10">10</label>
+                <input class="btn" id="count15" name="count" onchange="engine.changeArticle()" type="radio"
+                       value="15"><label class="btn" for="count15">15</label>
+                <input class="btn" id="count20" name="count" onchange="engine.changeArticle()" type="radio"
+                       value="20"><label class="btn" for="count20">20</label>
+                <input class="btn" id="count50" name="count" onchange="engine.changeArticle()" type="radio"
+                       value="50"><label class="btn" for="count50">50</label>
+                <input class="btn" id="count100" name="count" onchange="engine.changeArticle()" type="radio"
+                       value="100"><label class="btn" for="count100">100</label>
+            </div>
+            <div class="btn-group shuffle">
+                <span class="btn">乱序</span>
+                <input class="btn" id="mode" onchange="engine.changeArticle()" type="checkbox"><label
+                for="mode"></label>
             </div>
         </div>
         <div class="content">
