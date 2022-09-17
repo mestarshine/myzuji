@@ -43,46 +43,30 @@
             </div>
         </div>
         <div class="key-info info-item">
-            <div class="key-info-item word-all">
-                <h6>ALL</h6>
-                <p></p>
-            </div>
-            <div class="key-info-item word-az">
-                <h6>A-Z</h6>
-                <p></p>
-            </div>
-            <div class="key-info-item word-space">
-                <h6>Space</h6>
-                <p></p>
-            </div>
-            <div class="key-info-item word-backspace">
-                <h6>BackSpace</h6>
-                <p></p>
-            </div>
-            <div class="key-info-item word-number">
-                <h6>Number</h6>
-                <p></p>
-            </div>
-            <div class="key-info-item word-shift">
-                <h6>Shift</h6>
-                <p></p>
-            </div>
-            <div class="key-info-item word-function">
-                <h6>Function Key</h6>
-                <p></p>
-            </div>
-            <div class="key-info-item word-meta">
-                <h6>Command</h6>
-                <p></p>
-            </div>
-            <div class="key-info-item word-alt">
-                <h6>Alt</h6>
-                <p></p>
-            </div>
-            <div class="key-info-item word-ctrl">
-                <h6>Ctrl</h6>
-                <p></p>
-            </div>
+            <div class="key-info-item word-all"><h6>ALL</h6>
+                <p></p></div>
+            <div class="key-info-item word-az"><h6>A-Z</h6>
+                <p></p></div>
+            <div class="key-info-item word-space"><h6>Space</h6>
+                <p></p></div>
+            <div class="key-info-item word-backspace"><h6>BackSpace</h6>
+                <p></p></div>
+            <div class="key-info-item word-number"><h6>Number</h6>
+                <p></p></div>
+            <div class="key-info-item word-function"><h6>Function Key</h6>
+                <p></p></div>
+            <div class="key-info-item word-shift"><h6>Shift</h6>
+                <p></p></div>
+            <div class="key-info-item word-meta"><h6>Command（⌘）</h6>
+                <p></p></div>
+            <div class="key-info-item word-alt"><h6>Option</h6>
+                <p></p></div>
+            <div class="key-info-item word-ctrl"><h6>Control</h6>
+                <p></p></div>
+            <div class="key-info-item word-semicolon"><h6>;</h6>
+                <p></p></div>
+            <div class="key-info-item word-quot"><h6>'</h6>
+                <p></p></div>
         </div>
     </div>
 
@@ -96,12 +80,13 @@
                 <div class="btn" onclick="engine.resume()">继续</div>
             </div>
             <div class="btn-group">
+                <div class="btn" onclick="">清除记录</div>
+            </div>
+            <div class="btn-group">
                 <select class="btn" id="article" onchange="engine.changeArticle()">
                     <option value="one">一级简码</option>
                     <option value="two">二级简码</option>
                 </select>
-            </div>
-            <div class="btn-group">
                 <input checked class="btn" id="count10" name="count" onchange="engine.changeArticle()" type="radio"
                        value="10"><label class="btn" for="count10">10</label>
                 <input class="btn" id="count15" name="count" onchange="engine.changeArticle()" type="radio"
@@ -113,7 +98,7 @@
                 <input class="btn" id="count100" name="count" onchange="engine.changeArticle()" type="radio"
                        value="100"><label class="btn" for="count100">100</label>
             </div>
-            <div class="btn-group shuffle">
+            <div class="btn-group no-border shuffle">
                 <span class="btn">乱序</span>
                 <input class="btn" id="mode" onchange="engine.changeArticle()" type="checkbox"><label
                 for="mode"></label>
@@ -125,6 +110,25 @@
         <div class="typing">
             <label class="hidden" for="pad"></label>
             <textarea class="text" id="pad" rows="10"></textarea>
+        </div>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>速度</th>
+                    <th>码长</th>
+                    <th>击键</th>
+                    <th>回退</th>
+                    <th>字数</th>
+                    <th>开始时间</th>
+                    <th>用时</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     </div>
 

@@ -188,10 +188,15 @@ select {
 .content {
     background-color: white;
     padding: 10px;
-    border: 2px solid #ddd;
+    border: 1px solid #ddd;
     max-height: 200px;
+    min-height: 100px;
     overflow-y: scroll;
     margin-bottom: 10px;
+}
+
+.content:hover {
+    border-color: #4CD964;
 }
 
 .typing {
@@ -199,6 +204,7 @@ select {
 }
 
 .typing textarea {
+    border: 1px solid #dddddd;
     resize: none;
     max-height: 200px;
     width: 100%;
@@ -210,6 +216,7 @@ select {
     -webkit-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
     box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
+    border-color: #4CD964;
 }
 
 .hidden {
@@ -271,12 +278,6 @@ input[type=checkbox] + label:before {
     transition: all 0.3s;
 }
 
-input[type=checkbox]:checked + label,
-input[type=radio]:checked + label {
-    background-color: #4CD964;
-    color: white;
-}
-
 input[type=checkbox]:checked + label {
     background-color: #4CD964;
 }
@@ -299,6 +300,12 @@ input[type=checkbox]:checked + label:before {
     transition: all 0.3s;
 }
 
+input[type=radio]:checked + label {
+    font-weight: bold;
+    background-color: #4CD964;
+    color: white;
+}
+
 .btn-group {
     display: flex;
     justify-content: flex-start;
@@ -309,7 +316,11 @@ input[type=checkbox]:checked + label:before {
     border: 1px solid #dddddd;
 }
 
-.btn-group .btn {
+.btn-group.no-border {
+    border: none !important;
+}
+
+.btn-group .btn, td .btn {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -352,4 +363,79 @@ input[type=checkbox]:checked + label:before {
 @font-face {
     font-family: "Impact";
     src: url("../font/Impact.ttf");
+}
+
+.table-container {
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid #dddddd;
+    background-color: white;
+    margin-top: 10px;
+}
+
+.table {
+    width: 100%;
+}
+
+thead tr {
+    border-bottom: 1px solid #eaeaea;
+}
+
+thead tr th {
+    text-align: left;
+    padding: 8px 4px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+thead tr th:first-child {
+    padding-left: 10px;
+}
+
+thead tr th:last-child {
+    padding-right: 10px;
+}
+
+tbody {
+    width: 100%;
+}
+
+tbody tr {
+    cursor: crosshair;
+}
+
+tbody tr:nth-child(2n+1) {
+    background-color: #f7f7f7;
+}
+
+tbody tr:nth-child(2n) {
+    background-color: white;
+}
+
+tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+tbody tr td:first-child {
+    padding-left: 10px;
+}
+
+tbody tr td:last-child {
+    padding-right: 10px;
+}
+
+td {
+    padding: 4px;
+    font-size: 12px;
+}
+
+td .btn {
+    padding: 2px 8px;
+    background-color: #ff6b63;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
