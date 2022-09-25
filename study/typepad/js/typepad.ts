@@ -1,3 +1,25 @@
+/**
+ * Count 所有按键记录
+ * Engine 主程序，开始结束暂停
+ *
+ */
+const localStorageIndexName = 'TypePadIndex';
+const REG = {
+    all: /.*/,
+    az: /^[a-zA-Z]$/,
+    number: /\d/,
+    function: /^(Control|Alt|Meta|Shift|Tab)$/,
+    ctrl: /^(Control|Alt|Meta|Shift)$/,
+    shift: /^Shift$/,
+    meta: /^Meta$/,
+    alt: /^Alt$/,
+    space: /^ $/,
+    backspace: /^Backspace$/,
+    delete: /^Delete$/,
+    semicolon: /;/,
+    quot: /'/,
+}
+
 class Count {
     all = 0;
     az = 0;
@@ -9,6 +31,8 @@ class Count {
     function = 0;
     space = 0;
     backspace = 0;
+    semicolon = 0;
+    quot = 0;
 
     init() {
         this.all = 0;
@@ -21,6 +45,8 @@ class Count {
         this.function = 0;
         this.space = 0;
         this.backspace = 0;
+        this.semicolon = 0;
+        this.quot = 0;
     }
 }
 
@@ -90,6 +116,7 @@ class Engine {
 
     // 重置计数器
     reset() {
+        record = new Records(0, 0, 0, 0, 0, 0, 0);
         content.innerHTML = currentWords
         pad.value = ''
         count.init();
@@ -156,7 +183,14 @@ class Engine {
         this.isFinished = true;
         this.stopRefresh();
         this.timeEnd = (new Date()).getTime();
+        this.duration = this.timeEnd - this.timeStart;
+        // update record
+        record.backspace = count.backspace;
+        record.timeStart = this.timeStart;
+        record.duration = this.duration;
+        record.wordCount = currentWords.length;
         this.updateCountInfo();
+        data.insert(record);
     }
 
     // 更新界面信息
@@ -172,12 +206,15 @@ class Engine {
             $('.speed').innerText = '--';
             $('.count-key-rate').innerText = '--';
         } else {
-            $('.speed').innerText = (correctWordsCount / engine.duration * 1000 * 60).toFixed(2);
+            record.speed = (correctWordsCount / engine.duration * 1000 * 60).toFixed(2);
+            $('.speed').innerText = record.speed;
 
             let keyCount = count.all - count.function;
-            $('.count-key-rate').innerText = (keyCount / engine.duration * 1000).toFixed(2);
+            record.hitRate = (keyCount / engine.duration * 1000).toFixed(2);
+            $('.count-key-rate').innerText = record.hitRate;
 
-            $('.count-key-length').innerText = (keyCount / currentWords.length).toFixed(2);
+            record.codeLength = (keyCount / currentWords.length).toFixed(2);
+            $('.count-key-length').innerText = record.codeLength;
         }
         // option
         $('.chapter-current').innerText = option.chapter;
@@ -185,6 +222,7 @@ class Engine {
     }
 
     changeArticle() {
+        record = new Records(0, 0, 0, 0, 0, 0, 0);
         let article = $('#article').value;
         let isShuffle = $('#mode').checked;
         let radios = document.querySelectorAll('input[type=radio]');
@@ -229,6 +267,90 @@ class Engine {
     }
 }
 
+class Records {
+    id;
+    speed;
+    codeLength;
+    hitRate;
+    backspace;
+    wordCount;
+    timeStart;
+    duration;
+
+    constructor(speed, codeLength, hitRate, backspace, wordCount, timeStart, duration) {
+        let index = localStorage[localStorageIndexName];
+        this.id = index ? Number(index) : 1;
+        localStorage[localStorageIndexName] = this.id;
+        this.speed = speed;
+        this.codeLength = codeLength;
+        this.hitRate = hitRate;
+        this.backspace = backspace;
+        this.wordCount = wordCount;
+        this.timeStart = timeStart;
+        this.duration = duration;
+    }
+}
+
+class DataBase {
+    // 添加数据
+    insert(record) {
+        let request = DB.transaction([OBJECT_NAME], 'readwrite')
+            .objectStore(OBJECT_NAME)
+            .add({
+                id: record.id,
+                speed: record.speed,
+                codeLength: record.codeLength,
+                hitRate: record.hitRate,
+                backspace: record.backspace,
+                wordCount: record.wordCount,
+                timeStart: record.timeStart,
+                duration: record.duration,
+            });
+        request.onsuccess = e => {
+            localStorage[localStorageIndexName] = Number(localStorage[localStorageIndexName]) + 1;
+            this.fetchAll();
+        }
+
+        request.onerror = e => {
+            console.log(e);
+        }
+    }
+
+    // 获取所有数据
+    fetchAll() {
+        let objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
+        let html = '';
+        let currentCursor = objectStore.openCursor().onsuccess = e => {
+            let cursor = e.target.result;
+            if (cursor) {
+                let lineHtml = `<tr>
+                          <td class="text-center">${cursor.key}</td>
+                          <td>${cursor.value.speed}</td>
+                          <td>${cursor.value.codeLength}</td>
+                          <td>${cursor.value.hitRate}</td>
+                          <td>${cursor.value.backspace}</td>
+                          <td>${cursor.value.wordCount}</td>
+                          <td>${dateFormatter(new Date(cursor.value.timeStart), '')}</td>
+                          <td class="time">${formatTimeLeft(cursor.value.duration)}</td>
+                          <td><button class="btn btn-danger btn-sm" onclick="data.delete(${cursor.key})" type="button">删除</button></td>
+                        </tr>`;
+                html = html + lineHtml;
+                document.querySelector('tbody').innerHTML = html;
+                cursor.continue(); // 移到下一个位置
+            }
+        }
+    }
+
+    // 删除一条数据
+    delete(id) {
+        let objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
+        objectStore.delete(id).onsuccess = e => {
+            this.fetchAll();
+        }
+    }
+
+}
+
 // 默认文章
 const ARTICLE = {
     one: '一地在要工上是中国同和的有人我主产不为这民了发以经',
@@ -242,19 +364,13 @@ let currentWords = ARTICLE.one;
 let correctWordsCount = 0;
 let option = new Options();
 let currentOriginWords = [];
-const REG = {
-    all: /.*/,
-    az: /^[a-zA-Z]$/,
-    space: /^ $/,
-    backspace: /^Backspace$/,
-    number: /\d/,
-    shift: /^Shift$/,
-    function: /^(Control|Alt|Meta|Shift|Tab)$/,
-    meta: /^Meta$/,
-    alt: /^Alt$/,
-    ctrl: /^(Control|Alt|Meta|Shift)$/,
-    delete: /^Delete$/,
-}
+let record = new Records(0, 0, 0, 0, 0, 0, 0);
+
+// database
+let DB;
+const DBName = "TypePad";
+let data;
+const OBJECT_NAME = 'TypingRecord';
 
 function $(selector) {
     return document.querySelector(selector)
@@ -278,6 +394,30 @@ window.onload = () => {
         }
     }
 
+
+    // INDEX DB
+    data = new DataBase();
+    let request = window.indexedDB.open(DBName);
+    request.onsuccess = e => {
+        console.log(e);
+        if (e.returnValue) {
+            DB = request.result;
+            data.fetchAll();
+        } else {
+        }
+    }
+
+    request.onerror = e => {
+        console.log(e);
+    }
+
+    request.onupgradeneeded = e => {
+        if (DB) {
+        } else {
+            DB = request.result;
+        }
+        let objectStore = DB.createObjectStore(OBJECT_NAME, {keyPath: 'id'});
+    }
 
     /**
      * 按键过滤器
@@ -344,4 +484,46 @@ function shuffle(arr) {
         [arr[r], arr[rand]] = [arr[rand], arr[r]];
     }
     return arr;
+}
+
+/**
+ * 格式化时间，输出字符串
+ *
+ * @param   date    要格式化的时间
+ * @param   formatString    返回时间的格式：
+ * @return  格式化后的时间字符串
+ * */
+function dateFormatter(date, formatString) {
+    formatString = formatString ? formatString : 'yyyy-MM-dd hh:mm:ss';
+    let dateRegArray = {
+        "M+": date.getMonth() + 1,                      // 月份
+        "d+": date.getDate(),                           // 日
+        "h+": date.getHours(),                          // 小时
+        "m+": date.getMinutes(),                        // 分
+        "s+": date.getSeconds(),                        // 秒
+        "q+": Math.floor((date.getMonth() + 3) / 3),    // 季度
+        "S": date.getMilliseconds()                     // 毫秒
+    };
+    if (/(y+)/.test(formatString)) {
+        formatString = formatString.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+    }
+    for (let section in dateRegArray) {
+        if (new RegExp("(" + section + ")").test(formatString)) {
+            formatString = formatString.replace(RegExp.$1, (RegExp.$1.length === 1) ? (dateRegArray[section]) : (("00" + dateRegArray[section]).substr(("" + dateRegArray[section]).length)));
+        }
+    }
+    return formatString;
+}
+
+
+/**
+ * @param：timeLeft 倒计时秒数
+ * @return：输出倒计时字符串 时时:分分:秒秒
+ **/
+function formatTimeLeft(timeLeft) {
+    timeLeft = Math.floor(timeLeft / 1000);
+    let mins = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    // util.toast(`时分秒：${hours}:${mins}:${seconds}`);
+    return `${mins.toString().padStart(2, '00')}:${seconds.toString().padStart(2, '00')}`;
 }
