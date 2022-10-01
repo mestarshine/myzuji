@@ -190,13 +190,8 @@ select {
     padding: 10px;
     border: 1px solid #ddd;
     max-height: 200px;
-    min-height: 100px;
     overflow-y: scroll;
     margin-bottom: 10px;
-}
-
-.content:hover {
-    border-color: #4CD964;
 }
 
 .typing {
@@ -216,7 +211,6 @@ select {
     -webkit-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
     box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
-    border-color: #4CD964;
 }
 
 .hidden {
@@ -237,6 +231,10 @@ select {
 .text .wrong {
     background-color: #FF3B30;
     color: white !important;
+}
+
+.text-green {
+    color: #4CD964 !important;
 }
 
 input[type=checkbox],
@@ -366,7 +364,6 @@ input[type=radio]:checked + label {
 }
 
 .table-container {
-    height: 400px;
     overflow-y: auto;
     border: 1px solid #dddddd;
     background-color: white;
@@ -438,4 +435,9 @@ td .btn {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
+}
+
+td.time {
+    letter-spacing: 1px;
+    font-family: 'Digital2', sans-serif;
 }
