@@ -101,6 +101,7 @@ class Engine {
         }
     }
 
+    // 暂停
     pause() {
         this.isPaused = true;
         this.stopRefresh()
@@ -195,11 +196,20 @@ class Engine {
 
     // 更新界面信息
     updateCountInfo() {
+
+        if (engine.isStarted && !engine.isPaused) {
+            $('.time').classList.add('text-green');
+        } else {
+            $('.time').classList.remove('text-green');
+        }
+
+        // KEY COUNT
         for (let type in count) {
             $(`.word-${type} p`).innerText = count[type];
         }
         $('.count-total').innerText = currentWords.length;
         $('.count-current').innerText = pad.value.length ? pad.value.length : '--';
+
 
         // speed
         if (!engine.isStarted && !engine.isFinished) {
@@ -245,6 +255,14 @@ class Engine {
             default:
                 break;
         }
+
+        option.chapter = 1;
+        option.article = article;
+        option.isShuffle = isShuffle;
+        option.count = perCount;
+        let originTol = currentOriginWords.length / option.count;
+        let tempTol = Math.floor(originTol);
+        option.chapterTotal = originTol > tempTol ? tempTol + 1 : tempTol;
         this.reset();
     }
 
