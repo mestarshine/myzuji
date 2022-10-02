@@ -29,7 +29,7 @@ select {
 
 #app {
     margin: 0 auto;
-    max-width: 1200px;
+    max-width: 1280px;
     display: flex;
     align-items: flex-start;
     padding: 10px;
@@ -186,12 +186,12 @@ select {
 }
 
 .content {
-    background-color: white;
     padding: 10px;
     border: 1px solid #ddd;
     max-height: 200px;
     overflow-y: scroll;
     margin-bottom: 10px;
+    background-color: #f8f8f8;
 }
 
 .typing {
@@ -224,8 +224,8 @@ select {
 }
 
 .text .correct {
-    background-color: #EBEBEB;
-    color: white !important;
+    text-shadow: none;
+    color: #dedede !important;
 }
 
 .text .wrong {
