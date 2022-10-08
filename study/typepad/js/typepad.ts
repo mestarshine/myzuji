@@ -34,7 +34,7 @@ class Count {
     semicolon = 0;
     quot = 0;
 
-    init() {
+    reset() {
         this.all = 0;
         this.az = 0;
         this.number = 0;
@@ -120,7 +120,7 @@ class Engine {
         record = new Records(0, 0, 0, 0, 0, 0, 0);
         content.innerHTML = currentWords
         pad.value = ''
-        count.init();
+        count.reset();
         this.updateCountInfo();
         this.isPaused = false;
         this.isStarted = false;
@@ -215,6 +215,8 @@ class Engine {
         if (!engine.isStarted && !engine.isFinished) {
             $('.speed').innerText = '--';
             $('.count-key-rate').innerText = '--';
+            $('.count-key-length').innerText = '--';
+            $('.count-key-backspace').innerText = '--';
         } else {
             record.speed = (correctWordsCount / engine.duration * 1000 * 60).toFixed(2);
             $('.speed').innerText = record.speed;
@@ -223,12 +225,16 @@ class Engine {
             record.hitRate = (keyCount / engine.duration * 1000).toFixed(2);
             $('.count-key-rate').innerText = record.hitRate;
 
-            record.codeLength = (keyCount / currentWords.length).toFixed(2);
-            $('.count-key-length').innerText = record.codeLength;
+            // code length
+            if (correctWordsCount) {
+                record.codeLength = (keyCount / correctWordsCount).toFixed(2);
+            } else {
+                record.codeLength = 0;
+            }
         }
-        // option
-        $('.chapter-current').innerText = option.chapter;
-        $('.chapter-total').innerText = option.chapterTotal;
+        $('.count-key-length').innerText = record.codeLength;
+        // backspace count
+        $('.count-key-backspace').innerText = count.backspace;
     }
 
     changeArticle() {
@@ -307,6 +313,34 @@ class Records {
         this.timeStart = timeStart;
         this.duration = duration;
     }
+
+    getHtml() {
+        return `<tr>
+              <td class="text-center">${this.id}</td>
+              <td>${this.speed}</td>
+              <td>${this.codeLength}</td>
+              <td>${this.hitRate}</td>
+              <td>${this.backspace}</td>
+              <td>${this.wordCount}</td>
+              <td>${dateFormatter(new Date(this.timeStart), '')}</td>
+              <td class="time">${formatTimeLeft(this.duration)}</td>
+              <td><button class="btn btn-danger btn-sm" onclick="data.delete(${this.id})" type="button">删除</button></td>
+            </tr>`;
+    }
+
+    getHtmlWithCursor(cursor) {
+        return `<tr>
+              <td class="text-center">${cursor.key}</td>
+              <td>${cursor.value.speed}</td>
+              <td>${cursor.value.codeLength}</td>
+              <td>${cursor.value.hitRate}</td>
+              <td>${cursor.value.backspace}</td>
+              <td>${cursor.value.wordCount}</td>
+              <td>${dateFormatter(new Date(cursor.value.timeStart), '')}</td>
+              <td class="time">${formatTimeLeft(cursor.value.duration)}</td>
+              <td><button class="btn btn-danger btn-sm" onclick="data.delete(${cursor.key})" type="button">删除</button></td>
+            </tr>`;
+    }
 }
 
 class DataBase {
@@ -326,7 +360,11 @@ class DataBase {
             });
         request.onsuccess = e => {
             localStorage[localStorageIndexName] = Number(localStorage[localStorageIndexName]) + 1;
-            this.fetchAll();
+            // 插入最后的数据到顶部
+            let tr = document.createElement('tr');
+            tr.innerHTML = record.getHtml();
+            let tbody = $('tbody');
+            tbody.insertBefore(tr, tbody.firstChild);
         }
 
         request.onerror = e => {
@@ -338,21 +376,10 @@ class DataBase {
     fetchAll() {
         let objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
         let html = '';
-        let currentCursor = objectStore.openCursor().onsuccess = e => {
+        let currentCursor = objectStore.openCursor(IDBKeyRange.upperBound(record.id), "prev").onsuccess = e => {
             let cursor = e.target.result;
             if (cursor) {
-                let lineHtml = `<tr>
-                          <td class="text-center">${cursor.key}</td>
-                          <td>${cursor.value.speed}</td>
-                          <td>${cursor.value.codeLength}</td>
-                          <td>${cursor.value.hitRate}</td>
-                          <td>${cursor.value.backspace}</td>
-                          <td>${cursor.value.wordCount}</td>
-                          <td>${dateFormatter(new Date(cursor.value.timeStart), '')}</td>
-                          <td class="time">${formatTimeLeft(cursor.value.duration)}</td>
-                          <td><button class="btn btn-danger btn-sm" onclick="data.delete(${cursor.key})" type="button">删除</button></td>
-                        </tr>`;
-                html = html + lineHtml;
+                html = html + record.getHtmlWithCursor(cursor);
                 document.querySelector('tbody').innerHTML = html;
                 cursor.continue(); // 移到下一个位置
             }
@@ -363,6 +390,14 @@ class DataBase {
     delete(id) {
         let objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
         objectStore.delete(id).onsuccess = e => {
+            this.fetchAll();
+        }
+    }
+
+    clear() {
+        let objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
+        objectStore.clear().onsuccess = e => {
+            localStorage[localStorageIndexName] = 1;
             this.fetchAll();
         }
     }
@@ -445,7 +480,7 @@ window.onload = () => {
      * ⌘ + j: 下一段
      */
     pad.onkeydown = (e) => {
-        if (e.key === 'Tab' || ((e.metaKey || e.ctrlKey) && (/[qewfgyplt]/.test(e.key)))) {
+        if (e.key === 'Tab' || ((e.metaKey || e.ctrlKey) && (/[nqewfgyplt]/.test(e.key)))) {
             e.preventDefault();
         } else if ((e.metaKey || e.ctrlKey) && e.key === 'r') {
             e.preventDefault();
@@ -487,7 +522,6 @@ function countKeys(e) {
             }
         }
     }
-    $('.count-key-backspace').innerText = count.backspace;
 }
 
 // Update infos
