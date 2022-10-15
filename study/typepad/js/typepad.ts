@@ -324,7 +324,7 @@ class Records {
               <td>${this.wordCount}</td>
               <td>${dateFormatter(new Date(this.timeStart), '')}</td>
               <td class="time">${formatTimeLeft(this.duration)}</td>
-              <td><button class="btn btn-danger btn-sm" onclick="data.delete(${this.id})" type="button">删除</button></td>
+              <td><button class="btn btn-danger btn-sm" onclick="data.delete(${this.id},this)" type="button">删除</button></td>
             </tr>`;
     }
 
@@ -338,7 +338,7 @@ class Records {
               <td>${cursor.value.wordCount}</td>
               <td>${dateFormatter(new Date(cursor.value.timeStart), '')}</td>
               <td class="time">${formatTimeLeft(cursor.value.duration)}</td>
-              <td><button class="btn btn-danger btn-sm" onclick="data.delete(${cursor.key})" type="button">删除</button></td>
+              <td><button class="btn btn-danger btn-sm" onclick="data.delete(${cursor.key},this)" type="button">删除</button></td>
             </tr>`;
     }
 }
@@ -387,9 +387,10 @@ class DataBase {
     }
 
     // 删除一条数据
-    delete(id) {
+    delete(id, sender) {
         let objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
         objectStore.delete(id).onsuccess = e => {
+            sender.parentElement.parentElement.remove();
             this.fetchAll();
         }
     }
