@@ -208,7 +208,7 @@ class Engine {
             $(`.word-${type} p`).innerText = count[type];
         }
         $('.count-total').innerText = currentWords.length;
-        $('.count-current').innerText = pad.value.length ? pad.value.length : '--';
+        $('.count-current').innerText = pad.value.length;
 
 
         // speed
@@ -231,10 +231,12 @@ class Engine {
             } else {
                 record.codeLength = 0;
             }
+            $('.count-key-length').innerText = record.codeLength;
+            // backspace count
+            $('.count-key-backspace').innerText = count.backspace;
         }
-        $('.count-key-length').innerText = record.codeLength;
-        // backspace count
-        $('.count-key-backspace').innerText = count.backspace;
+        $('.chapter-current').innerText = option.chapter;
+        $('.chapter-total').innerText = option.chapterTotal;
     }
 
     changeArticle() {
@@ -317,7 +319,7 @@ class Records {
     getHtml() {
         return `<tr>
               <td class="text-center">${this.id}</td>
-              <td>${this.speed}</td>
+              <td class="bold">${this.speed}</td>
               <td>${this.codeLength}</td>
               <td>${this.hitRate}</td>
               <td>${this.backspace}</td>
@@ -331,7 +333,7 @@ class Records {
     getHtmlWithCursor(cursor) {
         return `<tr>
               <td class="text-center">${cursor.key}</td>
-              <td>${cursor.value.speed}</td>
+              <td class="bold">${cursor.value.speed}</td>
               <td>${cursor.value.codeLength}</td>
               <td>${cursor.value.hitRate}</td>
               <td>${cursor.value.backspace}</td>

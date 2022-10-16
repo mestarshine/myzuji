@@ -9,12 +9,15 @@
 <body>
 <div id="app">
     <div class="side-menu">
-        <div class="speed-info info-item">
-            <div class="time">
+        <div class="time-info info-panel">
+            <div class="time number">
                 <div class="minute">00</div>
                 :
                 <div class="second">00</div>
             </div>
+        </div>
+
+        <div class="speed-info info-panel">
             <div class="speed">--</div>
             <div class="count pt-2">
                 <div class="count-item">
@@ -31,18 +34,7 @@
                 </div>
             </div>
         </div>
-        <!--option display-->
-        <div class="option info-item">
-            <div class="item">
-                <span class="chapter-current number current"></span>
-                <span class="chapter-total total number"></span>
-            </div>
-            <div class="item">
-                <span class="count-current number current"></span>
-                <span class="count-total total number"></span>
-            </div>
-        </div>
-        <div class="key-info info-item">
+        <div class="key-info info-panel">
             <div class="key-info-item word-all"><h6>ALL</h6>
                 <p></p></div>
             <div class="key-info-item word-az"><h6>A-Z</h6>
@@ -71,9 +63,17 @@
     </div>
 
     <div class="type-pad">
-        <div class="tool-bar mt-2">
+        <div class="tool-bar">
             <div class="btn-group">
-                <div class="btn">当前段</div>
+                <div class="btn number">
+                    <span class="count-current current number"></span> / <span class="count-total number total"></span>
+                </div>
+                <div class="btn number">
+                    <span class="chapter-current current number"></span> / <span
+                    class="chapter-total number total"></span>
+                </div>
+            </div>
+            <div class="btn-group">
                 <div class="btn" onclick="engine.shuffle()" title="⌘ + l">打乱</div>
                 <div class="btn" onclick="engine.reset()" title="⌘ + r">重置</div>
                 <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
@@ -102,10 +102,10 @@
                 <input class="btn" id="count100" name="count" onchange="engine.changeArticle()" type="radio"
                        value="100"><label class="btn" for="count100">100</label>
             </div>
-            <div class="btn-group no-border shuffle">
+            <div class="btn-group no-border">
                 <span class="btn">乱序</span>
-                <input class="btn" id="mode" onchange="engine.changeArticle()" type="checkbox"><label
-                for="mode"></label>
+                <input id="mode" onchange="engine.changeArticle()" type="checkbox">
+                <label for="mode"></label>
             </div>
         </div>
         <div class="content">
