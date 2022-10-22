@@ -50,12 +50,64 @@ class Count {
     }
 }
 
-class Options {
+class Config {
     chapter = 1;
     chapterTotal = 1;
     isShuffle = false;
     count = 15;
-    article = ARTICLE.one;
+    static localStorageLabel = {
+        chapter: 'type_pad_config_chapter',
+        chapterTotal: 'type_pad_config_chapter_total',
+        isShuffle: 'type_pad_config_is_shuffle',
+        count: 'type_pad_config_count',
+        articleConfig: 'type_pad_config_article_option',
+
+    }
+    articleConfig = ARTICLE.one;
+
+    constructor() {
+        this.chapter = 1;
+        this.chapterTotal = 1;
+        this.isShuffle = false;
+        this.count = 15;
+        this.articleConfig = ARTICLE.one;
+    }
+
+    static hasSavedData() {
+        return Boolean(localStorage[Config.localStorageLabel.articleConfig]);
+    }
+
+    save() {
+        localStorage[Config.localStorageLabel.chapter] = this.chapter;
+        localStorage[Config.localStorageLabel.chapterTotal] = this.chapterTotal;
+        localStorage[Config.localStorageLabel.isShuffle] = this.isShuffle;
+        localStorage[Config.localStorageLabel.count] = this.count;
+        localStorage[Config.localStorageLabel.articleConfig] = this.articleConfig;
+
+    }
+
+    get() {
+        this.chapter = localStorage[Config.localStorageLabel.chapter];
+        this.chapterTotal = localStorage[Config.localStorageLabel.chapterTotal];
+        this.isShuffle = Boolean(localStorage[Config.localStorageLabel.isShuffle] === 'true');
+        this.count = Number(localStorage[Config.localStorageLabel.count]);
+        this.articleConfig = localStorage[Config.localStorageLabel.articleConfig];
+
+    }
+
+    set() {
+        $('#mode').checked = this.isShuffle;
+        let radios = document.querySelectorAll('input[name=count]');
+        for (let i = 0; i < radios.length; i++) {
+            radios[i].checked = Number(radios[i].value) === this.count
+        }
+
+        let options = document.querySelectorAll('select option');
+        for (let i = 0; i < options.length; i++) {
+            options[i].checked = options[i].value === this.articleConfig
+        }
+
+    }
 }
 
 //跟打器引擎
@@ -235,13 +287,13 @@ class Engine {
             // backspace count
             $('.count-key-backspace').innerText = count.backspace;
         }
-        $('.chapter-current').innerText = option.chapter;
-        $('.chapter-total').innerText = option.chapterTotal;
+        $('.chapter-current').innerText = config.chapter;
+        $('.chapter-total').innerText = config.chapterTotal;
     }
 
     changeArticle() {
         record = new Records(0, 0, 0, 0, 0, 0, 0);
-        let article = $('#article').value;
+        let articleConfig = $('#article').value;
         let isShuffle = $('#mode').checked;
         let radios = document.querySelectorAll('input[type=radio]');
         let perCount = 0;
@@ -251,7 +303,7 @@ class Engine {
             }
         }
 
-        switch (article) {
+        switch (articleConfig) {
             case 'one':
                 currentOriginWords = isShuffle ? shuffle(ARTICLE.one.split('')) : ARTICLE.one.split('');
                 currentWords = currentOriginWords.slice(0, Number(perCount)).join('');
@@ -264,30 +316,30 @@ class Engine {
                 break;
         }
 
-        option.chapter = 1;
-        option.article = article;
-        option.isShuffle = isShuffle;
-        option.count = perCount;
-        let originTol = currentOriginWords.length / option.count;
+        config.chapter = 1;
+        config.articleConfig = articleConfig;
+        config.isShuffle = isShuffle;
+        config.count = perCount;
+        let originTol = currentOriginWords.length / config.count;
         let tempTol = Math.floor(originTol);
-        option.chapterTotal = originTol > tempTol ? tempTol + 1 : tempTol;
+        config.chapterTotal = originTol > tempTol ? tempTol + 1 : tempTol;
         this.reset();
     }
 
     // 上一段
     prevChapter() {
-        if (option.chapter !== 1) {
-            currentWords = currentOriginWords.slice(option.count * (option.chapter - 2), option.count * (option.chapter - 1)).join('');
-            option.chapter--;
+        if (config.chapter !== 1) {
+            currentWords = currentOriginWords.slice(config.count * (config.chapter - 2), config.count * (config.chapter - 1)).join('');
+            config.chapter--;
             engine.reset();
         }
     }
 
     // 下一段
     nextChapter() {
-        if (option.chapter !== option.chapterTotal) {
-            currentWords = currentOriginWords.slice(option.count * option.chapter, option.count * (option.chapter + 1)).join('');
-            option.chapter++;
+        if (config.chapter !== config.chapterTotal) {
+            currentWords = currentOriginWords.slice(config.count * config.chapter, config.count * (config.chapter + 1)).join('');
+            config.chapter++;
             engine.reset();
         }
     }
@@ -416,9 +468,9 @@ const content = $('.content p');
 const pad = $('#pad');
 let count = new Count();
 let engine = new Engine();
+let config = new Config();
 let currentWords = ARTICLE.one;
 let correctWordsCount = 0;
-let option = new Options();
 let currentOriginWords = [];
 let record = new Records(0, 0, 0, 0, 0, 0, 0);
 
@@ -432,6 +484,11 @@ function $(selector) {
     return document.querySelector(selector)
 }
 
+if (Config.hasSavedData()) {
+    config.get();
+    config.set();
+    engine.updateCountInfo();
+}
 // 初始化
 window.onload = () => {
     engine.changeArticle();
@@ -455,7 +512,6 @@ window.onload = () => {
     data = new DataBase();
     let request = window.indexedDB.open(DBName);
     request.onsuccess = e => {
-        console.log(e);
         if (e.returnValue) {
             DB = request.result;
             data.fetchAll();
