@@ -156,6 +156,7 @@ class Engine {
     // 暂停
     pause() {
         this.isPaused = true;
+        pad.blur();
         this.stopRefresh()
     }
 
@@ -371,7 +372,7 @@ class Records {
     getHtml() {
         return `<tr>
               <td class="text-center">${this.id}</td>
-              <td class="bold">${this.speed}</td>
+              <td class="bold lv-${Math.floor(this.speed / speedGap)}">${this.speed}</td>
               <td>${this.codeLength}</td>
               <td>${this.hitRate}</td>
               <td>${this.backspace}</td>
@@ -385,7 +386,7 @@ class Records {
     getHtmlWithCursor(cursor) {
         return `<tr>
               <td class="text-center">${cursor.key}</td>
-              <td class="bold">${cursor.value.speed}</td>
+              <td class="bold lv-${Math.floor(this.speed / speedGap)}">${this.speed}</td>
               <td>${cursor.value.codeLength}</td>
               <td>${cursor.value.hitRate}</td>
               <td>${cursor.value.backspace}</td>
@@ -464,6 +465,7 @@ const ARTICLE = {
     one: '一地在要工上是中国同和的有人我主产不为这民了发以经',
     two: '五于天末开下理事画现麦珠表珍万玉平求来珲与击妻到互二土城霜域起进喜载南才垢协夫无裁增示赤过志地雪去盏三夺大厅左还百右奋面故原胡春克太磁耗矿达成顾碌友龙本村顶林模相查可楞贾格析棚机构术样档杰枕杨李根权楷七著其苛工牙划或苗黄攻区功共获芳蒋东蔗劳世节切芭药上歧非盯虑止旧占卤贞睡睥肯具餐眩瞳眇眯瞎卢眼皮此量时晨果暴申日蝇曙遇昨蝗明蛤晚景暗晃显晕电最归紧昆号叶顺呆呀中虽吕喂员吃听另只兄咬吖吵嘛喧叫啊啸吧哟车团因困羁四辊回田轴图斩男界罗较圈辘连思辄轨轻累峡周央岢曲由则迥崭山败刚骨内见丹赠峭赃迪岂邮峻幽生等知条长处得各备向笔稀务答物入科秒秋管乐秀很么第后质振打找年提损摆制手折摇失换护拉朱扩近气报热把指且脚须采毁用胆加舅觅胜貌月办胸脑脱膛脏边力服妥肥脂全会做体代个介保佃仙八风佣从你信位偿伙伫假他分公化印钱然钉错外旬名甸负儿铁解欠多久匀销炙锭饭迎争色锴请计诚订谋让刘就谓市放义衣六询方说诮变这记诎良充率着斗头亲并站间问单端道前准次门立冰普决闻兼痛北光法尖河江小温溃渐油少派肖没沟流洋水淡学泥池当汉涨业庄类灯度店烛燥烟庙庭煌粗府底广料应火迷断籽数序庇定守害宁宽官审宫军宙客宾农空冤社实宵灾之密字安它那导居怵展收慢避惭届必怕惟懈心习尿屡忱已敢恨怪惯卫际随阿陈耻阳职阵出降孤阴队隐及联孙耿院也子限取陛建寻姑杂媒肀旭如姻妯九婢退妗婚娘嫌录灵嫁刀好妇即姆马对参戏台观矣能难允叉巴邓艰又纯线顷缃红引费强细纲张缴组给约统弱纱继缩纪级绿经比',
 }
+const speedGap = 30;
 const content = $('.content p');
 const pad = $('#pad');
 let count = new Count();
@@ -552,6 +554,9 @@ window.onload = () => {
             e.preventDefault();
         } else if ((e.metaKey || e.ctrlKey) && e.key === 'j') {
             engine.nextChapter();
+            e.preventDefault();
+        } else if (e.key === 'Escape') {
+            engine.pause();
             e.preventDefault();
         } else if (REG.az.test(e.key) && !e.ctrlKey && !e.metaKey && !e.altKey && !engine.isStarted && !engine.isFinished) {
             engine.start()
