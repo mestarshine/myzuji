@@ -2,15 +2,14 @@
     padding: 0;
     margin: 0;
     border: 0;
-    font-family: "PingFang SC", "Microsoft Yahei UI", "Microsoft Yahei", "Helvetica", sans-serif;
+    font-family: inherit;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
 body {
-    width: 100%;
-    margin: 0 auto;
+    color: #333;
     background-color: #EBEBEB;
 }
 
@@ -29,6 +28,14 @@ select {
 
 .bold {
     font-weight: bold;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
 }
 
 #app {
@@ -60,6 +67,7 @@ select {
     margin-bottom: 5px;
     display: flex;
     justify-content: space-between;
+    color: #666;
 }
 
 .key-info-item:before {
@@ -76,7 +84,6 @@ select {
 }
 
 .key-info-item h6, .key-info-item p {
-    color: #666;
     z-index: 50;
     background-color: white;
     font-size: 12px;
@@ -104,10 +111,6 @@ select {
 
 .current {
     color: #FF9500;
-}
-
-.total {
-    color: black;
 }
 
 .time-info .time {
@@ -358,6 +361,10 @@ input[type=radio]:checked + label {
     border-right: none;
 }
 
+.btn-group .btn:hover {
+    background-color: #f2f2f2;
+}
+
 .btn-group .btn:active {
     -webkit-transform: translateY(2px);
     -moz-transform: translateY(2px);
@@ -398,7 +405,7 @@ input[type=radio]:checked + label {
 
 .table {
     width: 100%;
-    font-family: 'Roboto Mono', sans-serif !important;
+    color: #666;
 }
 
 thead tr {
@@ -458,7 +465,6 @@ td .btn {
     border: 1px solid #dddddd;
     background-color: white;
     padding: 4px 6px;
-    color: #666;
     font-weight: bold;
     cursor: pointer;
     -webkit-border-radius: 3px;

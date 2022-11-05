@@ -5,6 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>跟打器</title>
     <link href="css/typepad.css" rel="stylesheet">
+    <link href="css/black.css" rel="stylesheet">
 </head>
 <body>
 <div id="app">
@@ -101,6 +102,9 @@
                        value="50"><label class="btn" for="count50">50</label>
                 <input class="btn" id="count100" name="count" onchange="engine.changeArticle()" type="radio"
                        value="100"><label class="btn" for="count100">100</label>
+            </div>
+            <div class="btn-group">
+                <div class="btn" onclick="switchBlack()">暗黑模式</div>
             </div>
             <div class="btn-group no-border">
                 <span class="btn">乱序</span>
