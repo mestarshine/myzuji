@@ -6,7 +6,7 @@
  * Database IndexedDB相关操作
  *
  */
-const localStorageIndexName = 'TypePadIndex';
+const localStorageIndexName = 'type_pad_idb_index';
 const REG = {
     all: /.*/,
     az: /^[a-zA-Z]$/,
@@ -58,6 +58,8 @@ class Config {
     chapterTotal = 1;
     isShuffle = false;
     count = 15;
+    articleConfig = ARTICLE.one;
+
     static localStorageLabel = {
         chapter: 'type_pad_config_chapter',
         chapterTotal: 'type_pad_config_chapter_total',
@@ -66,7 +68,6 @@ class Config {
         articleConfig: 'type_pad_config_article_option',
 
     }
-    articleConfig = ARTICLE.one;
 
     constructor() {
         this.chapter = 1;
@@ -74,10 +75,6 @@ class Config {
         this.isShuffle = false;
         this.count = 15;
         this.articleConfig = ARTICLE.one;
-    }
-
-    static hasSavedData() {
-        return Boolean(localStorage[Config.localStorageLabel.articleConfig]);
     }
 
     save() {
@@ -109,7 +106,10 @@ class Config {
         for (let i = 0; i < options.length; i++) {
             options[i].checked = options[i].value === this.articleConfig
         }
+    }
 
+    static hasSavedData() {
+        return Boolean(localStorage[Config.localStorageLabel.articleConfig]);
     }
 }
 
@@ -122,7 +122,7 @@ class Engine {
     timeEnd; // ms
     duration = 0; // ms
     handleRefresh;
-    refreshRate = 1000; // ms
+    refreshRate = 500; // ms
 
     start() {
         this.isStarted = true;
@@ -190,7 +190,9 @@ class Engine {
         let array = currentWords.split('');
         currentWords = shuffle(array).join('');
         content.innerText = currentWords;
+        this.isFinished = false;
         this.reset();
+        this.updateCountInfo();
     }
 
     compare() {
@@ -297,8 +299,7 @@ class Engine {
 
     changeArticle() {
         record = new Records(0, 0, 0, 0, 0, 0, 0);
-        let articleConfig = $('#article').value;
-        let isShuffle = $('#mode').checked;
+        config.articleConfig = $('#article').value;
         let radios = document.querySelectorAll('input[type=radio]');
         let perCount = 0;
         for (let i = 0; i < radios.length; i++) {
@@ -307,27 +308,44 @@ class Engine {
             }
         }
 
-        switch (articleConfig) {
+        config.chapter = 1;
+        config.count = perCount;
+        switch (config.articleConfig) {
             case 'one':
-                currentOriginWords = isShuffle ? shuffle(ARTICLE.one.split('')) : ARTICLE.one.split('');
-                currentWords = currentOriginWords.slice(0, Number(perCount)).join('');
+                currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
                 break;
             case 'two':
-                currentOriginWords = isShuffle ? shuffle(ARTICLE.two.split('')) : ARTICLE.two.split('');
-                currentWords = currentOriginWords.slice(0, Number(perCount)).join('');
+                currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
                 break;
             default:
                 break;
         }
 
-        config.chapter = 1;
-        config.articleConfig = articleConfig;
-        config.isShuffle = isShuffle;
-        config.count = perCount;
         let originTol = currentOriginWords.length / config.count;
         let tempTol = Math.floor(originTol);
         config.chapterTotal = originTol > tempTol ? tempTol + 1 : tempTol;
+        config.save();
         this.reset();
+        this.updateCountInfo();
+    }
+
+    updateCurrentArticle() {
+        config.isShuffle = $('#mode').checked;
+        switch (config.articleConfig) {
+            case 'one':
+                currentOriginWords = config.isShuffle ? shuffle(ARTICLE.one.split('')) : ARTICLE.one.split('');
+                currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
+                break;
+            case 'two':
+                currentOriginWords = config.isShuffle ? shuffle(ARTICLE.two.split('')) : ARTICLE.two.split('');
+                currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
+                break;
+            default:
+                break;
+        }
+        config.save();
+        this.reset();
+        this.updateCountInfo();
     }
 
     // 上一段
@@ -474,7 +492,7 @@ const pad = $('#pad');
 let count = new Count();
 let engine = new Engine();
 let config = new Config();
-let currentWords = ARTICLE.one;
+let currentWords = '';
 let correctWordsCount = 0;
 let currentOriginWords = [];
 let record = new Records(0, 0, 0, 0, 0, 0, 0);
@@ -496,7 +514,7 @@ if (Config.hasSavedData()) {
 }
 // 初始化
 window.onload = () => {
-    engine.changeArticle();
+    engine.updateCurrentArticle();
     content.innerText = currentWords;
     engine.updateCountInfo();
 
