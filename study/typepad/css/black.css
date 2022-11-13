@@ -130,6 +130,11 @@ body.black .btn-group .btn:last-child {
     border-right: none;
 }
 
+body.black .btn-group .btn.danger {
+    background-color: #FF3B30;
+    color: white;
+}
+
 body.black input[type=checkbox] + label:before {
     background-color: #1a1a1a;
 }
