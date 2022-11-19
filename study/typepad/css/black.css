@@ -148,6 +148,10 @@ body.black input[type=radio]:checked + label {
     color: white;
 }
 
+body.black input[type=radio]:checked + label:hover {
+    background-color: #e68600;
+}
+
 body.black ::-webkit-scrollbar-track {
     border-right: 1px solid #333333;
     background-color: #333333;

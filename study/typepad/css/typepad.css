@@ -200,10 +200,6 @@ select {
     background-color: #f8f8f8;
 }
 
-.typing {
-    border: 1px solid #ddd;
-}
-
 .typing textarea {
     border: 1px solid #dddddd;
     resize: none;
@@ -311,7 +307,7 @@ input[type=checkbox]:checked + label:before {
 
 input[type=radio] + label {
     background-color: white;
-    color: #FF9500;
+    color: #FF9500 !important;
     padding-left: 8px;
     padding-right: 8px;
 }
@@ -319,7 +315,11 @@ input[type=radio] + label {
 input[type=radio]:checked + label {
     font-weight: bold;
     background-color: #FF9500;
-    color: white;
+    color: white !important;
+}
+
+input[type=radio]:checked + label:hover {
+    background-color: #ffa01a;
 }
 
 .btn-group {
@@ -355,6 +355,7 @@ input[type=radio]:checked + label {
     border-right: 1px solid #dddddd;
     font-size: 13px;
     padding: 6px 8px;
+    color: inherit;
 }
 
 .btn-group .btn:last-child {
@@ -475,6 +476,7 @@ td .btn {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
+    color: inherit;
 }
 
 td .btn:hover {
