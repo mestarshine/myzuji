@@ -120,6 +120,9 @@ class Config {
         } else {
             body.classList.remove('black');
         }
+
+        let darkButton = $('#darkButton');
+        darkButton.innerText = this.darkMode ? '白色模式' : '暗黑模式'
     }
 }
 
@@ -671,11 +674,17 @@ function formatTimeLeft(timeLeft) {
     return `${mins.toString().padStart(2, '00')}:${seconds.toString().padStart(2, '00')}`;
 }
 
-function switchDarkMode() {
+function switchDarkMode(sender) {
     let body = $('body');
-    if (body.classList.contains('black')) {
+    if (config.darkMode) {
         body.classList.remove('black');
+        config.darkMode = false;
+        sender.innerText = "暗黑模式"
+        config.save();
     } else {
         body.classList.add('black');
+        config.darkMode = true;
+        sender.innerText = "白色模式"
+        config.save();
     }
 }
