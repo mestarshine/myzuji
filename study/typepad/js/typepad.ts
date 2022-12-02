@@ -332,7 +332,7 @@ class Engine {
     // 切换乱序模式
     shuffleCurrentArticle() {
         config.isShuffle = $('#mode').checked;
-        currentOriginWords = config.isShuffle ? shuffle(ARTICLE[config.articleOption].content.split('')) : ARTICLE[config.articleOption].content.split('');
+        currentOriginWords = config.isShuffle ? shuffle(ARTICLE[config.articleConfig].content.split('')) : ARTICLE[config.articleConfig].content.split('');
         config.article = currentOriginWords.join('');
         currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
         config.chapter = 1;
