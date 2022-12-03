@@ -514,17 +514,19 @@ function $(selector) {
     return document.querySelector(selector)
 }
 
-if (Config.hasSavedData()) {
-    config.get();
-    config.setWithCurrentConfig();
-    engine.updateCountInfo();
-}
 // 初始化
 window.onload = () => {
-    config.get();
-    config.setWithCurrentConfig();
+    // 最开始的时候，如果没有检测到存储的数据，初始化
+    if (Config.hasSavedData()) {
+        config.get();
+        config.setWithCurrentConfig();
+    } else {
+        config.save();
+        config.get();
+        config.setWithCurrentConfig();
+        engine.changePerCount();
+    }
 
-    // init
     currentWords = currentOriginWords.slice(config.count * (config.chapter - 1), config.count * (config.chapter)).join('');
     content.innerText = currentWords;
     engine.updateCountInfo();
