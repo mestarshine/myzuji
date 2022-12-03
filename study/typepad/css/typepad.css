@@ -256,6 +256,7 @@ input[type=checkbox] + label {
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
     height: 24px;
     width: 40px;
+    cursor: pointer;
 }
 
 input[type=checkbox] + label:before {
@@ -334,6 +335,10 @@ input[type=radio]:checked + label:hover {
 
 .btn-group.no-border {
     border: none !important;
+}
+
+.btn-group .no-pointer {
+    cursor: default !important;
 }
 
 .btn-group .btn, td .btn {
