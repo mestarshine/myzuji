@@ -14,7 +14,7 @@ body.black .key-info-item {
 }
 
 body.black .key-info-item:before {
-    border-color: #333333;
+    border-color: #4d4d4d;
 }
 
 body.black .key-info-item h6, body.black .key-info-item p {
