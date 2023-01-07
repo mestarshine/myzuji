@@ -567,8 +567,8 @@ window.onload = () => {
 
     /**
      * 按键过滤器
-     * ⌘ + r: 重置
-     * ⌘ + l: 乱序
+     * ⌘ + g: 重置
+     * ⌘ + k: 乱序
      * ⌘ + u: 上一段
      * ⌘ + j: 下一段
      */
@@ -578,7 +578,7 @@ window.onload = () => {
         } else if ((e.metaKey || e.ctrlKey) && e.key === 'r') {
             e.preventDefault();
             engine.reset();
-        } else if ((e.metaKey || e.ctrlKey) && e.key === 'l') {
+        } else if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
             e.preventDefault();
             engine.shuffle();
         } else if ((e.metaKey || e.ctrlKey) && e.key === 'u') {
