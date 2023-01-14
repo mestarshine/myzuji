@@ -54,22 +54,15 @@ class Count {
 }
 
 class Config {
-    chapter = 1;
-    chapterTotal = 1;
-    isShuffle = false;
-    count = 15;
-    static localStorageLabel = {
-        chapter: 'type_pad_config_chapter',
-        chapterTotal: 'type_pad_config_chapter_total',
-        isShuffle: 'type_pad_config_is_shuffle',
-        count: 'type_pad_config_count',
-        articleConfig: 'type_pad_config_article_option',
-        article: 'type_pad_config_article',
-        darkMode: 'type_pad_config_dark_mode',
-    }
-    articleConfig = ARTICLE.one.name;
-    article = ARTICLE.one.content;
-    darkMode = false;
+    chapter;
+    chapterTotal;
+    isShuffle;
+    count;
+
+    articleConfig;
+    article;
+    darkMode;
+    localStorageLabel;
 
     constructor() {
         this.chapter = 1;
@@ -78,31 +71,40 @@ class Config {
         this.count = 15;
         this.articleConfig = ARTICLE.one.name;
         this.article = ARTICLE.one.content;
+        this.localStorageLabel = {
+            chapter: 'type_pad_config_chapter',
+            chapterTotal: 'type_pad_config_chapter_total',
+            isShuffle: 'type_pad_config_is_shuffle',
+            count: 'type_pad_config_count',
+            articleConfig: 'type_pad_config_article_option',
+            article: 'type_pad_config_article',
+            darkMode: 'type_pad_config_dark_mode',
+        }
     }
 
     // 判断是否存储过配置信息
-    static hasSavedData() {
-        return Boolean(localStorage[Config.localStorageLabel.articleConfig]);
+    hasSavedData() {
+        return Boolean(localStorage[this.localStorageLabel.articleConfig]);
     }
 
     save() {
-        localStorage[Config.localStorageLabel.chapter] = this.chapter;
-        localStorage[Config.localStorageLabel.chapterTotal] = this.chapterTotal;
-        localStorage[Config.localStorageLabel.isShuffle] = this.isShuffle;
-        localStorage[Config.localStorageLabel.count] = this.count;
-        localStorage[Config.localStorageLabel.articleConfig] = this.articleConfig;
-        localStorage[Config.localStorageLabel.article] = this.article;
-        localStorage[Config.localStorageLabel.darkMode] = this.darkMode;
+        localStorage[this.localStorageLabel.chapter] = this.chapter;
+        localStorage[this.localStorageLabel.chapterTotal] = this.chapterTotal;
+        localStorage[this.localStorageLabel.isShuffle] = this.isShuffle;
+        localStorage[this.localStorageLabel.count] = this.count;
+        localStorage[this.localStorageLabel.articleConfig] = this.articleConfig;
+        localStorage[this.localStorageLabel.article] = this.article;
+        localStorage[this.localStorageLabel.darkMode] = this.darkMode;
     }
 
     get() {
-        this.chapter = Number(localStorage[Config.localStorageLabel.chapter]);
-        this.chapterTotal = Number(localStorage[Config.localStorageLabel.chapterTotal]);
-        this.isShuffle = Boolean(localStorage[Config.localStorageLabel.isShuffle] === 'true');
-        this.count = Number(localStorage[Config.localStorageLabel.count]);
-        this.articleConfig = localStorage[Config.localStorageLabel.articleConfig];
-        this.article = localStorage[Config.localStorageLabel.article];
-        this.darkMode = Boolean(localStorage[Config.localStorageLabel.darkMode] === 'true');
+        this.chapter = Number(localStorage[this.localStorageLabel.chapter]);
+        this.chapterTotal = Number(localStorage[this.localStorageLabel.chapterTotal]);
+        this.isShuffle = Boolean(localStorage[this.localStorageLabel.isShuffle] === 'true');
+        this.count = Number(localStorage[this.localStorageLabel.count]);
+        this.articleConfig = localStorage[this.localStorageLabel.articleConfig];
+        this.article = localStorage[this.localStorageLabel.article];
+        this.darkMode = Boolean(localStorage[this.localStorageLabel.darkMode] === 'true');
     }
 
     setWithCurrentConfig() {
@@ -517,7 +519,7 @@ function $(selector) {
 // 初始化
 window.onload = () => {
     // 最开始的时候，如果没有检测到存储的数据，初始化
-    if (Config.hasSavedData()) {
+    if (config.hasSavedData()) {
         config.get();
         config.setWithCurrentConfig();
     } else {
@@ -606,6 +608,19 @@ window.onload = () => {
                     engine.finish();
                 }
             }
+        }
+    }
+    typingPad.oninput = e => {
+        if (!engine.isFinished && engine.isStarted) {
+            engine.compare();
+            // 末字时结束的时候
+            if (typingPad.value.length >= currentWords.length) {
+                if (typingPad.value === currentWords) {
+                    engine.finish();
+                }
+            }
+        } else {
+            engine.start()
         }
     }
 }
