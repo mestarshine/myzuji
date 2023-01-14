@@ -573,9 +573,9 @@ window.onload = () => {
      * ⌘ + j: 下一段
      */
     typingPad.onkeydown = (e) => {
-        if (e.key === 'Tab' || ((e.metaKey || e.ctrlKey) && (/[nqewfgyplt]/.test(e.key)))) {
+        if (e.key === 'Tab' || ((e.metaKey || e.ctrlKey) && (/[nqwefgplt]/.test(e.key)))) {
             e.preventDefault();
-        } else if ((e.metaKey || e.ctrlKey) && e.key === 'r') {
+        } else if ((e.metaKey || e.ctrlKey) && e.key === 'y') {
             e.preventDefault();
             engine.reset();
         } else if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
