@@ -164,10 +164,14 @@ class Engine {
             let minute = Math.floor(secondAll / 60);
             let second = Math.floor(secondAll % 60);
             $('.minute').innerText = minute >= 10 ? minute : `0${minute}`;
+            $('.btn-minute').innerText = minute >= 10 ? minute : `0${minute}`;
             $('.second').innerText = second >= 10 ? second : `0${second}`;
+            $('.btn-second').innerText = second >= 10 ? second : `0${second}`;
         } else {
             $('.minute').innerText = '00';
+            $('.btn-minute').innerText = '00';
             $('.second').innerText = '00';
+            $('.btn-second').innerText = '00';
         }
     }
 
@@ -286,12 +290,14 @@ class Engine {
         // speed
         if (!engine.isStarted && !engine.isFinished) {
             $('.speed').innerText = '--';
+            $('.btn-speed').innerText = '--';
             $('.count-key-rate').innerText = '--';
             $('.count-key-length').innerText = '--';
             $('.count-key-backspace').innerText = '--';
         } else {
             record.speed = (correctWordsCount / engine.duration * 1000 * 60).toFixed(2);
             $('.speed').innerText = record.speed;
+            $('.btn-speed').innerText = record.speed;
 
             let keyCount = count.all - count.function;
             record.hitRate = (keyCount / engine.duration * 1000).toFixed(2);
@@ -394,7 +400,7 @@ class Records {
               <td>${this.hitRate}</td>
               <td>${this.backspace}</td>
               <td>${this.wordCount}</td>
-              <td>${dateFormatter(new Date(this.timeStart), '')}</td>
+              <td class="hidden-sm">${dateFormatter(new Date(this.timeStart), '')}</td>
               <td class="time">${formatTimeLeft(this.duration)}</td>
               <td><button class="btn btn-danger btn-sm" onclick="data.delete(${this.id},this)" type="button">删除</button></td>
             </tr>`;
@@ -408,7 +414,7 @@ class Records {
               <td>${cursor.value.hitRate}</td>
               <td>${cursor.value.backspace}</td>
               <td>${cursor.value.wordCount}</td>
-              <td>${dateFormatter(new Date(cursor.value.timeStart), '')}</td>
+              <td class="hidden-sm">${dateFormatter(new Date(cursor.value.timeStart), '')}</td>
               <td class="time">${formatTimeLeft(cursor.value.duration)}</td>
               <td><button class="btn btn-danger btn-sm" onclick="data.delete(${cursor.key},this)" type="button">删除</button></td>
             </tr>`;

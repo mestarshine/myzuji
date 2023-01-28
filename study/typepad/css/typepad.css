@@ -12,6 +12,7 @@
 body {
     color: #333;
     background-color: #EBEBEB;
+    padding-bottom: 50px;
 }
 
 select {
@@ -184,8 +185,15 @@ select {
     display: flex;
     justify-content: space-between;
     flex-flow: row wrap;
-    margin-bottom: 10px;
     align-items: center;
+}
+
+.tool-bar-group {
+    margin-right: 10px;
+}
+
+.tool-bar-group:last-child {
+    margin-right: 0;
 }
 
 .type-pad {
@@ -201,6 +209,14 @@ select {
     background-color: #f8f8f8;
 }
 
+@media (max-width: 768px) {
+    .template {
+        margin-bottom: 5px;
+        height: auto;
+        overflow-y: scroll;
+    }
+}
+
 .typing textarea {
     border: 1px solid #dddddd;
     resize: none;
@@ -214,10 +230,6 @@ select {
     -webkit-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
     box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
-}
-
-.hidden {
-    display: none;
 }
 
 .text {
@@ -236,8 +248,30 @@ select {
     color: white !important;
 }
 
+@media (max-width: 768px) {
+    .text {
+        font-size: 1rem;
+    }
+}
+
 .text-green {
     color: #26c57d !important;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .hidden-sm {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .hidden-big {
+        display: none;
+    }
 }
 
 input[type=checkbox],
@@ -332,6 +366,11 @@ input[type=radio]:checked + label:hover {
     border-radius: 3px;
     overflow: hidden;
     border: 1px solid #dddddd;
+    margin: 0 5px 5px 0;
+}
+
+.btn-group:last-child {
+    margin-right: 0;
 }
 
 .btn-group.no-border {
