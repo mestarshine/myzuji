@@ -105,6 +105,7 @@
                 <div class="btn" onclick="data.clear(this)">清除记录</div>
             </div>
             <div class="btn-group">
+                <label class="hidden" for="article"></label>
                 <select class="btn" id="article" onchange="engine.changeArticle()">
                     <option value="one">一级简码</option>
                     <option value="two">二级简码</option>
@@ -148,23 +149,26 @@
         </div>
         <!--成绩列表-->
         <div class="table-container">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>速度</th>
-                    <th>码长</th>
-                    <th>击键</th>
-                    <th>回退</th>
-                    <th>字数</th>
-                    <th class="hidden-sm">开始时间</th>
-                    <th>用时</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <figure>
+                <figcaption class="hidden">成绩列表</figcaption>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>速度</th>
+                        <th>码长</th>
+                        <th>击键</th>
+                        <th>回退</th>
+                        <th>字数</th>
+                        <th class="hidden-sm">开始时间</th>
+                        <th>用时</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </figure>
         </div>
     </div>
 
