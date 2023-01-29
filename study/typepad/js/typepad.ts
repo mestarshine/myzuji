@@ -54,15 +54,14 @@ class Count {
 }
 
 class Config {
-    chapter;
-    chapterTotal;
-    isShuffle;
-    count;
-
-    articleConfig;
-    article;
-    darkMode;
-    localStorageLabel;
+    chapter;// 当前段号
+    chapterTotal; // 总段数
+    isShuffle; // 是否乱序模式
+    count;// 单条数量
+    articleConfig;// 文章名称
+    article;// 文章内容
+    darkMode// 暗黑模式
+    localStorageLabel;// 文章类型
 
     constructor() {
         this.chapter = 1;
