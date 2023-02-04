@@ -327,12 +327,20 @@ class Engine {
     // 改变数字时
     changePerCount() {
         config.count = $('input[type=radio]:checked').value;
-        currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
+        if (config.count === 'ALL') {
+            currentWords = currentOriginWords.join('');
+        } else {
+            currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
+        }
         config.chapter = 1;
-        let originTol = currentOriginWords.length / config.count;
+        let originTol = currentOriginWords.length / Number(config.count);
         let tempTol = Math.floor(originTol);
-        config.chapterTotal = originTol > tempTol ? tempTol + 1 : tempTol;
-        config.save(); // save config
+        if (config.count === 'ALL') {
+            config.chapterTotal = 1
+        } else {
+            config.chapterTotal = originTol > tempTol ? tempTol + 1 : tempTol;
+        }
+        config.save();
         this.reset();
     }
 
