@@ -3,9 +3,10 @@
  * Config 用户配置，字数、乱序与否
  * Engine 跟打器引擎，开始、结束、暂停
  * Record 每段的打字数据记录
- * Database IndexedDB相关操作
+ * Database IndexedDB 相关操作
  *
  */
+
 const localStorageIndexName = 'type_pad_idb_index';
 const REG = {
     all: /.*/,
@@ -23,7 +24,8 @@ const REG = {
     quot: /'/,
 }
 
-class Count {
+// 按键记录
+class KeyCount {
     all = 0;
     az = 0;
     number = 0;
@@ -514,7 +516,7 @@ const typingPad = $('#pad');
 let currentWords = '';
 let correctWordsCount = 0;
 let currentOriginWords = [];
-let count = new Count();
+let count = new KeyCount();
 let engine = new Engine();
 let config = new Config();
 let record = new Records(0, 0, 0, 0, 0, 0, 0);
