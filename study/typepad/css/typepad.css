@@ -529,7 +529,7 @@ td.time {
     letter-spacing: 1px;
 }
 
-.binding-key kbd {
+.roboto-mono, .binding-key kbd {
     font-family: 'Roboto Mono', sans-serif !important;
 }
 

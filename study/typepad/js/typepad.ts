@@ -402,9 +402,11 @@ class Records {
     }
 
     getHtml() {
+        let level = Math.floor(this.speed / speedGap);
+        level = level > 6 ? 6 : level;
         return `<tr>
               <td class="text-center">${this.id}</td>
-              <td class="bold lv-${Math.floor(this.speed / speedGap)}">${this.speed}</td>
+              <td class="bold roboto-mono lv-${level}">${this.speed}</td>
               <td>${this.codeLength}</td>
               <td>${this.hitRate}</td>
               <td>${this.backspace}</td>
@@ -416,9 +418,11 @@ class Records {
     }
 
     getHtmlWithCursor(cursor) {
+        let level = Math.floor(cursor.value.speed / speedGap);
+        level = level > 6 ? 6 : level;
         return `<tr>
               <td class="text-center">${cursor.key}</td>
-              <td class="bold lv-${Math.floor(this.speed / speedGap)}">${this.speed}</td>
+              <td class="bold roboto-mono lv-${level}">${this.speed}</td>
               <td>${cursor.value.codeLength}</td>
               <td>${cursor.value.hitRate}</td>
               <td>${cursor.value.backspace}</td>
