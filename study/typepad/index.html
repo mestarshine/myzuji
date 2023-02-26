@@ -102,9 +102,6 @@
                 <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
             </div>
             <div class="btn-group">
-                <div class="btn" onclick="data.clear(this)">清除记录</div>
-            </div>
-            <div class="btn-group">
                 <label class="hidden" for="article"></label>
                 <select class="btn" id="article" onchange="engine.changeArticle()">
                     <option value="one">一级简码</option>
@@ -164,7 +161,7 @@
                         <th>字数</th>
                         <th class="hidden-sm">开始时间</th>
                         <th>用时</th>
-                        <th>操作</th>
+                        <th>操作 <a class="link" onclick="data.clear(this)">清除</a></th>
                     </tr>
                     </thead>
                     <tbody>
