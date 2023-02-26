@@ -125,10 +125,6 @@ select {
     padding: 5px 0;
 }
 
-.number, .time-info .time .minute, .time-info .time .second, td.time {
-    font-family: 'DS Digital', sans-serif !important;
-}
-
 .speed-info .speed {
     font-family: Impact, sans-serif;
     padding: 10px 0;
@@ -431,7 +427,7 @@ input[type=radio]:checked + label:hover {
 
 @font-face {
     font-family: "Impact";
-    src: url("../font/Impact.ttf");
+    src: url("../font/ImpactPureNumber.ttf");
 }
 
 @font-face {
@@ -443,6 +439,15 @@ input[type=radio]:checked + label:hover {
     font-family: "Roboto Mono";
     src: url("../font/RobotoMono.ttf");
 }
+
+.number, .time-info .time .minute, .time-info .time .second, td.time {
+    font-family: 'DS Digital', sans-serif !important;
+}
+
+.roboto-mono, .binding-key kbd {
+    font-family: 'Roboto Mono', sans-serif !important;
+}
+
 
 .table-container {
     overflow-y: auto;
@@ -505,14 +510,14 @@ tbody tr td:last-child {
 }
 
 td {
-    padding: 4px;
+    padding: 2px 4px;
     font-size: 12px;
 }
 
 td .btn {
     border: 1px solid #dddddd;
     background-color: white;
-    padding: 4px 6px;
+    padding: 2px 4px;
     font-weight: bold;
     cursor: pointer;
     -webkit-border-radius: 3px;
@@ -529,10 +534,6 @@ td .btn:hover {
 
 td.time {
     letter-spacing: 1px;
-}
-
-.roboto-mono, .binding-key kbd {
-    font-family: 'Roboto Mono', sans-serif !important;
 }
 
 .binding-key {
