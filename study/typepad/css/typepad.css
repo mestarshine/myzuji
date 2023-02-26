@@ -4,6 +4,7 @@
     border: 0;
     font-family: inherit;
     font-size: inherit;
+    color: inherit;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -60,6 +61,7 @@ select {
 .info-panel {
     margin-bottom: 10px;
     padding: 15px;
+    color: #555;
     background-color: white;
     border: 1px solid #ddd;
 }
@@ -69,7 +71,6 @@ select {
     margin-bottom: 5px;
     display: flex;
     justify-content: space-between;
-    color: #666;
 }
 
 .key-info-item:before {
@@ -116,7 +117,7 @@ select {
 }
 
 .time-info .time {
-    color: #666;
+    color: #555;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -134,6 +135,7 @@ select {
     text-align: center;
     font-size: 2rem;
     border-bottom: 1px dashed #dddddd;
+    color: #333
 }
 
 .speed-info .count {
@@ -451,7 +453,7 @@ input[type=radio]:checked + label:hover {
 
 .table {
     width: 100%;
-    color: #666;
+    color: #555;
 }
 
 thead tr {
@@ -459,7 +461,7 @@ thead tr {
 }
 
 thead tr th {
-    color: #666;
+    color: #555;
     text-align: left;
     padding: 8px 4px;
     font-weight: bold;
@@ -554,4 +556,28 @@ td.time {
     -webkit-box-shadow: 1px 2px 0 #ababab;
     -moz-box-shadow: 1px 2px 0 #ababab;
     box-shadow: 1px 2px 0 #ababab;
+}
+
+.lv-6 {
+    color: #5856D6 !important;
+}
+
+.lv-5 {
+    color: #ff2d70 !important;
+}
+
+.lv-4 {
+    color: #FF9500 !important;
+}
+
+.lv-3 {
+    color: #26c57d !important;
+}
+
+.lv-2 {
+    color: #007AFF !important;
+}
+
+.lv-1 {
+    color: #8E8E93 !important;
 }
