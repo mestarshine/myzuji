@@ -218,7 +218,7 @@ select {
 .typing textarea {
     border: 1px solid #dddddd;
     resize: none;
-    max-height: 200px;
+    max-height: 150px;
     width: 100%;
     padding: 10px;
     display: block;
