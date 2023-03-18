@@ -8,6 +8,9 @@
  */
 
 const localStorageIndexName = 'type_pad_idb_index';
+const untypedStringClassName = 'untyped-part';
+const HEIGHT_TEMPLATE = 150; // 对照区高度
+
 const REG = {
     all: /.*/,
     az: /^[a-zA-Z]$/,
@@ -251,8 +254,12 @@ class Engine {
             lastCharacterIsCorrect = current === origin;
         })
         let untypedString = currentWords.substring(arrayTyped.length)
-        html = html.concat(untypedString)
+        let untypedHtml = `<span class='${untypedStringClassName}'>${untypedString}</span>`;
+        html = html.concat(untypedHtml)
         content.innerHTML = html;
+        // 滚动对照区到当前所输入的位置
+        let offsetTop = $('.' + untypedStringClassName).offsetTop;
+        contentWrapper.scrollTo(0, offsetTop - HEIGHT_TEMPLATE / 2);
     }
 
     // 当前段打完
@@ -516,6 +523,7 @@ const ARTICLE = {
 }
 const speedGap = 30;// 速度阶梯，每增30新增一个颜色
 const content = $('.content p');
+const contentWrapper = $('.content');
 const typingPad = $('#pad');
 let currentWords = '';
 let correctWordsCount = 0;
