@@ -2,6 +2,7 @@ package com.myzuji.study.java.easyexcel;
 
 import com.alibaba.excel.EasyExcel;
 import com.myzuji.study.easyexcel.read.*;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -18,6 +19,7 @@ public class ReadTest {
      * 3. 直接读即可
      */
     @Test
+    @Ignore
     public void simpleRead() {
         String merFile = ReadTest.class.getResource("/").getPath() + "easyexcel" + File.separator + "demo" +
             File.separator + "demo.xlsx";

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+    <title>跟打器</title>
+    <link href="css/typepad.css" rel="stylesheet">
+    <link href="css/black.css" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <div class="side-menu  hidden-sm">
+        <div class="time-info info-panel">
+            <div class="time number">
+                <div class="minute">00</div>
+                :
+                <div class="second">00</div>
+            </div>
+        </div>
+
+        <div class="speed-info info-panel">
+            <div class="speed">--</div>
+            <div class="count pt-2">
+                <div class="count-item">
+                    <p class="count-key-backspace">--</p>
+                    <p class="small">回删</p>
+                </div>
+                <div class="count-item">
+                    <p class="count-key-length">--</p>
+                    <p class="small">码长</p>
+                </div>
+                <div class="count-item">
+                    <p class="count-key-rate">--</p>
+                    <p class="small">击键</p>
+                </div>
+            </div>
+        </div>
+        <div class="key-info info-panel">
+            <div class="key-info-item word-all"><h6>全部按键</h6>
+                <p></p></div>
+            <div class="key-info-item word-az"><h6>A-Z</h6>
+                <p></p></div>
+            <div class="key-info-item word-space"><h6>空格</h6>
+                <p></p></div>
+            <div class="key-info-item word-backspace"><h6>删除</h6>
+                <p></p></div>
+            <div class="key-info-item word-number"><h6>数字</h6>
+                <p></p></div>
+            <div class="key-info-item word-function"><h6>功能键</h6>
+                <p></p></div>
+            <div class="key-info-item word-shift"><h6>Shift</h6>
+                <p></p></div>
+            <div class="key-info-item word-meta"><h6>Command（⌘）</h6>
+                <p></p></div>
+            <div class="key-info-item word-alt"><h6>Option</h6>
+                <p></p></div>
+            <div class="key-info-item word-ctrl"><h6>Control</h6>
+                <p></p></div>
+            <div class="key-info-item word-semicolon"><h6>;</h6>
+                <p></p></div>
+            <div class="key-info-item word-quot"><h6>'</h6>
+                <p></p></div>
+        </div>
+
+        <div class="info-panel">
+            <div class="key-info-item"><h6 class="binding-key"><kbd>Ctrl</kbd>+<kbd>J</kbd></h6>
+                <p>下一段</p></div>
+            <div class="key-info-item"><h6 class="binding-key"><kbd>Ctrl</kbd>+<kbd>U</kbd></h6>
+                <p>上一段</p></div>
+            <div class="key-info-item"><h6 class="binding-key"><kbd>Ctrl</kbd>+<kbd>k</kbd></h6>
+                <p>打乱当前</p></div>
+            <div class="key-info-item"><h6 class="binding-key"><kbd>Ctrl</kbd>+<kbd>Y</kbd></h6>
+                <p>重打当前</p></div>
+        </div>
+        <div class="info-panel">
+            <p>快捷键只在编辑区内生效</p>
+        </div>
+    </div>
+
+    <!--内容区-->
+    <div class="type-pad">
+        <!--工具栏-->
+        <div class="tool-bar">
+            <div class="btn-group">
+                <div class="btn number">
+                    <span class="count-current bold current number"></span> / <span
+                    class="count-total number total"></span>
+                </div>
+                <div class="btn number">
+                    <span class="chapter-current bold current number"></span> / <span
+                    class="chapter-total number total"></span>
+                </div>
+            </div>
+            <div class="btn-group">
+                <div class="btn" onclick="engine.prevChapter()" title="⌘ + U">《</div>
+                <div class="btn" onclick="engine.nextChapter()" title="⌘ + J">》</div>
+            </div>
+            <div class="btn-group">
+                <div class="btn" onclick="engine.shuffle()" title="⌘ + L">打乱</div>
+                <div class="btn" onclick="engine.reset()" title="⌘ + Y">重置</div>
+                <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
+                <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
+            </div>
+            <div class="btn-group">
+                <label class="hidden" for="article"></label>
+                <select class="btn" id="article" onchange="engine.changeArticle()">
+                    <option value="one">一级简码</option>
+                    <option value="two">二级简码</option>
+                </select>
+            </div>
+            <div class="btn-group">
+                <input class="btn" id="count5" name="count" onchange="engine.changePerCount()" type="radio"
+                       value="5"><label class="btn" for="count5">5</label>
+                <input checked class="btn" id="count10" name="count" onchange="engine.changePerCount()" type="radio"
+                       value="10"><label class="btn" for="count10">10</label>
+                <input class="btn" id="count15" name="count" onchange="engine.changePerCount()" type="radio"
+                       value="15"><label class="btn" for="count15">15</label>
+                <input class="btn" id="count20" name="count" onchange="engine.changePerCount()" type="radio"
+                       value="20"><label class="btn" for="count20">20</label>
+                <input class="btn" id="count50" name="count" onchange="engine.changePerCount()" type="radio"
+                       value="50"><label class="btn hidden-sm" for="count50">50</label>
+                <input class="btn" id="count100" name="count" onchange="engine.changePerCount()" type="radio"
+                       value="100"><label class="btn hidden-sm" for="count100">100</label>
+                <input class="btn" id="all" name="count" onchange="engine.changePerCount()" type="radio"
+                       value="ALL"><label class="btn hidden-sm" for="all">ALL</label>
+            </div>
+            <div class="btn-group">
+                <div class="btn" id="darkButton" onclick="switchDarkMode(this)">暗黑</div>
+            </div>
+            <div class="btn-group hidden-big">
+                <div class="btn number"><span class="btn-minute">00</span>:<span class="btn-second">00</span></div>
+                <div class="btn"><span class="btn-speed"></span> 字/分</div>
+            </div>
+            <div class="btn-group no-border">
+                <input id="mode" onchange="engine.shuffleCurrentArticle()" type="checkbox">
+                <label class="checker btn" for="mode">乱序</label>
+            </div>
+        </div>
+        <!--文章区-->
+        <div class="content">
+            <p class="text"></p>
+        </div>
+        <!--打字区-->
+        <div class="typing">
+            <label class="hidden" for="pad"></label>
+            <textarea class="text" id="pad" rows="10"></textarea>
+        </div>
+        <!--成绩列表-->
+        <div class="table-container">
+            <figure>
+                <figcaption class="hidden">成绩列表</figcaption>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>速度</th>
+                        <th>码长</th>
+                        <th>击键</th>
+                        <th>回退</th>
+                        <th>字数</th>
+                        <th class="hidden-sm">开始时间</th>
+                        <th>用时</th>
+                        <th>操作 <a class="link" onclick="data.clear(this)">清除</a></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </figure>
+        </div>
+    </div>
+
+</div>
+<script src="js/typepad.ts"></script>
+</body>
+</html>

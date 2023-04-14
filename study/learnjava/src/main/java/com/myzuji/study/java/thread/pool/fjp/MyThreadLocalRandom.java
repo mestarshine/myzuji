@@ -81,6 +81,7 @@ import java.util.stream.StreamSupport;
  * @author Doug Lea
  * @since 1.7
  */
+@SuppressWarnings("warnings")
 public class MyThreadLocalRandom extends Random {
     /*
      * This class implements the java.util.Random API (and subclasses

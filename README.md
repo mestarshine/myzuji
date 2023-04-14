@@ -20,7 +20,13 @@
 1. 在线构建器：拖动表单元素生成相应的HTML代码。
 1. 连接池监视：监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈。
 
+## 编译
+
+```shell
+git submodule init && git submodule update
+```
+
 ## 感谢 JetBrains 免费的开源授权
 
-<a href="https://www.jetbrains.com/?from=Mybatis-PageHelper" target="_blank">
-<img src="https://user-images.githubusercontent.com/1787798/69898077-4f4e3d00-138f-11ea-81f9-96fb7c49da89.png" height="200"/></a>
+<a href="https://www.jetbrains.com/" target="_blank">
+<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" height="200"/></a>

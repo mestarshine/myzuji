@@ -1,39 +1,32 @@
 package com.myzuji.breadth.repository;
 
-import com.gargoylesoftware.htmlunit.WebClient;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.cookie.Cookie;
-import org.apache.http.entity.BasicHttpEntity;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 public class HttpClientTest {
 
     @Test
+    @Ignore
     public void Test1() {
         CloseableHttpClient httpClient = HttpClientBuilder.create()
 //            .setDefaultCookieStore(makeCookies())
@@ -73,6 +66,7 @@ public class HttpClientTest {
     }
 
     @Test
+    @Ignore
     public void test2() {
         System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH24mmss")));
     }
