@@ -104,6 +104,9 @@
             <div class="btn-group">
                 <label class="hidden" for="article"></label>
                 <select class="btn" id="article" onchange="engine.changeArticle()">
+                    <option value="top500">单字 - 常用前500</option>
+                    <option value="mid500">单字 - 常用中500</option>
+                    <option value="tail500">单字 - 常用后500</option>
                     <option value="one">一级简码</option>
                     <option value="two">二级简码</option>
                 </select>
@@ -171,6 +174,6 @@
     </div>
 
 </div>
-<script src="js/typepad.ts"></script>
+<script src="js/typepad.ts" type="text/javascript"></script>
 </body>
 </html>
