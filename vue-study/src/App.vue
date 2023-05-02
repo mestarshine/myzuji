@@ -1,7 +1,7 @@
 <script setup>
-import HelloWorld from './components/01day/HelloWorld.vue'
+import context from './components/01day/TemplateSyntax.vue'
 </script>
 
 <template>
-    <HelloWorld/>
+    <context/>
 </template>
