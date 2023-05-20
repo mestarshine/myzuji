@@ -26,6 +26,8 @@ function formatDate(date) {
     let formatter = new Intl.DateTimeFormat('zh-cn', options);
     return formatter.format(date)
 }
+
+const text = ref('')
 </script>
 
 <template>
@@ -54,6 +56,11 @@ function formatDate(date) {
     <time :title="toTitleDate(date)" :datetime="date">
         {{ formatDate(date) }}
     </time>
+    <!--表单绑定-->
+    <div>
+        <input v-model="text" placeholder="请输入">
+        <p>{{ text }}</p>
+    </div>
 </template>
 
 <style>
