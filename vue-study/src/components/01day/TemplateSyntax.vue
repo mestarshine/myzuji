@@ -9,9 +9,28 @@ const objectOfAttrs = {
     id: 'container',
     class: 'wrapper'
 }
+const count = ref(0)
+
+function increment() {
+    count.value++
+}
+const date = new Date()
+function toTitleDate(date) {
+    let options = { year: 'numeric', month: 'long', day: 'numeric' };
+    let formatter = new Intl.DateTimeFormat('zh-cn', options);
+    return formatter.format(date)
+}
+
+function formatDate(date) {
+    let options = { year: 'numeric', month: 'long', day: 'numeric' };
+    let formatter = new Intl.DateTimeFormat('zh-cn', options);
+    return formatter.format(date)
+}
 </script>
 
 <template>
+
+    <!-- 插值 在文本插值中 (双大括号)， 在任何 Vue 指令 (以 v- 开头的特殊 attribute) attribute 的值中 -->
     <h1>{{ message }}</h1>
     <p>Using text interpolation: {{ rawHtml }}</p>
     <!-- 将此元素的 innerHTML 与 rawHtml 属性保持同步-->
@@ -25,7 +44,16 @@ const objectOfAttrs = {
     <div :class="titleClass"></div>
     <button :disabled="isButtonDisabled">Button</button>
 
+    <!--动态绑定多个值-->
     <div v-bind="objectOfAttrs"></div>
+
+    <button v-on:click="increment">{{ count }}</button>
+    <!--  简写  -->
+    <button @click="increment">{{ count }}</button>
+    <div/>
+    <time :title="toTitleDate(date)" :datetime="date">
+        {{ formatDate(date) }}
+    </time>
 </template>
 
 <style>
