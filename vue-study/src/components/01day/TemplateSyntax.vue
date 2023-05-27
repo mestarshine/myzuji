@@ -28,6 +28,12 @@ function formatDate(date) {
 }
 
 const text = ref('')
+
+const awesome = ref(true)
+
+function toggle() {
+    awesome.value = !awesome.value
+}
 </script>
 
 <template>
@@ -60,6 +66,12 @@ const text = ref('')
     <div>
         <input v-model="text" placeholder="请输入">
         <p>{{ text }}</p>
+    </div>
+    <!--条件渲染-->
+    <div>
+        <button @click="toggle">查看</button>
+        <h1 v-if="awesome">Vue is awesome!</h1>
+        <h1 v-else>Oh no 😢</h1>
     </div>
 </template>
 
