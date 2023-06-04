@@ -54,6 +54,8 @@ function removeTodo(todo) {
     todos.value = todos.value.filter((t) => t !== todo)
     console.log(todos.value)
 }
+
+const type = "C";
 </script>
 
 <template>
@@ -87,12 +89,27 @@ function removeTodo(todo) {
         <input v-model="text" placeholder="请输入">
         <p>{{ text }}</p>
     </div>
-    <!--条件渲染-->
+    <!--条件渲染if-else-->
     <div>
         <button @click="toggle">查看</button>
         <h1 v-if="awesome">Vue is awesome!</h1>
         <h1 v-else>Oh no 😢</h1>
     </div>
+
+    <!-- else-if -->
+    <div v-if="type === 'A'">
+        A
+    </div>
+    <div v-else-if="type === 'B'">
+        B
+    </div>
+    <div v-else-if="type === 'C'">
+        C
+    </div>
+    <div v-else>
+        Not A/B/C
+    </div>
+
     <!-- 列表渲染 -->
     <div>
         <form @submit.prevent="addTodo">
