@@ -110,6 +110,10 @@ const type = "C";
         Not A/B/C
     </div>
 
+    <!-- v-show v-show 会在 DOM 渲染中保留该元素；v-show 仅切换了该元素上名为 display 的 CSS 属性。-->
+    <!-- v-show 不支持在 <template> 元素上使用，也不能和 v-else 搭配使用 -->
+    <!-- v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要频繁切换，则使用 v-show 较好；如果在运行时绑定条件很少改变，则 v-if 会更合适 -->
+    <h1 v-show="type === 'A'">Hello!</h1>
     <!-- 列表渲染 -->
     <div>
         <form @submit.prevent="addTodo">
