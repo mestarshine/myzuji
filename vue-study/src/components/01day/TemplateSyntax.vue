@@ -58,7 +58,7 @@ function removeTodo(todo) {
 const type = "C";
 
 const parentMessage = ref('Parent')
-const items = ref([{ message: 'Foo' }, { message: 'Bar' }])
+const items = ref([{ message: 'Foo',id: 1 }, { message: 'Bar',id: 2 }])
 const myObject = reactive({
     title: 'How to do lists in Vue',
     author: 'Jane Doe',
@@ -180,6 +180,16 @@ const myObject = reactive({
         <ul>
             <li v-for="(value, key, index) in myObject">
                 {{ index }}. {{ key }}: {{ value }}
+            </li>
+        </ul>
+        <!-- 通过Key管理状态,key是每个元素对应的唯一的变量 -->
+        <!-- key的期望值是一个基础类型，不要有对像作为key -->
+        <!-- 如果传了Key，则将根据key的变化顺序来重新排列元素，并且将始移除/销毁已经不存在的元素 -->
+        <!-- 同一个父元素下的子元素必须具有唯一的key，重复的key将会导致渲染异常 -->
+        <h3>通过Key管理状态</h3>
+        <ul>
+            <li v-for="(item, index) in items" :key="item.id">
+                {{ parentMessage }} - {{ index }} - {{ item.message }} - {{item.id}}
             </li>
         </ul>
     </div>
