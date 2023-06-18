@@ -64,6 +64,14 @@ const myObject = reactive({
     author: 'Jane Doe',
     publishedAt: '2016-04-10'
 })
+const sets = ref([
+    [1, 2, 3, 4, 5],
+    [6, 7, 8, 9, 10]
+])
+
+function even(numbers) {
+    return numbers.filter((number) => number % 2 === 0)
+}
 </script>
 <template>
     <!-- 插值 在文本插值中 (双大括号)， 在任何 Vue 指令 (以 v- 开头的特殊 attribute) attribute 的值中 -->
@@ -191,6 +199,11 @@ const myObject = reactive({
             <li v-for="(item, index) in items" :key="item.id">
                 {{ parentMessage }} - {{ index }} - {{ item.message }} - {{item.id}}
             </li>
+        </ul>
+
+        <h3>展示过虑的结果</h3>
+        <ul v-for="numbers in sets">
+            <li v-for="n in even(numbers)">{{ n }}</li>
         </ul>
     </div>
 </template>
