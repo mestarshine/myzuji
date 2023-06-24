@@ -94,9 +94,6 @@ function even(numbers) {
         <!--动态绑定多个值-->
         <div v-bind="objectOfAttrs"></div>
 
-        <button v-on:click="increment">{{ count }}</button>
-        <!--  简写  -->
-        <button @click="increment">{{ count }}</button>
         <div/>
         <time :title="toTitleDate(date)" :datetime="date">
             {{ formatDate(date) }}
@@ -205,6 +202,15 @@ function even(numbers) {
         <ul v-for="numbers in sets">
             <li v-for="n in even(numbers)">{{ n }}</li>
         </ul>
+
+        <!-- 使用 v-on 指令 (简写为 @) 来监听 DOM 事件，并在事件触发时执行对应的 JavaScript。-->
+        <!-- 用法：v-on:click="handler" 或 @click="handler" -->
+        <h3>事件处理</h3>
+        <h4>内联事件处理</h4>
+        <button v-on:click="increment">加1</button>
+        <!--  简写  -->
+        <button @click="count--">加-</button>
+        <p>{{ count }}</p>
     </div>
 </template>
 
