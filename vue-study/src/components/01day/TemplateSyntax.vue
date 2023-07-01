@@ -72,6 +72,15 @@ const sets = ref([
 function even(numbers) {
     return numbers.filter((number) => number % 2 === 0)
 }
+const checkedNames = ref([])
+const picked = ref()
+const selected = ref('A')
+
+const options = ref([
+    { text: 'One', value: 'A' },
+    { text: 'Two', value: 'B' },
+    { text: 'Three', value: 'C' }
+])
 </script>
 <template>
     <!-- 插值 在文本插值中 (双大括号)， 在任何 Vue 指令 (以 v- 开头的特殊 attribute) attribute 的值中 -->
@@ -211,6 +220,52 @@ function even(numbers) {
         <!--  简写  -->
         <button @click="count--">加-</button>
         <p>{{ count }}</p>
+
+        <h3>表单输入绑定</h3>
+        <p>Message is: {{ message }}</p>
+        <input v-model="message" placeholder="edit me" />
+        <h3>Multiline message is:</h3>
+        <span style="white-space: pre-line;">{{ message }}</span>
+        <br>
+        <textarea v-model="message" placeholder="add multiple lines"></textarea>
+
+
+        <!-- checkbox -->
+        <div>Checked names: {{ checkedNames }}</div>
+
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+        <label for="jack">Jack</label>
+
+        <input type="checkbox" id="john" value="John" v-model="checkedNames">
+        <label for="john">John</label>
+
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+        <label for="mike">Mike</label>
+
+        <!-- radio -->
+        <div>Picked: {{ picked }}</div>
+        <input type="radio" id="one" value="One" v-model="picked" />
+        <label for="one">One</label>
+
+        <input type="radio" id="two" value="Two" v-model="picked" />
+        <label for="two">Two</label>
+
+        <!-- Selected -->
+        <div>Selected: {{ selected }}</div>
+        <select v-model="selected">
+            <option disabled value="">Please select one</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+
+        <select v-model="selected">
+            <option v-for="option in options" :value="option.value">
+                {{ option.text }}
+            </option>
+        </select>
+
+        <div>Selected: {{ selected }}</div>
     </div>
 </template>
 
