@@ -1,16 +1,17 @@
-<script setup lang="ts" name="Person">
+<script lang="ts" setup name="Person5">
+import {ref} from "vue";
 //数据
-let userName = "张三"; // 不是响应式的
-let age = 18;
+let userName = ref("张三"); // 不是响应式的
+let age = ref(18);
 let tel = '133338888';
 
 //方法
 function changeName() {
-    userName = "李四";
+    userName.value = "李四";
 }
 
 function changeAge() {
-    age += 1;
+    age.value += 1;
 }
 
 function showTel() {
