@@ -13,6 +13,7 @@
     "format": "prettier --write ~/workspace/github/myzuji/vue-study/src"
   },
   "dependencies": {
+    "vite-plugin-vue-setup-extend": "^0.4.0",
     "vue": "^3.3.11"
   },
   "devDependencies": {

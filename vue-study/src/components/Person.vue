@@ -1,27 +1,22 @@
-<script lang="ts">
-export default {
-    name: 'Person',
-    setup() {
-        //数据
-        let userName = "张三"; // 不是响应式的
-        let age = 18;
-        let tel = '133338888';
+<script setup lang="ts" name="Person">
+//数据
+let userName = "张三"; // 不是响应式的
+let age = 18;
+let tel = '133338888';
 
-        //方法
-        function changeName(){
-            userName = "李四";
-        }
-        function changeAge(){
-            age += 1;
-        }
-        function showTel(){
-            alert(tel);
-        }
-
-
-        return {userName, age, changeName,changeAge,showTel}
-    }
+//方法
+function changeName() {
+    userName = "李四";
 }
+
+function changeAge() {
+    age += 1;
+}
+
+function showTel() {
+    alert(tel);
+}
+
 </script>
 
 <template>

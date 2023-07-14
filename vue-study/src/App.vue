@@ -3,7 +3,7 @@
     <person/>
 </template>
 
-<script lang="ts">
+<script lang="ts" name="App">
 // JS 或 TS
 import Person from "@/components/Person.vue";
 
