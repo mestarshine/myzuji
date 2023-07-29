@@ -1,4 +1,4 @@
-<script lang="ts" setup name="Person5">
+<script lang="ts" setup name="day1">
 import {reactive} from "vue";
 import {ref} from "vue";
 /*
