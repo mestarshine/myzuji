@@ -62,7 +62,7 @@ class Config {
     chapterTotal; // 总段数
     isShuffle; // 是否乱序模式
     count;// 单条数量
-    articleConfig;// 文章名称
+    articleName;// 文章名称
     article;// 文章内容
     darkMode// 暗黑模式
     localStorageLabel;// 文章类型
@@ -72,14 +72,14 @@ class Config {
         this.chapterTotal = 1;
         this.isShuffle = false;
         this.count = 15;
-        this.articleConfig = ARTICLE.top500.name;
+        this.articleName = ARTICLE.top500.name;
         this.article = ARTICLE.top500.content;
         this.localStorageLabel = {
             chapter: 'type_pad_config_chapter',
             chapterTotal: 'type_pad_config_chapter_total',
             isShuffle: 'type_pad_config_is_shuffle',
             count: 'type_pad_config_count',
-            articleConfig: 'type_pad_config_article_option',
+            articleName: 'type_pad_config_article_name',
             article: 'type_pad_config_article',
             darkMode: 'type_pad_config_dark_mode',
         }
@@ -87,7 +87,7 @@ class Config {
 
     // 判断是否存储过配置信息
     hasSavedData() {
-        return Boolean(localStorage[this.localStorageLabel.articleConfig]);
+        return Boolean(localStorage[this.localStorageLabel.articleName]);
     }
 
     save() {
@@ -95,7 +95,7 @@ class Config {
         localStorage[this.localStorageLabel.chapterTotal] = this.chapterTotal;
         localStorage[this.localStorageLabel.isShuffle] = this.isShuffle;
         localStorage[this.localStorageLabel.count] = this.count;
-        localStorage[this.localStorageLabel.articleConfig] = this.articleConfig;
+        localStorage[this.localStorageLabel.articleName] = this.articleName;
         localStorage[this.localStorageLabel.article] = this.article;
         localStorage[this.localStorageLabel.darkMode] = this.darkMode;
     }
@@ -105,7 +105,7 @@ class Config {
         this.chapterTotal = Number(localStorage[this.localStorageLabel.chapterTotal]);
         this.isShuffle = Boolean(localStorage[this.localStorageLabel.isShuffle] === 'true');
         this.count = Number(localStorage[this.localStorageLabel.count]);
-        this.articleConfig = localStorage[this.localStorageLabel.articleConfig];
+        this.articleName = localStorage[this.localStorageLabel.articleName];
         this.article = localStorage[this.localStorageLabel.article];
         this.darkMode = Boolean(localStorage[this.localStorageLabel.darkMode] === 'true');
     }
@@ -116,7 +116,7 @@ class Config {
         for (let i = 0; i < radios.length; i++) {
             radios[i]['checked'] = Number(radios[i]['value']) === this.count
         }
-        $('#article').value = this.articleConfig;
+        $('#article').value = this.articleName;
         currentOriginWords = this.article.split('');
 
         let body = $('body');
@@ -195,7 +195,7 @@ class Engine {
 
     // 重置计数器
     reset() {
-        record = new Records(0, 0, 0, 0, 0, 0, 0);
+        record = new Records();
         content.innerHTML = currentWords
         typingPad.value = ''
         count.reset();
@@ -273,8 +273,9 @@ class Engine {
         record.timeStart = this.timeStart;
         record.duration = this.duration;
         record.wordCount = currentWords.length;
+        record.articleName = config.articleName;
         this.updateCountInfo();
-        data.insert(record);
+        dataBase.insert(record);
     }
 
     // 更新界面信息
@@ -325,9 +326,11 @@ class Engine {
     }
 
     changeArticle() {
-        config.articleConfig = $('#article').value;
-        let article = ARTICLE[config.articleConfig].content;
-        currentOriginWords = config.isShuffle ? shuffle(article.split('')) : article.split('');
+        let articleNameValue = $('#article').value;
+        let article = ARTICLE[articleNameValue];
+        config.articleName = article.name;
+        let content = ARTICLE[config.articleName].content;
+        currentOriginWords = config.isShuffle ? shuffle(content.split('')) : content.split('');
         config.article = currentOriginWords.join('');
         this.changePerCount();
     }
@@ -355,7 +358,7 @@ class Engine {
     // 切换乱序模式
     shuffleCurrentArticle() {
         config.isShuffle = $('#mode').checked;
-        currentOriginWords = config.isShuffle ? shuffle(ARTICLE[config.articleConfig].content.split('')) : ARTICLE[config.articleConfig].content.split('');
+        currentOriginWords = config.isShuffle ? shuffle(ARTICLE[config.articleName].content.split('')) : ARTICLE[config.articleName].content.split('');
         config.article = currentOriginWords.join('');
         currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
         config.chapter = 1;
@@ -391,20 +394,22 @@ class Records {
     hitRate;
     backspace;
     wordCount;
+    articleName;
     timeStart;
     duration;
 
-    constructor(speed, codeLength, hitRate, backspace, wordCount, timeStart, duration) {
+    constructor() {
         let index = localStorage[localStorageIndexName];
         this.id = index ? Number(index) : 1;
         localStorage[localStorageIndexName] = this.id;
-        this.speed = speed;
-        this.codeLength = codeLength;
-        this.hitRate = hitRate;
-        this.backspace = backspace;
-        this.wordCount = wordCount;
-        this.timeStart = timeStart;
-        this.duration = duration;
+        this.speed = 0;
+        this.codeLength = 0;
+        this.hitRate = 0;
+        this.backspace = 0;
+        this.wordCount = 0;
+        this.articleName = '';
+        this.timeStart = 0;
+        this.duration = 0;
     }
 
     getHtml() {
@@ -417,9 +422,10 @@ class Records {
               <td>${this.hitRate}</td>
               <td>${this.backspace}</td>
               <td>${this.wordCount}</td>
+              <td>${this.articleName}</td>
               <td class="hidden-sm">${dateFormatter(new Date(this.timeStart), '')}</td>
               <td class="time">${formatTimeLeft(this.duration)}</td>
-              <td><button class="btn btn-danger btn-sm" onclick="data.delete(${this.id},this)" type="button">删除</button></td>
+              <td><button class="btn btn-danger btn-sm" onclick="dataBase.delete(${this.id},this)" type="button">删除</button></td>
             </tr>`;
     }
 
@@ -433,9 +439,10 @@ class Records {
               <td>${cursor.value.hitRate}</td>
               <td>${cursor.value.backspace}</td>
               <td>${cursor.value.wordCount}</td>
+              <td>${cursor.value.articleName ? cursor.value.articleName : ''}</td>
               <td class="hidden-sm">${dateFormatter(new Date(cursor.value.timeStart), '')}</td>
               <td class="time">${formatTimeLeft(cursor.value.duration)}</td>
-              <td><button class="btn btn-danger btn-sm" onclick="data.delete(${cursor.key},this)" type="button">删除</button></td>
+              <td><button class="btn btn-danger btn-sm" onclick="dataBase.delete(${cursor.key},this)" type="button">删除</button></td>
             </tr>`;
     }
 }
@@ -452,6 +459,7 @@ class DataBase {
                 hitRate: record.hitRate,
                 backspace: record.backspace,
                 wordCount: record.wordCount,
+                articleName: record.articleName,
                 timeStart: record.timeStart,
                 duration: record.duration,
             });
@@ -460,8 +468,9 @@ class DataBase {
             // 插入最后的数据到顶部
             let tr = document.createElement('tr');
             tr.innerHTML = record.getHtml();
-            let tbody = $('tbody');
+            let tbody = $('#grades');
             tbody.insertBefore(tr, tbody.firstChild);
+            console.log(e);
         }
 
         request.onerror = e => {
@@ -473,11 +482,11 @@ class DataBase {
     fetchAll() {
         let objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
         let html = '';
-        let currentCursor = objectStore.openCursor(IDBKeyRange.upperBound(record.id), "prev").onsuccess = e => {
+        objectStore.openCursor(IDBKeyRange.upperBound(record.id), "prev").onsuccess = e => {
             let cursor = e.target.result;
             if (cursor) {
                 html = html + record.getHtmlWithCursor(cursor);
-                document.querySelector('tbody').innerHTML = html;
+                $('#grades').innerHTML = html;
                 cursor.continue(); // 移到下一个位置
             }
         }
@@ -488,7 +497,9 @@ class DataBase {
         let objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
         objectStore.delete(id).onsuccess = e => {
             sender.parentElement.parentElement.remove();
+            localStorage[localStorageIndexName] = Number(localStorage[localStorageIndexName]) - 1;
             this.fetchAll();
+            console.log(e);
         }
     }
 
@@ -503,6 +514,7 @@ class DataBase {
                 localStorage[localStorageIndexName] = 1;
                 that.fetchAll();
                 location.reload();
+                console.log(e);
             };
         }
     }
@@ -547,12 +559,12 @@ let currentOriginWords = [];
 let count = new KeyCount();
 let engine = new Engine();
 let config = new Config();
-let record = new Records(0, 0, 0, 0, 0, 0, 0);
+let record = new Records();
 
 // database
 let DB;
 const DBName = "TypePad";
-let data = new DataBase();
+let dataBase = new DataBase();
 const OBJECT_NAME = 'TypingRecord';
 
 function $(selector) {
@@ -595,7 +607,7 @@ window.onload = () => {
     request.onsuccess = e => {
         if (e.returnValue) {
             DB = request.result;
-            data.fetchAll();
+            dataBase.fetchAll();
         } else {
         }
     }
@@ -609,7 +621,8 @@ window.onload = () => {
         } else {
             DB = request.result;
         }
-        let objectStore = DB.createObjectStore(OBJECT_NAME, {keyPath: 'id'});
+        DB.createObjectStore(OBJECT_NAME, {keyPath: 'id'});
+        console.log(e);
     }
 
     /**
@@ -667,6 +680,7 @@ window.onload = () => {
         } else if (!engine.isFinished) {
             engine.start()
         }
+        console.log(e);
     }
 }
 
