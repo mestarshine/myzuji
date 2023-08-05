@@ -605,7 +605,7 @@ window.onload = () => {
     // INDEX DB
     let request = window.indexedDB.open(DBName);
     request.onsuccess = e => {
-        if (e.returnValue) {
+        if (e.defaultPrevented) {
             DB = request.result;
             dataBase.fetchAll();
         } else {
@@ -727,11 +727,11 @@ function dateFormatter(date, formatString) {
         "S": date.getMilliseconds()                     // 毫秒
     };
     if (/(y+)/.test(formatString)) {
-        formatString = formatString.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+        formatString = formatString.replace(RegExp.$1, (date.getFullYear() + "").substring(4 - RegExp.$1.length));
     }
     for (let section in dateRegArray) {
         if (new RegExp("(" + section + ")").test(formatString)) {
-            formatString = formatString.replace(RegExp.$1, (RegExp.$1.length === 1) ? (dateRegArray[section]) : (("00" + dateRegArray[section]).substr(("" + dateRegArray[section]).length)));
+            formatString = formatString.replace(RegExp.$1, (RegExp.$1.length === 1) ? (dateRegArray[section]) : (("00" + dateRegArray[section]).substring(("" + dateRegArray[section]).length)));
         }
     }
     return formatString;
@@ -739,15 +739,14 @@ function dateFormatter(date, formatString) {
 
 
 /**
- * @param：timeLeft 倒计时秒数
  * @return：输出倒计时字符串 时时:分分:秒秒
+ * @param timeLeft
  **/
 function formatTimeLeft(timeLeft) {
     timeLeft = Math.floor(timeLeft / 1000);
-    let mins = Math.floor(timeLeft / 60);
+    let minus = Math.floor(timeLeft / 60);
     let seconds = timeLeft % 60;
-    // util.toast(`时分秒：${hours}:${mins}:${seconds}`);
-    return `${mins.toString().padStart(2, '00')}:${seconds.toString().padStart(2, '00')}`;
+    return `${minus.toString().padStart(2, '00')}:${seconds.toString().padStart(2, '00')}`;
 }
 
 function switchDarkMode(sender) {
