@@ -64,8 +64,9 @@ class Config {
     count;// 单条数量
     articleName;// 文章名称
     article;// 文章内容
-    darkMode// 暗黑模式
+    darkMode;// 暗黑模式
     localStorageLabel;// 文章类型
+    articleNameValue;//文章标识
 
     constructor() {
         this.chapter = 1;
@@ -74,6 +75,7 @@ class Config {
         this.count = 15;
         this.articleName = ARTICLE.top500.name;
         this.article = ARTICLE.top500.content;
+        this.articleNameValue = ARTICLE.top500.value;
         this.localStorageLabel = {
             chapter: 'type_pad_config_chapter',
             chapterTotal: 'type_pad_config_chapter_total',
@@ -82,12 +84,13 @@ class Config {
             articleName: 'type_pad_config_article_name',
             article: 'type_pad_config_article',
             darkMode: 'type_pad_config_dark_mode',
+            articleNameValue: 'type_pad_config_article_identifier',
         }
     }
 
     // 判断是否存储过配置信息
     hasSavedData() {
-        return Boolean(localStorage[this.localStorageLabel.articleName]);
+        return Boolean(localStorage[this.localStorageLabel.articleNameValue]);
     }
 
     save() {
@@ -98,6 +101,8 @@ class Config {
         localStorage[this.localStorageLabel.articleName] = this.articleName;
         localStorage[this.localStorageLabel.article] = this.article;
         localStorage[this.localStorageLabel.darkMode] = this.darkMode;
+        localStorage[this.localStorageLabel.darkMode] = this.darkMode;
+        localStorage[this.localStorageLabel.articleNameValue] = this.articleNameValue;
     }
 
     get() {
@@ -108,6 +113,7 @@ class Config {
         this.articleName = localStorage[this.localStorageLabel.articleName];
         this.article = localStorage[this.localStorageLabel.article];
         this.darkMode = Boolean(localStorage[this.localStorageLabel.darkMode] === 'true');
+        this.articleNameValue = localStorage[this.localStorageLabel.articleNameValue];
     }
 
     setWithCurrentConfig() {
@@ -116,7 +122,7 @@ class Config {
         for (let i = 0; i < radios.length; i++) {
             radios[i]['checked'] = Number(radios[i]['value']) === this.count
         }
-        $('#article').value = this.articleName;
+        $('#article').value = this.articleNameValue;
         currentOriginWords = this.article.split('');
 
         let body = $('body');
@@ -329,7 +335,8 @@ class Engine {
         let articleNameValue = $('#article').value;
         let article = ARTICLE[articleNameValue];
         config.articleName = article.name;
-        let content = ARTICLE[config.articleName].content;
+        config.articleNameValue=articleNameValue;
+        let content = ARTICLE[config.articleNameValue].content;
         currentOriginWords = config.isShuffle ? shuffle(content.split('')) : content.split('');
         config.article = currentOriginWords.join('');
         this.changePerCount();
@@ -358,7 +365,7 @@ class Engine {
     // 切换乱序模式
     shuffleCurrentArticle() {
         config.isShuffle = $('#mode').checked;
-        currentOriginWords = config.isShuffle ? shuffle(ARTICLE[config.articleName].content.split('')) : ARTICLE[config.articleName].content.split('');
+        currentOriginWords = config.isShuffle ? shuffle(ARTICLE[config.articleNameValue].content.split('')) : ARTICLE[config.articleNameValue].content.split('');
         config.article = currentOriginWords.join('');
         currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
         config.chapter = 1;
@@ -462,6 +469,7 @@ class DataBase {
                 articleName: record.articleName,
                 timeStart: record.timeStart,
                 duration: record.duration,
+                articleNameValue: config.articleNameValue,
             });
         request.onsuccess = e => {
             localStorage[localStorageIndexName] = Number(localStorage[localStorageIndexName]) + 1;
@@ -622,7 +630,6 @@ window.onload = () => {
             DB = request.result;
         }
         DB.createObjectStore(OBJECT_NAME, {keyPath: 'id'});
-        console.log(e);
     }
 
     /**
@@ -680,7 +687,6 @@ window.onload = () => {
         } else if (!engine.isFinished) {
             engine.start()
         }
-        console.log(e);
     }
 }
 
