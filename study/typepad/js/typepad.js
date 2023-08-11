@@ -613,7 +613,7 @@ window.onload = () => {
     // INDEX DB
     let request = window.indexedDB.open(DBName);
     request.onsuccess = e => {
-        if (e.defaultPrevented) {
+        if (e.preventDefault) {
             DB = request.result;
             dataBase.fetchAll();
         } else {
