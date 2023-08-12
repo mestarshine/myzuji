@@ -441,7 +441,7 @@ class Records {
         level = level > 6 ? 6 : level;
         return `<tr>
               <td class="text-center">${cursor.key}</td>
-              <td class="bold roboto-mono lv-${level}">${this.speed}</td>
+              <td class="bold roboto-mono lv-${level}">${cursor.value.speed}</td>
               <td>${cursor.value.codeLength}</td>
               <td>${cursor.value.hitRate}</td>
               <td>${cursor.value.backspace}</td>
