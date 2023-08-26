@@ -780,3 +780,15 @@ function loadArticles() {
     }
     $('#article').innerHTML = optionHtml;
 }
+function enterFullScreenMode() {
+    document.documentElement.requestFullscreen().then(r => {
+        if (Boolean(document.fullscreenElement)){
+            $('.full-screen-btn').classList.add('hidden');
+            $('.full-screen-tip').classList.remove('hidden');
+        } else {
+            $('.full-screen-btn').classList.remove('hidden');
+            $('.full-screen-tip').classList.add('hidden');
+        }
+    })
+}
+
