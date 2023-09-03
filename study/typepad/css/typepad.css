@@ -166,7 +166,7 @@ select {
 
 .current {
     color: #FF3B30;
-    min-width: 15px;
+    min-width: 12px;
     display: inline-block;
 }
 
