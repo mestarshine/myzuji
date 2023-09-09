@@ -718,3 +718,10 @@ td.time {
     font-size: 12px;
     color: #999
 }
+.copyright {
+    padding: 10px 10px 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #555
+}

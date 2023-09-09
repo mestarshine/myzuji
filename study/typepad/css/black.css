@@ -179,3 +179,7 @@ body.black :hover::-webkit-scrollbar-thumb {
     background-color: #dfdfdf;
     transition: all 0.2s;
 }
+body.black .copyright {
+    border-top: 1px dashed #1f1f1f
+}
+
