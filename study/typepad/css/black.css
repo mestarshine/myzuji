@@ -11,7 +11,7 @@ body.black {
 body.black .info-panel {
     color: #a6a6a6;
     background-color: #212121;
-    border-color: #1f1f1f
+    border-color: #2e2e2e
 }
 
 body.black .key-info-item:before {
@@ -28,7 +28,7 @@ body.black .time-info .time {
 
 body.black .speed-info .speed {
     color: white;
-    border-color: #1f1f1f;
+    border-color: #383838;
 }
 
 body.black .speed-info .count-item {
@@ -36,11 +36,11 @@ body.black .speed-info .count-item {
 }
 
 body.black .copyright {
-    border-top: 1px dashed #1f1f1f;
+    border-top: 1px dashed #383838;
 }
 
 body.black .table-container {
-    border: 1px solid #1f1f1f;
+    border: 1px solid #383838;
     background-color: #212121;
 }
 
@@ -49,7 +49,7 @@ body.black .table {
 }
 
 body.black thead tr {
-    border-bottom: #1f1f1f;
+    border-bottom: #383838;
 }
 
 body.black thead tr th {
@@ -65,13 +65,13 @@ body.black tbody tr:nth-child(2n) {
 }
 
 body.black tbody tr:hover {
-    background-color: #1f1f1f;
+    background-color: #383838;
 }
 
 body.black td .btn {
     color: #737373;
-    background-color: #1f1f1f;
-    border: 1px solid #1f1f1f;
+    background-color: #383838;
+    border: 1px solid #383838;
 }
 
 body.black td .btn:hover {
@@ -81,12 +81,12 @@ body.black td .btn:hover {
 
 body.black .content {
     color: #e6e6e6;
-    border: 1px solid #1f1f1f;
+    border: 1px solid #383838;
     background-color: #212121;
 }
 
 body.black .typing textarea {
-    border: 1px solid #1f1f1f;
+    border: 1px solid #383838;
     background-color: #212121;
     color: white;
 }
@@ -107,13 +107,13 @@ body.black .text .wrong {
 }
 
 body.black .btn-group {
-    border: 1px solid #1f1f1f;
+    border: 1px solid #383838;
 }
 
 body.black .btn-group .btn {
     color: #e6e6e6;
     background-color: #212121;
-    border-right: 1px solid #1f1f1f;
+    border-right: 1px solid #383838;
 }
 
 body.black .btn-group .btn:active {
@@ -123,7 +123,7 @@ body.black .btn-group .btn:active {
 }
 
 body.black .btn-group .btn:hover {
-    background-color: #1f1f1f;
+    background-color: #383838;
 }
 
 body.black .btn-group .btn:last-child {
@@ -161,8 +161,8 @@ body.black input[type=radio]:checked + label:hover {
 }
 
 body.black ::-webkit-scrollbar-track {
-    border-right: 1px solid #1f1f1f;
-    background-color: #1f1f1f;
+    border-right: 1px solid #383838;
+    background-color: #383838;
 }
 
 body.black ::-webkit-scrollbar-thumb {
@@ -180,10 +180,15 @@ body.black :hover::-webkit-scrollbar-thumb {
 }
 
 body.black .copyright {
-    border-top: 1px dashed #1f1f1f
+    border-top: 1px dashed #383838
 }
 
 body.black .binding-key kbd {
-    border: 2px solid #a6a6a6;
-    background-color: #a6a6a6 !important;
+    background-color: #404040;
+    border: 2px solid #595959;
+    margin-right: 3px;
+    color: #a6a6a6;
+    -webkit-box-shadow: 1px 2px 0 #4d4d4d;
+    -moz-box-shadow: 1px 2px 0 #4d4d4d;
+    box-shadow: 1px 2px 0 #4d4d4d
 }
