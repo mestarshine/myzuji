@@ -295,13 +295,13 @@ select {
 .text .correct {
     text-shadow: none;
     color: #dedede !important;
-    white-space: inherit;
+    white-space: inherit
 }
 
 .text .wrong {
-    background-color: #FF3B30;
-    color: white !important;
-    white-space: inherit;
+    background-color: #ff3b30;
+    color: #fff !important;
+    white-space: inherit
 }
 
 @media (max-width: 768px) {
