@@ -14,8 +14,12 @@ body.black .info-panel {
     border-color: #2e2e2e
 }
 
-body.black .key-info-item:before {
-    border-color: #2e2e2e;
+body.black .key-info-item > div, body.black .switch-item > div {
+    background-color: #212121
+}
+
+body.black .key-info-item:before, body.black .switch-item:before{
+    border-color: #474747;
 }
 
 body.black .key-info-item h6, body.black .key-info-item p {
@@ -136,11 +140,29 @@ body.black .btn-group .btn.danger {
 }
 
 body.black input[type=checkbox] + label {
-    background-color: #737373
+    background-color: #666
 }
 
 body.black input[type=checkbox]:checked + label {
     background-color: #009652
+}
+
+input[type=checkbox]:checked+label.switch:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 10px;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
 }
 
 body.black input[type=checkbox] + label:before {
@@ -150,7 +172,6 @@ body.black input[type=checkbox] + label:before {
 body.black input[type=radio] + label {
     color: #995900;
 }
-
 body.black input[type=radio]:checked + label {
     background-color: #995900;
     color: #fff;

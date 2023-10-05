@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
     <title>跟打器</title>
-    <link href="css/typepad.css?v=1.03" rel="stylesheet">
-    <link href="css/black.css?v=1.03" rel="stylesheet">
+    <link href="css/typepad.css?v=1.04" rel="stylesheet">
+    <link href="css/black.css?v=1.04" rel="stylesheet">
 </head>
 <body>
 <div id="app">
@@ -35,6 +35,25 @@
                 </div>
             </div>
         </div>
+
+        <div class="info-panel">
+            <div class="switch-item">
+                <div class="label">暗黑模式</div>
+                <div class="wrapper">
+                    <input id="darkMode" type="checkbox" onchange="switchDarkMode(this)">
+                    <label class="switch" for="darkMode"></label>
+                </div>
+            </div>
+            <div class="switch-item">
+                <div class="label">全文乱序</div>
+                <div class="wrapper">
+                    <input id="shuffleMode" type="checkbox" onchange="engine.shuffleCurrentArticle()">
+                    <label class="switch" for="shuffleMode"></label>
+                </div>
+            </div>
+
+        </div>
+
         <div class="key-info info-panel">
             <div class="key-info-item word-all"><h6>全部按键</h6>
                 <p></p></div>
@@ -64,7 +83,7 @@
         <!--info-->
         <div class="info-panel">
             <div class="copyright">
-                <a target="_blank" href="" class="link">typepad</a><p>v1.03</p><p>2023/10/02</p>
+                <a target="_blank" href="" class="link">typepad</a><p>v1.04</p><p>2023/10/05</p>
             </div>
         </div>
         <!--notice-->
@@ -133,16 +152,10 @@
                 <input class="btn" id="all" name="count" onchange="engine.changePerCount()" type="radio"
                        value="ALL"><label class="btn hidden-sm" for="all">ALL</label>
             </div>
-            <div class="btn-group">
-                <div class="btn" id="darkButton" onclick="switchDarkMode(this)">暗黑</div>
-            </div>
+
             <div class="btn-group hidden-big">
                 <div class="btn number"><span class="btn-minute">00</span>:<span class="btn-second">00</span></div>
                 <div class="btn"><span class="btn-speed"></span> 字/分</div>
-            </div>
-            <div class="btn-group no-border">
-                <input id="mode" onchange="engine.shuffleCurrentArticle()" type="checkbox">
-                <label class="checker btn" for="mode">乱序</label>
             </div>
         </div>
         <!--文章区-->
@@ -189,6 +202,6 @@
     <p class="full-screen full-screen-tip hidden">Esc 退出全屏模式</p>
 
 </div>
-<script src="js/typepad.js?v=1.03" type="text/javascript"></script>
+<script src="js/typepad.js?v=1.04" type="text/javascript"></script>
 </body>
 </html>
