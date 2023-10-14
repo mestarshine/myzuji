@@ -52,6 +52,13 @@
                 </div>
             </div>
 
+            <div class="switch-item">
+                <div class="label">自动发文</div>
+                <div class="wrapper">
+                    <input id="autoNext" type="checkbox" onchange="">
+                    <label class="switch" for="autoNext"></label>
+                </div>
+            </div>
         </div>
 
         <div class="key-info info-panel">
@@ -130,6 +137,7 @@
                 <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
                 <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
             </div>
+
             <div class="btn-group">
                 <label class="hidden" for="article"></label>
                 <select class="btn" id="article" onchange="engine.changeArticle()">
