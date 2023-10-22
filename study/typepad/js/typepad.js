@@ -67,6 +67,7 @@ class Config {
     darkMode;// 暗黑模式
     localStorageLabel;// 文章类型
     articleNameValue;//文章标识
+    isAutoNext;//自动发文
 
     constructor() {
         this.chapter = 1;
@@ -76,6 +77,7 @@ class Config {
         this.articleName = ARTICLE.top500.name;
         this.article = ARTICLE.top500.content;
         this.articleNameValue = ARTICLE.top500.value;
+        this.isAutoNext = false;
         this.localStorageLabel = {
             chapter: 'type_pad_config_chapter',
             chapterTotal: 'type_pad_config_chapter_total',
@@ -101,7 +103,6 @@ class Config {
         localStorage[this.localStorageLabel.articleName] = this.articleName;
         localStorage[this.localStorageLabel.article] = this.article;
         localStorage[this.localStorageLabel.darkMode] = this.darkMode;
-        localStorage[this.localStorageLabel.darkMode] = this.darkMode;
         localStorage[this.localStorageLabel.articleNameValue] = this.articleNameValue;
     }
 
@@ -117,7 +118,7 @@ class Config {
     }
 
     setWithCurrentConfig() {
-        $('#mode').checked = this.isShuffle;
+        $('#shuffleMode').checked = this.isShuffle;
         let radios = document.querySelectorAll('input[name=count]');
         for (let i = 0; i < radios.length; i++) {
             radios[i]['checked'] = Number(radios[i]['value']) === this.count
@@ -132,8 +133,8 @@ class Config {
             body.classList.remove('black');
         }
 
-        let darkButton = $('#darkButton');
-        darkButton.innerText = this.darkMode ? '白色' : '暗黑'
+        let darkMode = $('#darkMode');
+        darkMode.innerText = this.darkMode ? '白色' : '暗黑'
     }
 }
 
@@ -147,6 +148,8 @@ class Engine {
     duration = 0; // ms
     handleRefresh;
     refreshRate = 500; // ms
+
+
 
     start() {
         this.isStarted = true;
@@ -282,6 +285,9 @@ class Engine {
         record.articleName = config.articleName;
         this.updateCountInfo();
         dataBase.insert(record);
+        if (config.isAutoNext){
+            this.nextChapter();
+        }
     }
 
     // 更新界面信息
@@ -362,9 +368,15 @@ class Engine {
         this.reset();
     }
 
+    // 自动发文
+    autoNext(){
+        config.isAutoNext = $('#autoNext').checked;
+        config.save();
+    }
+
     // 切换乱序模式
     shuffleCurrentArticle() {
-        config.isShuffle = $('#mode').checked;
+        config.isShuffle = $('#shuffleMode').checked;
         currentOriginWords = config.isShuffle ? shuffle(ARTICLE[config.articleNameValue].content.split('')) : ARTICLE[config.articleNameValue].content.split('');
         config.article = currentOriginWords.join('');
         currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
