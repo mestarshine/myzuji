@@ -150,7 +150,6 @@ class Engine {
     refreshRate = 500; // ms
 
 
-
     start() {
         this.isStarted = true;
         this.timeStart = (new Date()).getTime();
@@ -285,7 +284,7 @@ class Engine {
         record.articleName = config.articleName;
         this.updateCountInfo();
         dataBase.insert(record);
-        if (config.isAutoNext){
+        if (config.isAutoNext) {
             this.nextChapter();
         }
     }
@@ -341,7 +340,7 @@ class Engine {
         let articleNameValue = $('#article').value;
         let article = ARTICLE[articleNameValue];
         config.articleName = article.name;
-        config.articleNameValue=articleNameValue;
+        config.articleNameValue = articleNameValue;
         let content = ARTICLE[config.articleNameValue].content;
         currentOriginWords = config.isShuffle ? shuffle(content.split('')) : content.split('');
         config.article = currentOriginWords.join('');
@@ -369,7 +368,7 @@ class Engine {
     }
 
     // 自动发文
-    autoNext(){
+    autoNext() {
         config.isAutoNext = $('#autoNext').checked;
         config.save();
     }
@@ -755,7 +754,6 @@ function dateFormatter(date, formatString) {
     return formatString;
 }
 
-
 /**
  * @return：输出倒计时字符串 时时:分分:秒秒
  * @param timeLeft
@@ -792,9 +790,10 @@ function loadArticles() {
     }
     $('#article').innerHTML = optionHtml;
 }
+
 function enterFullScreenMode() {
     document.documentElement.requestFullscreen().then(r => {
-        if (Boolean(document.fullscreenElement)){
+        if (Boolean(document.fullscreenElement)) {
             $('.full-screen-btn').classList.add('hidden');
             $('.full-screen-tip').classList.remove('hidden');
         } else {

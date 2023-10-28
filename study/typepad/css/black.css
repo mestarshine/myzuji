@@ -18,7 +18,7 @@ body.black .key-info-item > div, body.black .switch-item > div {
     background-color: #212121
 }
 
-body.black .key-info-item:before, body.black .switch-item:before{
+body.black .key-info-item:before, body.black .switch-item:before {
     border-color: #474747;
 }
 
@@ -147,7 +147,7 @@ body.black input[type=checkbox]:checked + label {
     background-color: #009652
 }
 
-input[type=checkbox]:checked+label.switch:before {
+input[type=checkbox]:checked + label.switch:before {
     content: "";
     display: block;
     position: absolute;
@@ -172,6 +172,7 @@ body.black input[type=checkbox] + label:before {
 body.black input[type=radio] + label {
     color: #995900;
 }
+
 body.black input[type=radio]:checked + label {
     background-color: #995900;
     color: #fff;
