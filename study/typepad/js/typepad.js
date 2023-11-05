@@ -792,14 +792,32 @@ function loadArticles() {
 }
 
 function enterFullScreenMode() {
-    document.documentElement.requestFullscreen().then(r => {
+    document.documentElement.requestFullscreen().then(r=>{
         if (Boolean(document.fullscreenElement)) {
-            $('.full-screen-btn').classList.add('hidden');
-            $('.full-screen-tip').classList.remove('hidden');
+            $('#fullscreen').classList.add('hidden');
+            $('#fullscreen-exit').classList.remove('hidden');
         } else {
-            $('.full-screen-btn').classList.remove('hidden');
-            $('.full-screen-tip').classList.add('hidden');
+            $('#fullscreen').classList.remove('hidden');
+            $('#fullscreen-exit').classList.add('hidden');
         }
-    })
+    });
+
+}
+
+function cancelFullscreen() {
+    $('#fullscreen').classList.remove('hidden');
+    $('#fullscreen-exit').classList.add('hidden');
+    if(Boolean(document.exitFullScreen)) {
+        document.exitFullScreen();
+        //兼容Firefox
+    } else if(document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+        //兼容Chrome, Safari and Opera等
+    } else if(document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+        //兼容IE/Edge
+    } else if(document.documentElement.msExitFullscreen) {
+        document.documentElement.msExitFullscreen();
+    }
 }
 

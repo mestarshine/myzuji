@@ -686,27 +686,17 @@ td.time {
     color: #8E8E93 !important;
 }
 
-.full-screen {
-    cursor: pointer;
-    position: fixed;
-    left: 10px;
-    bottom: 10px;
-    z-index: 100
-}
-
 .full-screen-btn {
+    cursor: pointer;
     opacity: .3;
     width: 30px;
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     -ms-transition: all .3s;
     -o-transition: all .3s;
-    transition: all .3s
-}
-
-.full-screen-btn img {
-    display: block;
-    width: 100%
+    transition: all .3s;
+    fill: #000000;
+    color: #000000;
 }
 
 .full-screen-btn:hover {
@@ -715,19 +705,9 @@ td.time {
     -moz-transition: all .3s;
     -ms-transition: all .3s;
     -o-transition: all .3s;
-    transition: all .3s
-}
-
-.full-screen-tip {
-    font-size: 12px;
-    color: #999
-}
-
-.full-screen-tip-mobile {
-    left: 20px;
-    bottom: 20px;
-    font-size: 12px;
-    color: #999
+    transition: all .3s;
+    fill: rgba(0,0,0,0.7);
+    color: rgba(0,0,0,0.7);
 }
 
 .copyright {
