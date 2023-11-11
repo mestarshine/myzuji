@@ -76,6 +76,7 @@ class Config {
         this.count = 15;
         this.articleName = ARTICLE.top500.name;
         this.article = ARTICLE.top500.content;
+        this.darkMode = false;
         this.articleNameValue = ARTICLE.top500.value;
         this.isAutoNext = false;
         this.localStorageLabel = {
@@ -143,8 +144,8 @@ class Engine {
     isFinished = false;
     isStarted = false;
     isPaused = false;
-    timeStart; //ms
-    timeEnd; // ms
+    timeStart=Date.now(); //ms
+    timeEnd = Date.now(); // ms
     duration = 0; // ms
     handleRefresh;
     refreshRate = 500; // ms
@@ -758,7 +759,7 @@ function dateFormatter(date, formatString) {
  * @return：输出倒计时字符串 时时:分分:秒秒
  * @param timeLeft
  **/
-function formatTimeLeft(timeLeft) {
+function formatTimeLeft(timeLeft: number) {
     timeLeft = Math.floor(timeLeft / 1000);
     let minus = Math.floor(timeLeft / 60);
     let seconds = timeLeft % 60;
@@ -792,32 +793,27 @@ function loadArticles() {
 }
 
 function enterFullScreenMode() {
-    document.documentElement.requestFullscreen().then(r=>{
-        if (Boolean(document.fullscreenElement)) {
-            $('#fullscreen').classList.add('hidden');
-            $('#fullscreen-exit').classList.remove('hidden');
-        } else {
-            $('#fullscreen').classList.remove('hidden');
-            $('#fullscreen-exit').classList.add('hidden');
-        }
-    });
-
-}
-
-function cancelFullscreen() {
-    $('#fullscreen').classList.remove('hidden');
-    $('#fullscreen-exit').classList.add('hidden');
-    if(Boolean(document.exitFullScreen)) {
-        document.exitFullScreen();
-        //兼容Firefox
-    } else if(document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-        //兼容Chrome, Safari and Opera等
-    } else if(document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-        //兼容IE/Edge
-    } else if(document.documentElement.msExitFullscreen) {
-        document.documentElement.msExitFullscreen();
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(err => {
+            console.error('Error attempting to enable full-screen mode:', err);
+            return
+        });
+        $('#fullscreen').classList.add('hidden');
+        $('#fullscreen-exit').classList.remove('hidden');
     }
 }
 
+function cancelFullscreen() {
+    const doc: any = document;
+    if (document.exitFullscreen) {
+        document.exitFullscreen().catch(err => {
+            console.error('退出全屏模式失败:', err);
+            return
+        });
+        $('#fullscreen').classList.remove('hidden');
+        $('#fullscreen-exit').classList.add('hidden');
+    } else {
+        console.log('浏览器不支持全屏 API');
+    }
+
+}
