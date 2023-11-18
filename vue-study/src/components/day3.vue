@@ -9,8 +9,9 @@ watch
 -->
 <script lang="ts" setup name="day3">
 
-import {ref, watch} from "vue";
+import {reactive, ref, watch} from "vue";
 
+// 情况一：监视【ref】定义的【基本类型】数据
 // ref 定义基本类型数据
 let sum = ref(0);
 
@@ -26,6 +27,7 @@ const stopWatch = watch(sum,(newValue,oldValue)=>{
     }
 })
 
+// 情况二：监视【ref】定义的【对象类型】数据
 // ref 定义对象类型的数据
 let person = ref({
     name:'张三',
@@ -50,6 +52,29 @@ function changePerson() {
 watch(person, (newValue, oldValue) => {
     console.log("person 变化了",oldValue,newValue)
 },{deep:true});
+
+// 情况三：监视 reactive 定义的【对象类型】数据
+let teacher = reactive({
+    name:'张老师',
+    age:35
+})
+function changeTeacherName() {
+    teacher.name += "#";
+}
+function changeTeacherAge() {
+    teacher.age += 1;
+}
+function changeTeacher() {
+    Object.assign(teacher,{name:'李老师',age:40})
+}
+
+/*
+    监视 情况三【reactive】定义的【对象类型】，且默认是开启深度监视的
+    且深度监视无法关闭
+ */
+watch(teacher, (newValue, oldValue) => {
+    console.log("teacher 变化了",oldValue,newValue)
+});
 </script>
 <template>
     <div class="day3">
@@ -63,6 +88,13 @@ watch(person, (newValue, oldValue) => {
         <button @click="changeName">修改名字</button>
         <button @click="changeAge">修改年龄</button>
         <button @click="changePerson">换个人 </button>
+
+        <h1>情况三：监视 reactive 定义的【对象类型】数据</h1>
+        <h2>老师姓名：{{teacher.name}}</h2>
+        <h2>老师年龄：{{teacher.age}}</h2>
+        <button @click="changeTeacherName">修改老师名字</button>
+        <button @click="changeTeacherAge">修改老师年龄</button>
+        <button @click="changeTeacher">换个老师人 </button>
     </div>
 </template>
 
