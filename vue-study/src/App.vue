@@ -1,14 +1,14 @@
 <template>
-    <person/>
+    <day/>
 </template>
 
 <script lang="ts" name="App">
 // JS 或 TS
-import Person from "@/components/day2.vue";
+import day from "@/components/day3.vue";
 
 export default {
     components:{
-        Person
+        day
     }
 }
 </script>
