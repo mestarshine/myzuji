@@ -75,12 +75,48 @@ function changeTeacher() {
 watch(teacher, (newValue, oldValue) => {
     console.log("teacher 变化了",oldValue,newValue)
 });
+
+//情况四：监视 一个包含上述内容的数组
+let student = reactive({
+    name: "张三",
+    age: 20,
+    car:{
+        c1: "特斯拉",
+        c2: "宝马",
+    }
+})
+
+function changeStudentName() {
+    student.name += "*";
+}
+function changeStudentAge() {
+    student.age += 1;
+}
+function changeStudentC1() {
+    student.car.c1 ="奥迪"
+}
+function changeStudentC2() {
+    student.car.c2 ="大众"
+
+}
+function changeStudentCar() {
+    student.car = {c1: "雅迪", c2: "爱玛"};
+}
+/*
+    情况四 监视 【ref、reactive】定义的【对象类型】数据中的【某个属性】
+    1. 该属性不是对象类型，需要要写成函数形式
+*/
+watch(()=>{return student.name}, (newValue, oldValue) => {
+    console.log("student.name 变化了", oldValue, newValue);
+});
 </script>
 <template>
     <div class="day3">
         <h1>情况一：监视【ref】定义的【基本类型】数据</h1>
         <h2>当前求和为：{{sum}}</h2>
         <button @click="changeSum">加一</button>
+        <br/>
+        <br/>
 
         <h1>情况二：监视【ref】定义的【对象类型】数据</h1>
         <h2>姓名：{{person.name}}</h2>
@@ -88,6 +124,8 @@ watch(teacher, (newValue, oldValue) => {
         <button @click="changeName">修改名字</button>
         <button @click="changeAge">修改年龄</button>
         <button @click="changePerson">换个人 </button>
+        <br/>
+        <br/>
 
         <h1>情况三：监视 reactive 定义的【对象类型】数据</h1>
         <h2>老师姓名：{{teacher.name}}</h2>
@@ -95,6 +133,18 @@ watch(teacher, (newValue, oldValue) => {
         <button @click="changeTeacherName">修改老师名字</button>
         <button @click="changeTeacherAge">修改老师年龄</button>
         <button @click="changeTeacher">换个老师人 </button>
+        <br/>
+        <br/>
+
+        <h1>情况四：监视 一个包含上述内容的数组</h1>
+        <h2>学生姓名：{{student.name}}</h2>
+        <h2>学生年龄：{{student.age}}</h2>
+        <h2>汽车：{{student.car.c1}}、{{student.car.c2}}</h2>
+        <button @click="changeStudentName">修改学生名字</button>
+        <button @click="changeStudentAge">修改学生年龄</button>
+        <button @click="changeStudentC1">修改第一台车</button>
+        <button @click="changeStudentC2">修改第二台车</button>
+        <button @click="changeStudentCar">修改车</button>
     </div>
 </template>
 
