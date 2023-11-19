@@ -76,7 +76,7 @@ watch(teacher, (newValue, oldValue) => {
     console.log("teacher 变化了",oldValue,newValue)
 });
 
-//情况四：监视 一个包含上述内容的数组
+//情况四：监视 【ref、reactive】定义的【对象类型】数据中的【某个属性】
 let student = reactive({
     name: "张三",
     age: 20,
@@ -119,6 +119,40 @@ watch(()=>{return student.name}, (newValue, oldValue) => {
 watch(()=>student.car, (newValue, oldValue) => {
     console.log("student.car 变化了", oldValue, newValue);
 },{deep: true});
+
+//情况五：监视上述多个数据
+let animal = reactive({
+    name: "小猫",
+    age: 2,
+    warrior:{
+        w1: "拉斯特",
+        w2: "灰条",
+    }
+})
+function changeAnimalName(){
+    animal.name += "@";
+}
+function changeAnimalAge(){
+    animal.age += 1;
+}
+function changeAnimalW1(){
+    animal.warrior.w1 ="云爪"
+}
+function changeAnimalW2(){
+    animal.warrior.w2 ="虎爪"
+}
+function changeAnimalWarrior(){
+    animal.warrior={w1: "晨风", w2: "蓝星"}
+}
+
+/*
+    情况五：监视上述多个数据
+    前四种情况的综合应用
+
+*/
+watch([()=>animal.name,()=>animal.warrior], (newValue, oldValue) => {
+    console.log("animal 发生变化了", oldValue, newValue);
+},{deep: true});
 </script>
 <template>
     <div class="day3">
@@ -146,7 +180,7 @@ watch(()=>student.car, (newValue, oldValue) => {
         <br/>
         <br/>
 
-        <h1>情况四：监视 一个包含上述内容的数组</h1>
+        <h1>情况四：监视 【ref、reactive】定义的【对象类型】数据中的【某个属性】</h1>
         <h2>学生姓名：{{student.name}}</h2>
         <h2>学生年龄：{{student.age}}</h2>
         <h2>汽车：{{student.car.c1}}、{{student.car.c2}}</h2>
@@ -155,6 +189,18 @@ watch(()=>student.car, (newValue, oldValue) => {
         <button @click="changeStudentC1">修改第一台车</button>
         <button @click="changeStudentC2">修改第二台车</button>
         <button @click="changeStudentCar">修改车</button>
+        <br/>
+        <br/>
+
+        <h1>情况五：监视上述多个数据</h1>
+        <h2>学生姓名：{{animal.name}}</h2>
+        <h2>学生年龄：{{animal.age}}</h2>
+        <h2>汽车：{{animal.warrior.w1}}、{{animal.warrior.w2}}</h2>
+        <button @click="changeAnimalName">修改动物名字</button>
+        <button @click="changeAnimalAge">修改动物年龄</button>
+        <button @click="changeAnimalW1">修改第一名武士</button>
+        <button @click="changeAnimalW2">修改第二名武士</button>
+        <button @click="changeAnimalWarrior">修改动物</button>
     </div>
 </template>
 
