@@ -104,11 +104,21 @@ function changeStudentCar() {
 }
 /*
     情况四 监视 【ref、reactive】定义的【对象类型】数据中的【某个属性】
-    1. 该属性不是对象类型，需要要写成函数形式
+    1. 该属性是基本类型，需要写成函数形式
 */
 watch(()=>{return student.name}, (newValue, oldValue) => {
     console.log("student.name 变化了", oldValue, newValue);
 });
+/*
+    情况四 监视 【ref、reactive】定义的【对象类型】数据中的【某个属性】
+    2. 该属性是对象类型，可直接写，也能写函数，推荐写成函数形式
+
+    监视 对象的属性，最好写成函数式，若要监视对象内部，需要手动开启深度监视
+
+*/
+watch(()=>student.car, (newValue, oldValue) => {
+    console.log("student.car 变化了", oldValue, newValue);
+},{deep: true});
 </script>
 <template>
     <div class="day3">
