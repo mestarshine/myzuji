@@ -1,6 +1,6 @@
 <script lang="ts" setup name="App">
 // JS 或 TS
-import day from '@/components/day6.vue';
+import day from '@/components/day7.vue';
 
 </script>
 
