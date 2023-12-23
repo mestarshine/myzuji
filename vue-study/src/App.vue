@@ -1,7 +1,12 @@
 <script lang="ts" setup name="App">
 // JS 或 TS
-import day from '@/components/day7.vue';
+import day from '@/components/day8.vue';
+import {onMounted} from "vue";
 
+//挂载 完毕
+onMounted(() => {
+    console.log("父---挂载完毕")
+});
 </script>
 
 <template>
