@@ -1,29 +1,16 @@
 <script setup lang="ts">
-// https://dog.ceo/api/breed/pembroke/images/random
+import useSum from "@/hooks/useSum";
+import useDog from "@/hooks/useDog";
 
-import {reactive, ref} from "vue";
-import axios from "axios";
-
-let sum = ref(0);
-let dogList = reactive(["https://images.dog.ceo/breeds/pembroke/n02113023_1825.jpg"]);
-
-function add(){
-    sum.value += 1;
-}
-async function getDog(){
-    try {
-        let result = await axios.get("https://dog.ceo/api/breed/pembroke/images/random");
-        dogList.push(result.data.message)
-    } catch (error){
-        alert("请求失败"+ error);
-    }
-}
+let {sum,add} = useSum()
+let {dogList,getDog} = useDog()
 </script>
 
 <template>
     <div class="day9">
         <h2>当前求和为：{{sum}}</h2>
         <button @click="add">点我加一</button>
+        <br/>
         <br/>
         <button @click="getDog">召唤小狗</button>
         <br/>
