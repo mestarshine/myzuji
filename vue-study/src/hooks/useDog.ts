@@ -1,10 +1,13 @@
 
-import {reactive, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import axios from "axios";
 
 export default function (){
     let dogList = reactive(["https://images.dog.ceo/breeds/pembroke/n02113023_6567.jpg"]);
 
+    onMounted(()=>{
+        getDog();
+    })
     async function getDog(){
         try {
             let result = await axios.get("https://dog.ceo/api/breed/pembroke/images/random");
