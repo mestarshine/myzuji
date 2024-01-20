@@ -15,6 +15,7 @@ let router = createRouter({
         path: '/home',
         component: day10
     },{   //一个一个的路由规则
+        name: 'xinwen',
         path: '/news',
         component: day10_1
     },{   //一个一个的路由规则
