@@ -23,7 +23,7 @@
 /* 样式 */
 .app {
     text-align: center;
-    height: 200px; /* 示例高度 */
+    min-height: 200px; /* 示例高度 */
 }
 
 .navigate {
@@ -38,6 +38,6 @@
 
 .main-content {
     border: #222222 solid 1px;
-    height: 260px;
+    min-height: 260px;
 }
 </style>

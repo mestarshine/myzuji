@@ -4,6 +4,7 @@ import day12 from "@/components/day12.vue"
 import day10 from "@/views/day10.vue"
 import day10_1 from "@/views/day10_1.vue"
 import day10_2 from "@/views/day10_2.vue"
+import day13 from "@/components/day13.vue";
 
 // 创建路由器
 let router = createRouter({
@@ -17,7 +18,13 @@ let router = createRouter({
     },{   //一个一个的路由规则
         name: 'xinwen',
         path: '/news',
-        component: day10_1
+        component: day10_1,
+        children:[
+            {
+                path: 'detail',
+                component: day13
+            }
+        ]
     },{   //一个一个的路由规则
         path: '/about',
         component: day10_2
