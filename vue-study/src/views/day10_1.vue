@@ -14,7 +14,7 @@ const  newsList = reactive([
     <div>
         <ul class="news">
             <li v-for="news in newsList" :key="news.id">
-                <RouterLink :to="{path:'/news/detail'}">{{news.title}}</RouterLink>
+                <RouterLink :to="`/news/detail?id=${news.id}&title=${news.title}&content=${news.content}`">{{news.title}}</RouterLink>
             </li>
         </ul>
         <div class="news-content">
