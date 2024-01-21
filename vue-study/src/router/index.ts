@@ -21,6 +21,7 @@ let router = createRouter({
         component: day10_1,
         children:[
             {
+                name: 'xiangqing',
                 path: 'detail',
                 component: day13
             }
