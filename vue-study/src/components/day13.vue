@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import {useRoute} from "vue-router";
 import router from "../router";
+import {toRefs} from "vue";
 
 let  route = useRoute()
+//利用解构
+let {query} = toRefs(route)
 </script>
 
 <template>
     <ul>
-        <li>编号：{{route.query.id}}</li>
-        <li>标题：{{ route.query.title }}</li>
-        <li>内容：{{ route.query.content }}</li>
+        <li>编号：{{ query.id }}</li>
+        <li>标题：{{ query.title }}</li>
+        <li>内容：{{ query.content }}</li>
     </ul>
 </template>
 
