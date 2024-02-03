@@ -25,7 +25,11 @@ let router = createRouter({
                 path: 'detail/:id/:title/:content?',
                 component: day14,
                 // 第一种写法：将路由收到的所有 params 参数作为 props 传给路由组件
-                props:true
+                // props:true
+                // 第二种写法：可以自己决定将什么作为 props 给路由组件
+                props(route) {
+                    return route.params
+                },
             }
         ]
     },{   //一个一个的路由规则
