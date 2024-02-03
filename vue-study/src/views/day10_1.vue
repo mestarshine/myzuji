@@ -40,11 +40,14 @@ const newsList = reactive([
                 <!--                }">-->
                 <!--                    {{ news.title }}-->
                 <!--                </RouterLink>-->
-                <!-- props 第一种写法 -->
+                <!-- params 第一种写法 -->
                 <!--                <RouterLink :to="`/news/detail/${news.id}/${news.title}/${news.content}`">-->
                 <!--                    {{ news.title }}-->
                 <!--                </RouterLink>-->
-                <!-- props 第二种写法 -->
+                <!-- params 第二种写法
+                注：传递 params 参数时，若使用 to 的对象写法，必须使用 name 配置项，不能用 path
+                需要提前在规则中占位
+                -->
                 <RouterLink :to="{
                                     name: 'xiangqing',
                                     params:{
