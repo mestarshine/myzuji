@@ -30,14 +30,18 @@ const newsList = reactive([
 <!--                    {{ news.title }}-->
 <!--                </RouterLink>-->
                 <!-- 第三种写法 -->
-                <RouterLink :to="{
-                    name: 'xiangqing',
-                    query:{
-                        id: news.id,
-                        title: news.title,
-                        content:news.content
-                    }
-                }">
+<!--                <RouterLink :to="{-->
+<!--                    name: 'xiangqing',-->
+<!--                    query:{-->
+<!--                        id: news.id,-->
+<!--                        title: news.title,-->
+<!--                        content:news.content-->
+<!--                    }-->
+<!--                }">-->
+<!--                    {{ news.title }}-->
+<!--                </RouterLink>-->
+                <!-- props 第一种写法 -->
+                <RouterLink :to="`/news/detail/${news.id}/${news.title}/${news.content}`">
                     {{ news.title }}
                 </RouterLink>
             </li>
