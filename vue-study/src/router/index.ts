@@ -23,7 +23,9 @@ let router = createRouter({
             {
                 name: 'xiangqing',
                 path: 'detail/:id/:title/:content?',
-                component: day14
+                component: day14,
+                // 第一种写法：将路由收到的所有 params 参数作为 props 传给路由组件
+                props:true
             }
         ]
     },{   //一个一个的路由规则
