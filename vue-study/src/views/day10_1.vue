@@ -15,33 +15,44 @@ const newsList = reactive([
         <ul class="news">
             <li v-for="news in newsList" :key="news.id">
                 <!-- 第一种写法 -->
-<!--                <RouterLink :to="`/news/detail?id=${news.id}&title=${news.title}&content=${news.content}`">-->
-<!--                    {{ news.title }}-->
-<!--                </RouterLink>-->
+                <!--                <RouterLink :to="`/news/detail?id=${news.id}&title=${news.title}&content=${news.content}`">-->
+                <!--                    {{ news.title }}-->
+                <!--                </RouterLink>-->
                 <!-- 第二种写法 -->
-<!--                <RouterLink :to="{-->
-<!--                    path: '/news/detail',-->
-<!--                    query:{-->
-<!--                        id: news.id,-->
-<!--                        title: news.title,-->
-<!--                        content:news.content-->
-<!--                    }-->
-<!--                }">-->
-<!--                    {{ news.title }}-->
-<!--                </RouterLink>-->
+                <!--                <RouterLink :to="{-->
+                <!--                    path: '/news/detail',-->
+                <!--                    query:{-->
+                <!--                        id: news.id,-->
+                <!--                        title: news.title,-->
+                <!--                        content:news.content-->
+                <!--                    }-->
+                <!--                }">-->
+                <!--                    {{ news.title }}-->
+                <!--                </RouterLink>-->
                 <!-- 第三种写法 -->
-<!--                <RouterLink :to="{-->
-<!--                    name: 'xiangqing',-->
-<!--                    query:{-->
-<!--                        id: news.id,-->
-<!--                        title: news.title,-->
-<!--                        content:news.content-->
-<!--                    }-->
-<!--                }">-->
-<!--                    {{ news.title }}-->
-<!--                </RouterLink>-->
+                <!--                <RouterLink :to="{-->
+                <!--                    name: 'xiangqing',-->
+                <!--                    query:{-->
+                <!--                        id: news.id,-->
+                <!--                        title: news.title,-->
+                <!--                        content:news.content-->
+                <!--                    }-->
+                <!--                }">-->
+                <!--                    {{ news.title }}-->
+                <!--                </RouterLink>-->
                 <!-- props 第一种写法 -->
-                <RouterLink :to="`/news/detail/${news.id}/${news.title}/${news.content}`">
+                <!--                <RouterLink :to="`/news/detail/${news.id}/${news.title}/${news.content}`">-->
+                <!--                    {{ news.title }}-->
+                <!--                </RouterLink>-->
+                <!-- props 第二种写法 -->
+                <RouterLink :to="{
+                                    name: 'xiangqing',
+                                    params:{
+                                        id: news.id,
+                                        title: news.title,
+                                        content:news.content
+                                    }
+                                }">
                     {{ news.title }}
                 </RouterLink>
             </li>
