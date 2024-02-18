@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import {reactive} from "vue";
+import {useRouter} from "vue-router";
 
 const newsList = reactive([
     {id: 'dfafa01', title: '新闻一', content: '新闻一新闻一新闻一新闻一'},
@@ -8,6 +9,24 @@ const newsList = reactive([
     {id: 'dfafa03', title: '新闻三', content: '新闻三新闻三新闻三新闻三'},
     {id: 'dfafa04', title: '新闻四', content: '新闻四新闻四新闻四新闻四'}
 ])
+let router = useRouter();
+
+interface NewsInter {
+    id: string,
+    title: string,
+    content: string
+}
+
+function showNewsDetail(news: NewsInter) {
+    router.push({
+        name: 'xiangqing',
+        params: {
+            id: news.id,
+            title: news.title,
+            content: news.content
+        }
+    })
+}
 </script>
 
 <template>
@@ -48,6 +67,7 @@ const newsList = reactive([
                 注：传递 params 参数时，若使用 to 的对象写法，必须使用 name 配置项，不能用 path
                 需要提前在规则中占位
                 -->
+                <button @click="showNewsDetail(news)">查看详情</button>
                 <RouterLink :to="{
                                     name: 'xiangqing',
                                     params:{
