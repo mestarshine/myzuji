@@ -1,5 +1,16 @@
 <script setup lang="ts">
 
+import {onMounted} from "vue";
+import {useRouter} from "vue-router";
+
+let router = useRouter();
+
+onMounted(()=>{
+    setTimeout(()=>{
+        // 3秒跳转到新闻页面
+        router.push('/news');
+    },3000)
+})
 </script>
 
 <template>
