@@ -1,21 +1,24 @@
 <script setup lang="ts" name="day16">
-
 import {ref} from "vue";
+import {userCountStore} from "@/store/day16";
 
-let sum = ref(1); // 当前求和
+let countStore = userCountStore();
+
+//以下两种都可以拿到 state 中的数据
+console.log('@@@',countStore.sum)
+console.log('***',countStore.$state.sum)
+
 let n = ref(1); // 用户选择的数字
 function add() {
-    sum.value += n.value
 }
 
 function minus() {
-    sum.value-=n.value
 }
 </script>
 
 <template>
     <div class="count">
-        <h2>当前求和为：{{ sum}}</h2>
+        <h2>当前求和为：{{ countStore.sum }}</h2>
         <select v-model.number="n">
             <option value="1">1</option>
             <option value="2">2</option>

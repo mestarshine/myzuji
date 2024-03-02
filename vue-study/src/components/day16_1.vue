@@ -2,15 +2,14 @@
 import {reactive} from "vue";
 import axios from "axios";
 import {nanoid} from "nanoid";
+import {userTalkStore} from "@/store/day16_1";
 
-let talkList = reactive([
-    {id:'gafaf01',title:'今天有点怪，哪里怪？怪好看的！'}
-])
+let talkStore = userTalkStore();
 
 async function getLoveTalk() {
     let {data:{content:title}} = await axios.get('https://api.uomg.com/api/rand.qinghua?format=json');
     let obj = {id: nanoid(), title}
-    talkList.unshift(obj)
+    talkStore.talkList.unshift(obj)
 }
 </script>
 
@@ -18,7 +17,7 @@ async function getLoveTalk() {
 <div class="talk">
 <button @click="getLoveTalk">获取一句土味情话</button>
     <ul>
-        <li v-for="talk in talkList" :key="talk.id">{{talk.title}}</li>
+        <li v-for="talk in talkStore.talkList" :key="talk.id">{{talk.title}}</li>
     </ul>
 </div>
 </template>
