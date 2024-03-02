@@ -2,11 +2,11 @@ import {defineStore} from "pinia";
 
 export let userCountStore = defineStore('count', {
     // action 中放置的是一个一个方法，用于响应组件中的 动作
-    actions:{
-        increment(value:number){
+    actions: {
+        increment(value: number) {
             if (this.sum < 10) {
                 // this 是当前的 countStore
-                this.sum+=value;
+                this.sum += value;
             }
         },
     },
@@ -16,4 +16,13 @@ export let userCountStore = defineStore('count', {
             sum: 6
         }
     },
+    getters: {
+        bigSum(state) {
+            return state.sum * 10
+        },
+        smallSum: state => state.sum / 10,
+        middleSum():number {
+            return this.sum * 5
+        }
+    }
 })

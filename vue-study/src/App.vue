@@ -1,6 +1,6 @@
 <script lang="ts" setup name="App">
 
-import Day16 from "@/components/day16.vue";
+import Day16 from "@/components/day17.vue";
 import Day16_1 from "@/components/day16_1.vue";
 </script>
 
