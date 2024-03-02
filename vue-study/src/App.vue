@@ -1,43 +1,14 @@
 <script lang="ts" setup name="App">
 
+import Day16 from "@/components/day16.vue";
+import Day16_1 from "@/components/day16_1.vue";
 </script>
 
 <template>
-    <div class="app">
-        <h2>路由测试</h2>
-        <!-- 导航区 -->
-        <div class="navigate">
-            <RouterLink replace to="/home" active-class="active">首页</RouterLink>
-            <RouterLink replace :to="{name: 'xinwen'}" active-class="active">新闻</RouterLink>
-            <RouterLink :to="{path:'/about'}" active-class="active">关于</RouterLink>
-        </div>
-        <!-- 展示区 -->
-        <div class="main-content">
-            <RouterView/>
-        </div>
-
-    </div>
+    <day16/>
+    <day16_1/>
 </template>
 
 <style scoped>
-/* 样式 */
-.app {
-    text-align: center;
-    min-height: 200px; /* 示例高度 */
-}
 
-.navigate {
-    display: block;
-    height: 30px;
-    margin: 50px 100px 10px;
-}
-
-.navigate a {
-    margin: 50px 100px 10px;
-}
-
-.main-content {
-    border: #222222 solid 1px;
-    min-height: 260px;
-}
 </style>
