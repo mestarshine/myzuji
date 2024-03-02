@@ -14,9 +14,12 @@ function add() {
     // countStore.sum += n.value;
 
     // 第二种
-    countStore.$patch({
-        sum: countStore.sum+n.value
-    })
+    // countStore.$patch({
+    //     sum: countStore.sum+n.value
+    // })
+
+    // 第三种
+    countStore.increment(n.value)
 }
 
 function minus() {
