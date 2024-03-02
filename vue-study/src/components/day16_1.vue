@@ -1,5 +1,4 @@
 <script setup lang="ts" name="day16_1">
-import {reactive} from "vue";
 import axios from "axios";
 import {nanoid} from "nanoid";
 import {userTalkStore} from "@/store/day16_1";

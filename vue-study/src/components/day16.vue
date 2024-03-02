@@ -10,9 +10,13 @@ console.log('***',countStore.$state.sum)
 
 let n = ref(1); // 用户选择的数字
 function add() {
+    // 第一种修改方式
+    countStore.sum += n.value;
+
 }
 
 function minus() {
+    countStore.sum -= n.value;
 }
 </script>
 
