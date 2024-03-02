@@ -11,8 +11,12 @@ console.log('***',countStore.$state.sum)
 let n = ref(1); // 用户选择的数字
 function add() {
     // 第一种修改方式
-    countStore.sum += n.value;
+    // countStore.sum += n.value;
 
+    // 第二种
+    countStore.$patch({
+        sum: countStore.sum+n.value
+    })
 }
 
 function minus() {
