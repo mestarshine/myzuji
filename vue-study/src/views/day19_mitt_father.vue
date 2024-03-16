@@ -9,9 +9,9 @@ let toy = ref();
 emitter.on("send-toy",(value)=>{
     toy.value = value;
 })
-// 在组件卸载时解绑 send-toy 事件
-onUnmounted(()=>{
-    emitter.off("send-toy");
+let computer = ref();
+emitter.on("send-computer",(vl)=>{
+    computer.value = vl;
 })
 </script>
 
@@ -19,6 +19,7 @@ onUnmounted(()=>{
     <div class="father">
         <h3>父组件</h3>
         <h5 v-show="toy ">哥哥给的玩具：{{ toy }}</h5>
+        <h5 v-show="computer ">弟弟给的电脑：{{ computer }}</h5>
         <Child1/>
         <Child2/>
     </div>

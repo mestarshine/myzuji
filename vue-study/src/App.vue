@@ -1,5 +1,12 @@
 <script lang="ts" setup name="App">
 
+// 在组件卸载时解绑 send-toy 事件
+import {onUnmounted} from "vue";
+import emitter from "@/utils/emitter";
+
+onUnmounted(()=>{
+    emitter.all.clear();
+})
 </script>
 
 <template>
