@@ -11,6 +11,7 @@
     "type-check": "vue-tsc --build --force"
   },
   "dependencies": {
+    "mitt": "^3.0.1",
     "nanoid": "^5.0.6",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
