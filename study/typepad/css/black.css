@@ -1,6 +1,6 @@
 
 body.black {
-    background-color: black;
+    background-color: #121212;
     -webkit-transition: background-color 0.5s;
     -moz-transition: background-color 0.5s;
     -ms-transition: background-color 0.5s;
@@ -9,13 +9,17 @@ body.black {
 }
 
 body.black .info-panel {
-    color: #999;
+    color: #a6a6a6;
     background-color: #212121;
-    border-color: #333333;
+    border-color: #2e2e2e
 }
 
-body.black .key-info-item:before {
-    border-color: #4d4d4d;
+body.black .key-info-item > div, body.black .switch-item > div {
+    background-color: #212121
+}
+
+body.black .key-info-item:before, body.black .switch-item:before {
+    border-color: #474747;
 }
 
 body.black .key-info-item h6, body.black .key-info-item p {
@@ -23,108 +27,107 @@ body.black .key-info-item h6, body.black .key-info-item p {
 }
 
 body.black .time-info .time {
-    color: #e6e6e6;
+    color: #a6a6a6;
 }
 
 body.black .speed-info .speed {
-    color: white;
-    border-color: #333333;
+    color: #fff;
+    border-color: #2e2e2e;
 }
 
 body.black .speed-info .count-item {
-    color: #e6e6e6;
+    color: #a6a6a6;
 }
 
 body.black .copyright {
-    border-top: 1px dashed #333333;
+    border-top: 1px dashed #2e2e2e;
 }
 
 body.black .table-container {
-    border: 1px solid #333333;
+    border: 1px solid #2e2e2e;
     background-color: #212121;
 }
 
 body.black .table {
-    color: #bfbfbf;
+    color: #737373;
 }
 
 body.black thead tr {
-    border-bottom: #333333;
+    border-bottom: #2e2e2e;
 }
 
 body.black thead tr th {
-    color: #bfbfbf;
+    color: #737373;
 }
 
 body.black tbody tr:nth-child(2n+1) {
-    background-color: #141414;
+    background-color: #171717;
 }
 
 body.black tbody tr:nth-child(2n) {
-    background-color: #1c1c1c;
+    background-color: #212121;
 }
 
 body.black tbody tr:hover {
-    background-color: #262626;
+    background-color: #2e2e2e;
 }
 
 body.black td .btn {
-    color: #bfbfbf;
-    background-color: #333333;
-    border: 1px solid #333333;
+    color: #737373;
+    background-color: #2e2e2e;
+    border: 1px solid #2e2e2e;
 }
 
 body.black td .btn:hover {
-    color: white;
+    color: #fff;
     background-color: #FF3B30;
 }
 
 body.black .content {
     color: #e6e6e6;
-    border: 1px solid #333333;
-    background-color: #212121;
+    border: 1px solid #2e2e2e;
+    background-color: #212121
 }
 
 body.black .typing textarea {
-    border: 1px solid #333333;
+    border: 1px solid #2e2e2e;
     background-color: #212121;
-    color: white;
+    color: #737373;
 }
 
 body.black .typing textarea:focus {
-    -webkit-box-shadow: inset 1px 1px 5px black;
-    -moz-box-shadow: inset 1px 1px 5px black;
-    box-shadow: inset 1px 1px 5px black;
+    -webkit-box-shadow: inset 1px 1px 5px #000;
+    -moz-box-shadow: inset 1px 1px 5px #000;
+    box-shadow: inset 1px 1px 5px #000;
 }
 
 body.black .text .correct {
-    color: #333333 !important;
+    color: #4d4d4d !important;
 }
 
 body.black .text .wrong {
     background-color: #FF3B30;
-    color: white !important;
+    color: #fff !important;
 }
 
 body.black .btn-group {
-    border: 1px solid #333333;
+    border: 1px solid #2e2e2e;
 }
 
 body.black .btn-group .btn {
-    color: #e6e6e6;
+    color: #a6a6a6;
     background-color: #212121;
-    border-right: 1px solid #333333;
+    border-right: 1px solid #2e2e2e;
 }
 
 body.black .btn-group .btn:active {
-    -webkit-box-shadow: inset 0 1px 2px black;
-    -moz-box-shadow: inset 0 1px 2px black;
-    box-shadow: inset 0 1px 2px black;
+    -webkit-box-shadow: inset 0 1px 2px #000;
+    -moz-box-shadow: inset 0 1px 2px #000;
+    box-shadow: inset 0 1px 2px #000;
 }
 
 body.black .btn-group .btn:hover {
-    background-color: #333333;
-    border-color: #333333;
+    background-color: #383838;
 }
 
 body.black .btn-group .btn:last-child {
@@ -133,7 +136,33 @@ body.black .btn-group .btn:last-child {
 
 body.black .btn-group .btn.danger {
     background-color: #FF3B30;
-    color: white;
+    color: #fff;
+}
+
+body.black input[type=checkbox] + label {
+    background-color: #666
+}
+
+body.black input[type=checkbox]:checked + label {
+    background-color: #009652
+}
+
+input[type=checkbox]:checked + label.switch:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 10px;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
 }
 
 body.black input[type=checkbox] + label:before {
@@ -141,12 +170,12 @@ body.black input[type=checkbox] + label:before {
 }
 
 body.black input[type=radio] + label {
-    color: #FF9500;
+    color: #995900;
 }
 
 body.black input[type=radio]:checked + label {
-    background-color: #FF9500;
-    color: white;
+    background-color: #995900;
+    color: #fff;
 }
 
 body.black input[type=radio]:checked + label:hover {
@@ -154,8 +183,8 @@ body.black input[type=radio]:checked + label:hover {
 }
 
 body.black ::-webkit-scrollbar-track {
-    border-right: 1px solid #333333;
-    background-color: #333333;
+    border-right: 1px solid #2e2e2e;
+    background-color: #2e2e2e;
 }
 
 body.black ::-webkit-scrollbar-thumb {
@@ -163,11 +192,34 @@ body.black ::-webkit-scrollbar-thumb {
     -moz-border-radius: 5px;
     border-radius: 5px;
     background-color: #eee;
-    transition: all .2s;
+    transition: all 0.2s;
     height: 3px;
 }
 
 body.black :hover::-webkit-scrollbar-thumb {
     background-color: #dfdfdf;
-    transition: all .2s;
+    transition: all 0.2s;
+}
+
+body.black .copyright {
+    border-top: 1px dashed #2e2e2e
+}
+
+body.black .binding-key kbd {
+    background-color: #404040;
+    border: 2px solid #595959;
+    margin-right: 3px;
+    color: #a6a6a6;
+    -webkit-box-shadow: 1px 2px 0 #4d4d4d;
+    -moz-box-shadow: 1px 2px 0 #4d4d4d;
+    box-shadow: 1px 2px 0 #4d4d4d
+}
+body.black .full-screen-btn {
+    fill: #ffffff;
+    color: #ffffff;
+}
+
+body.black .full-screen-btn:hover {
+    fill: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.7);
 }

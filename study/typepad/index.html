@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
     <title>跟打器</title>
-    <link href="css/typepad.css" rel="stylesheet">
-    <link href="css/black.css" rel="stylesheet">
+    <link href="css/typepad.css?v=1.04" rel="stylesheet">
+    <link href="css/black.css?v=1.04" rel="stylesheet">
 </head>
 <body>
 <div id="app">
@@ -35,41 +35,108 @@
                 </div>
             </div>
         </div>
+
+        <div class="info-panel">
+            <div class="switch-item">
+                <div class="label">暗黑模式</div>
+                <div class="wrapper">
+                    <input id="darkMode" type="checkbox" onchange="switchDarkMode(this)">
+                    <label class="switch" for="darkMode"></label>
+                </div>
+            </div>
+            <div class="switch-item">
+                <div class="label">全文乱序</div>
+                <div class="wrapper">
+                    <input id="shuffleMode" type="checkbox" onchange="engine.shuffleCurrentArticle()">
+                    <label class="switch" for="shuffleMode"></label>
+                </div>
+            </div>
+
+            <div class="switch-item">
+                <div class="label">自动发文</div>
+                <div class="wrapper">
+                    <input id="autoNext" type="checkbox" onchange="engine.autoNext()">
+                    <label class="switch" for="autoNext"></label>
+                </div>
+            </div>
+        </div>
+
         <div class="key-info info-panel">
-            <div class="key-info-item word-all"><h6>全部按键</h6>
-                <p></p></div>
-            <div class="key-info-item word-az"><h6>A-Z</h6>
-                <p></p></div>
-            <div class="key-info-item word-space"><h6>空格</h6>
-                <p></p></div>
-            <div class="key-info-item word-backspace"><h6>删除</h6>
-                <p></p></div>
-            <div class="key-info-item word-number"><h6>数字</h6>
-                <p></p></div>
-            <div class="key-info-item word-function"><h6>功能键</h6>
-                <p></p></div>
-            <div class="key-info-item word-shift"><h6>Shift</h6>
-                <p></p></div>
-            <div class="key-info-item word-meta"><h6>Command（⌘）</h6>
-                <p></p></div>
-            <div class="key-info-item word-alt"><h6>Option</h6>
-                <p></p></div>
-            <div class="key-info-item word-ctrl"><h6>Control</h6>
-                <p></p></div>
-            <div class="key-info-item word-semicolon"><h6>;</h6>
-                <p></p></div>
-            <div class="key-info-item word-quot"><h6>'</h6>
-                <p></p></div>
+            <div class="key-info-item word-all">
+                <div>全部按键</div>
+                <div><p>0</p></div>
+            </div>
+            <div class="key-info-item word-az">
+                <div>A-Z</div>
+                <div><p>0</p></div>
+            </div>
+            <div class="key-info-item word-space">
+                <div>空格</div>
+                <div><p>0</p></div>
+            </div>
+            <div class="key-info-item word-backspace">
+                <div>删除</div>
+                <div><p>0</p></div>
+            </div>
+            <div class="key-info-item word-number">
+                <div>数字</div>
+                <div><p>0</p></div>
+            </div>
+            <div class="key-info-item word-function">
+                <div>功能键</div>
+                <div><p>0</p></div>
+            </div>
+            <div class="key-info-item word-shift">
+                <div>Shift</div>
+                <div><p>0</p></div>
+            </div>
+            <div class="key-info-item word-meta">
+                <div>Command（⌘）</div>
+                <div><p>0</p></div>
+            </div>
+            <div class="key-info-item word-alt">
+                <div>Option</div>
+                <div><p>0</p></div>
+            </div>
+            <div class="key-info-item word-ctrl">
+                <div>Control</div>
+                <div><p>0</p></div>
+            </div>
+            <div class="key-info-item word-semicolon">
+                <div>;</div>
+                <div><p>0</p></div>
+            </div>
+            <div class="key-info-item word-quot">
+                <div>'</div>
+                <div><p>0</p></div>
+            </div>
+        </div>
+        <!--info-->
+        <div class="info-panel">
+            <div class="copyright">
+                <a target="_blank" href="" class="link">typepad</a>
+                <p>v1.04</p>
+                <p>2023/10/05</p>
+            </div>
+        </div>
+        <!--notice-->
+        <div class="info-panel">
+            <p>请使用谷歌浏览器，最优体验: macOS 谷歌浏览器、Safari，其它平台或浏览器可能会有小问题</p>
+            <p>光标离开输入区自动暂停，进入输入状态自动恢复计时。</p>
         </div>
 
         <div class="info-panel">
-            <div class="key-info-item"><h6 class="binding-key"><kbd>Ctrl</kbd>+<kbd>J</kbd></h6>
+            <div class="key-info-item">
+                <div class="binding-key"><kbd>⌘</kbd>+<kbd>J</kbd></div>
                 <p>下一段</p></div>
-            <div class="key-info-item"><h6 class="binding-key"><kbd>Ctrl</kbd>+<kbd>U</kbd></h6>
+            <div class="key-info-item">
+                <div class="binding-key"><kbd>⌘</kbd>+<kbd>U</kbd></div>
                 <p>上一段</p></div>
-            <div class="key-info-item"><h6 class="binding-key"><kbd>Ctrl</kbd>+<kbd>k</kbd></h6>
+            <div class="key-info-item">
+                <div class="binding-key"><kbd>⌘</kbd>+<kbd>k</kbd></div>
                 <p>打乱当前</p></div>
-            <div class="key-info-item"><h6 class="binding-key"><kbd>Ctrl</kbd>+<kbd>Y</kbd></h6>
+            <div class="key-info-item">
+                <div class="binding-key"><kbd>⌘</kbd>+<kbd>Y</kbd></div>
                 <p>重打当前</p></div>
         </div>
         <div class="info-panel">
@@ -101,11 +168,10 @@
                 <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
                 <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
             </div>
+
             <div class="btn-group">
                 <label class="hidden" for="article"></label>
                 <select class="btn" id="article" onchange="engine.changeArticle()">
-                    <option value="one">一级简码</option>
-                    <option value="two">二级简码</option>
                 </select>
             </div>
             <div class="btn-group">
@@ -124,16 +190,14 @@
                 <input class="btn" id="all" name="count" onchange="engine.changePerCount()" type="radio"
                        value="ALL"><label class="btn hidden-sm" for="all">ALL</label>
             </div>
-            <div class="btn-group">
-                <div class="btn" id="darkButton" onclick="switchDarkMode(this)">暗黑</div>
-            </div>
+
             <div class="btn-group hidden-big">
                 <div class="btn number"><span class="btn-minute">00</span>:<span class="btn-second">00</span></div>
                 <div class="btn"><span class="btn-speed"></span> 字/分</div>
             </div>
-            <div class="btn-group no-border">
-                <input id="mode" onchange="engine.shuffleCurrentArticle()" type="checkbox">
-                <label class="checker btn" for="mode">乱序</label>
+            <div class="btn-group">
+                <svg  viewBox="64 64 896 896" id="fullscreen" xmlns="http://www.w3.org/2000/svg" class="full-screen-btn" onclick="enterFullScreenMode()" width="25px" height="25px"><path fill-rule="evenodd" d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"></path></svg>
+                <svg viewBox="0 0 48 48" id="fullscreen-exit" xmlns="http://www.w3.org/2000/svg" class="full-screen-btn hidden" onclick="cancelFullscreen()"><path fill-rule="evenodd" d="M35 6v8a1 1 0 0 0 1 1h8M13 6v8a1 1 0 0 1-1 1H4m31 27v-8a1 1 0 0 1 1-1h8m-31 9v-8a1 1 0 0 0-1-1H4"></path></svg>
             </div>
         </div>
         <!--文章区-->
@@ -158,19 +222,19 @@
                         <th>击键</th>
                         <th>回退</th>
                         <th>字数</th>
+                        <th>文章</th>
                         <th class="hidden-sm">开始时间</th>
                         <th>用时</th>
-                        <th>操作 <a class="link" onclick="data.clear(this)">清除</a></th>
+                        <th>操作 <a class="link" onclick="dataBase.clear(this)">清除</a></th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="grades">
                     </tbody>
                 </table>
             </figure>
         </div>
     </div>
-
 </div>
-<script src="js/typepad.ts"></script>
+<script src="js/typepad.js?v=1.04" type="text/javascript"></script>
 </body>
 </html>
