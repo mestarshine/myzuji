@@ -2,12 +2,23 @@ package com.myzuji.study.java.easyexcel;
 
 import com.alibaba.excel.EasyExcel;
 import com.myzuji.study.easyexcel.read.*;
-import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
 public class ReadTest {
+
+    private static Logger LOGGER = null;
+
+    @BeforeEach
+    public void init() {
+        System.setProperty("log4j.configurationFile", "log4j2.xml");
+        LOGGER = LoggerFactory.getLogger(ReadTest.class);
+    }
 
     /**
      * 最简单的读
@@ -19,7 +30,7 @@ public class ReadTest {
      * 3. 直接读即可
      */
     @Test
-    @Ignore
+    @Disabled
     public void simpleRead() {
         String merFile = ReadTest.class.getResource("/").getPath() + "easyexcel" + File.separator + "demo" +
             File.separator + "demo.xlsx";
@@ -30,5 +41,6 @@ public class ReadTest {
             File.separator + "demo.xlsx";
         // 这里 需要指定读用哪个class去读，然后读取第一个sheet 文件流会自动关闭
         EasyExcel.read(fileName, DemoData1.class, new DemoData1Listener()).sheet().headRowNumber(5).doRead();
+        LOGGER.info("执行完成");
     }
 }
