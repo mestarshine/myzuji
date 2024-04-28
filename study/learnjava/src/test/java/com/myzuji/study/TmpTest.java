@@ -1,13 +1,13 @@
 package com.myzuji.study;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.apache.commons.lang3.RandomUtils;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class TmpTest {
 
     @Test
-    @Ignore
+    @Disabled
     void randomMoney() {
         int max = 10000;
         int sum = 0;
