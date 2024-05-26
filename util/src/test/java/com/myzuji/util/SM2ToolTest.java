@@ -1,8 +1,7 @@
 package com.myzuji.util;
 
-
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -19,7 +18,7 @@ import static com.myzuji.util.security.SM2Tool.*;
 public class SM2ToolTest {
 
     @Test
-    @Ignore
+    @Disabled
     public void genSMKeyPairTest() {
         Map<String, String> key = genSMKeyPair();
         Assertions.assertNotNull(key, "密钥生成失败");
@@ -28,9 +27,9 @@ public class SM2ToolTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void singTest() {
-        String pri = "MI`GTAgEAMBMGByqGSM49AgEGCCqBHM9VAYItBHkwdwIBAQQgIaL7KnN9lFMPreIjCoKhjRe2cfduaMHHN9YitKy8SFGgCgYIKoEcz1UBgi2hRANCAATwZCTbWFI1eORRlWzT4YLOhPQ4kyAUBStaf+2+Gi/LU+FKtfWnOlMpc/+PsQbzlD7EjSCXWEOI6OhPO2kA58xJ";
+        String pri = "MIGTAgEAMBMGByqGSM49AgEGCCqBHM9VAYItBHkwdwIBAQQgIaL7KnN9lFMPreIjCoKhjRe2cfduaMHHN9YitKy8SFGgCgYIKoEcz1UBgi2hRANCAATwZCTbWFI1eORRlWzT4YLOhPQ4kyAUBStaf+2+Gi/LU+FKtfWnOlMpc/+PsQbzlD7EjSCXWEOI6OhPO2kA58xJ";
         String content = "SM2你好";
         String signInfo = sign(pri, content);
         Assertions.assertNotNull(signInfo);
@@ -38,7 +37,7 @@ public class SM2ToolTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void verifyTest() {
         String pub = "MFkwEwYHKoZIzj0CAQYIKoEcz1UBgi0DQgAE8GQk21hSNXjkUZVs0+GCzoT0OJMgFAUrWn/tvhovy1PhSrX1pzpTKXP/j7EG85Q+xI0gl1hDiOjoTztpAOfMSQ==";
         String content = "SM2你好";

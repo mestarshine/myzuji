@@ -42,7 +42,7 @@ public class ClassUtil {
     private static List<String> packageList = new ArrayList<String>();
 
     static {
-        packageList.add("com.ecpss.");
+        packageList.add("com.myzuji.");
     }
 
     /**
