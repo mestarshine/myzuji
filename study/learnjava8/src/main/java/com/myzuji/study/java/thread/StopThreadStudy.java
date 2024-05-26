@@ -9,7 +9,7 @@ public class StopThreadStudy {
 
     /**
      * 容易产生数据不一致问题
-     * stop 会释放所有锁资源
+     * stop 会释放所有锁资源 1.2已弃用
      * @throws InterruptedException
      */
     static void stopThread() throws InterruptedException {
@@ -25,11 +25,12 @@ public class StopThreadStudy {
         });
         t.start();
         TimeUnit.SECONDS.sleep(5);
-        t.stop();
+//        t.stop();
     }
 
     /**
      * 暂停会释放锁，可能导致数据不一致
+     * 1.2已弃用
      * @throws InterruptedException
      */
     static void suspendResume() throws InterruptedException {
@@ -45,9 +46,9 @@ public class StopThreadStudy {
         });
         t.start();
         TimeUnit.SECONDS.sleep(5);
-        t.suspend();
-        TimeUnit.SECONDS.sleep(3);
-        t.resume();
+//        t.suspend();
+//        TimeUnit.SECONDS.sleep(3);
+//        t.resume();
     }
 
     static volatile boolean running = true;

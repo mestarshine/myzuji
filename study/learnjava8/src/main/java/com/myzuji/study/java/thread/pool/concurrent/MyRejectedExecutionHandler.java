@@ -7,8 +7,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * A handler for tasks that cannot be executed by a {@link java.util.concurrent.ThreadPoolExecutor}.
  *
- * @since 1.5
  * @author Doug Lea
+ * @since 1.5
  */
 public interface MyRejectedExecutionHandler extends RejectedExecutionHandler {
 
@@ -23,7 +23,7 @@ public interface MyRejectedExecutionHandler extends RejectedExecutionHandler {
      * an unchecked {@link RejectedExecutionException}, which will be
      * propagated to the caller of {@code execute}.
      *
-     * @param r the runnable task requested to be executed
+     * @param r        the runnable task requested to be executed
      * @param executor the executor attempting to execute this task
      * @throws RejectedExecutionException if there is no remedy
      */

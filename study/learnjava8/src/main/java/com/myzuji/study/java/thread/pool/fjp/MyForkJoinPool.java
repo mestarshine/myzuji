@@ -1618,7 +1618,7 @@ public class MyForkJoinPool extends AbstractExecutorService {
                 if ((q = ws[k]) != null) {
                     if ((n = (b = q.base) - q.top) < 0 &&
                         (a = q.array) != null) {      // non-empty
-                        long i = (((a.length - 1) & b) << ASHIFT) + ABASE;
+                        long i = ((long) ((a.length - 1) & b) << ASHIFT) + ABASE;
                         if ((t = ((MyForkJoinTask<?>)
                             U.getObjectVolatile(a, i))) != null &&
                             q.base == b) {
@@ -2375,7 +2375,7 @@ public class MyForkJoinPool extends AbstractExecutorService {
         if ((ws = workQueues) != null && (m = ws.length - 1) >= 0 &&
             (w = ws[m & r & SQMASK]) != null &&
             (a = w.array) != null && (s = w.top) != w.base) {
-            long j = (((a.length - 1) & (s - 1)) << ASHIFT) + ABASE;
+            long j = ((long) ((a.length - 1) & (s - 1)) << ASHIFT) + ABASE;
             if (U.compareAndSwapInt(w, QLOCK, 0, 1)) {
                 if (w.top == s && w.array == a &&
                     U.getObject(a, j) == task &&
@@ -3154,7 +3154,7 @@ public class MyForkJoinPool extends AbstractExecutorService {
     static final class DefaultForkJoinWorkerThreadFactory
         implements ForkJoinWorkerThreadFactory {
         @Override
-        public final MyForkJoinWorkerThread newThread(MyForkJoinPool pool) {
+        public MyForkJoinWorkerThread newThread(MyForkJoinPool pool) {
             return new MyForkJoinWorkerThread(pool);
         }
     }
@@ -3173,16 +3173,16 @@ public class MyForkJoinPool extends AbstractExecutorService {
         } // force done
 
         @Override
-        public final Void getRawResult() {
+        public Void getRawResult() {
             return null;
         }
 
         @Override
-        public final void setRawResult(Void x) {
+        public void setRawResult(Void x) {
         }
 
         @Override
-        public final boolean exec() {
+        public boolean exec() {
             return true;
         }
     }
@@ -3274,14 +3274,14 @@ public class MyForkJoinPool extends AbstractExecutorService {
         /**
          * Returns an exportable index (used by ForkJoinWorkerThread).
          */
-        final int getPoolIndex() {
+        int getPoolIndex() {
             return (config & 0xffff) >>> 1; // ignore odd/even tag bit
         }
 
         /**
          * Returns the approximate number of tasks in the queue.
          */
-        final int queueSize() {
+        int queueSize() {
             int n = base - top;       // non-owner callers must read base first
             return (n >= 0) ? 0 : -n; // ignore transient negative
         }
@@ -3291,14 +3291,14 @@ public class MyForkJoinPool extends AbstractExecutorService {
          * any tasks than does queueSize, by checking whether a
          * near-empty queue has at least one unclaimed task.
          */
-        final boolean isEmpty() {
+        boolean isEmpty() {
             MyForkJoinTask<?>[] a;
             int n, m, s;
             return ((n = base - (s = top)) >= 0 ||
                 (n == -1 &&           // possibly one task
                     ((a = array) == null || (m = a.length - 1) < 0 ||
                         U.getObject
-                            (a, (long) ((m & (s - 1)) << ASHIFT) + ABASE) == null)));
+                            (a, (long) ((long) (m & (s - 1)) << ASHIFT) + ABASE) == null)));
         }
 
         /**
@@ -3308,13 +3308,13 @@ public class MyForkJoinPool extends AbstractExecutorService {
          * @param task the task. Caller must ensure non-null.
          * @throws RejectedExecutionException if array cannot be resized
          */
-        final void push(MyForkJoinTask<?> task) {
+        void push(MyForkJoinTask<?> task) {
             MyForkJoinTask<?>[] a;
             MyForkJoinPool p;
             int b = base, s = top, n;
             if ((a = array) != null) {    // ignore if queue removed
                 int m = a.length - 1;     // fenced write for task visibility
-                U.putOrderedObject(a, ((m & s) << ASHIFT) + ABASE, task);
+                U.putOrderedObject(a, ((long) (m & s) << ASHIFT) + ABASE, task);
                 U.putOrderedInt(this, QTOP, s + 1);
                 if ((n = s - b) <= 1) {
                     if ((p = pool) != null) {
@@ -3331,7 +3331,7 @@ public class MyForkJoinPool extends AbstractExecutorService {
          * by owner or with lock held -- it is OK for base, but not
          * top, to move while resizings are in progress.
          */
-        final MyForkJoinTask<?>[] growArray() {
+        MyForkJoinTask<?>[] growArray() {
             MyForkJoinTask<?>[] oldA = array;
             int size = oldA != null ? oldA.length << 1 : INITIAL_QUEUE_CAPACITY;
             if (size > MAXIMUM_QUEUE_CAPACITY) {
@@ -3362,13 +3362,13 @@ public class MyForkJoinPool extends AbstractExecutorService {
          * Takes next task, if one exists, in LIFO order.  Call only
          * by owner in unshared queues.
          */
-        final MyForkJoinTask<?> pop() {
+        MyForkJoinTask<?> pop() {
             MyForkJoinTask<?>[] a;
             MyForkJoinTask<?> t;
             int m;
             if ((a = array) != null && (m = a.length - 1) >= 0) {
                 for (int s; (s = top - 1) - base >= 0; ) {
-                    long j = ((m & s) << ASHIFT) + ABASE;
+                    long j = ((long) (m & s) << ASHIFT) + ABASE;
                     if ((t = (MyForkJoinTask<?>) U.getObject(a, j)) == null) {
                         break;
                     }
@@ -3386,7 +3386,7 @@ public class MyForkJoinPool extends AbstractExecutorService {
          * can be claimed without contention. Specialized versions
          * appear in ForkJoinPool methods scan and helpStealer.
          */
-        final MyForkJoinTask<?> pollAt(int b) {
+        MyForkJoinTask<?> pollAt(int b) {
             MyForkJoinTask<?> t;
             MyForkJoinTask<?>[] a;
             if ((a = array) != null) {
@@ -3403,7 +3403,7 @@ public class MyForkJoinPool extends AbstractExecutorService {
         /**
          * Takes next task, if one exists, in FIFO order.
          */
-        final MyForkJoinTask<?> poll() {
+        MyForkJoinTask<?> poll() {
             MyForkJoinTask<?>[] a;
             int b;
             MyForkJoinTask<?> t;
@@ -3428,14 +3428,14 @@ public class MyForkJoinPool extends AbstractExecutorService {
         /**
          * Takes next task, if one exists, in order specified by mode.
          */
-        final MyForkJoinTask<?> nextLocalTask() {
+        MyForkJoinTask<?> nextLocalTask() {
             return (config & FIFO_QUEUE) == 0 ? pop() : poll();
         }
 
         /**
          * Returns next task, if one exists, in order specified by mode.
          */
-        final MyForkJoinTask<?> peek() {
+        MyForkJoinTask<?> peek() {
             MyForkJoinTask<?>[] a = array;
             int m;
             if (a == null || (m = a.length - 1) < 0) {
@@ -3450,12 +3450,12 @@ public class MyForkJoinPool extends AbstractExecutorService {
          * Pops the given task only if it is at the current top.
          * (A shared version is available only via FJP.tryExternalUnpush)
          */
-        final boolean tryUnpush(MyForkJoinTask<?> t) {
+        boolean tryUnpush(MyForkJoinTask<?> t) {
             MyForkJoinTask<?>[] a;
             int s;
             if ((a = array) != null && (s = top) != base &&
                 U.compareAndSwapObject
-                    (a, (((a.length - 1) & --s) << ASHIFT) + ABASE, t, null)) {
+                    (a, ((long) ((a.length - 1) & --s) << ASHIFT) + ABASE, t, null)) {
                 U.putOrderedInt(this, QTOP, s);
                 return true;
             }
@@ -3465,7 +3465,7 @@ public class MyForkJoinPool extends AbstractExecutorService {
         /**
          * Removes and cancels all known tasks, ignoring any exceptions.
          */
-        final void cancelAll() {
+        void cancelAll() {
             MyForkJoinTask<?> t;
             if ((t = currentJoin) != null) {
                 currentJoin = null;
@@ -3483,7 +3483,7 @@ public class MyForkJoinPool extends AbstractExecutorService {
         /**
          * Polls and runs tasks until empty.
          */
-        final void pollAndExecAll() {
+        void pollAndExecAll() {
             for (MyForkJoinTask<?> t; (t = poll()) != null; ) {
                 t.doExec();
             }
@@ -3494,7 +3494,7 @@ public class MyForkJoinPool extends AbstractExecutorService {
          * pollAndExecAll. Otherwise implements a specialized pop loop
          * to exec until empty.
          */
-        final void execLocalTasks() {
+        void execLocalTasks() {
             int b = base, m, s;
             MyForkJoinTask<?>[] a = array;
             if (b - (s = top - 1) <= 0 && a != null &&
@@ -3502,7 +3502,7 @@ public class MyForkJoinPool extends AbstractExecutorService {
                 if ((config & FIFO_QUEUE) == 0) {
                     for (MyForkJoinTask<?> t; ; ) {
                         if ((t = (MyForkJoinTask<?>) U.getAndSetObject
-                            (a, ((m & s) << ASHIFT) + ABASE, null)) == null) {
+                            (a, ((long) (m & s) << ASHIFT) + ABASE, null)) == null) {
                             break;
                         }
                         U.putOrderedInt(this, QTOP, s);
@@ -3520,7 +3520,7 @@ public class MyForkJoinPool extends AbstractExecutorService {
         /**
          * Executes the given task and any remaining local tasks.
          */
-        final void runTask(MyForkJoinTask<?> task) {
+        void runTask(MyForkJoinTask<?> task) {
             if (task != null) {
                 scanState &= ~SCANNING; // mark as busy
                 (currentSteal = task).doExec();
@@ -3541,7 +3541,7 @@ public class MyForkJoinPool extends AbstractExecutorService {
         /**
          * Adds steal count to pool stealCounter if it exists, and resets.
          */
-        final void transferStealCount(MyForkJoinPool p) {
+        void transferStealCount(MyForkJoinPool p) {
             AtomicLong sc;
             if (p != null && (sc = p.stealCounter) != null) {
                 int s = nsteals;
@@ -3556,14 +3556,14 @@ public class MyForkJoinPool extends AbstractExecutorService {
          *
          * @return true if queue empty and task not known to be done
          */
-        final boolean tryRemoveAndExec(MyForkJoinTask<?> task) {
+        boolean tryRemoveAndExec(MyForkJoinTask<?> task) {
             MyForkJoinTask<?>[] a;
             int m, s, b, n;
             if ((a = array) != null && (m = a.length - 1) >= 0 &&
                 task != null) {
                 while ((n = (s = top) - (b = base)) > 0) {
                     for (MyForkJoinTask<?> t; ; ) {      // traverse from s to b
-                        long j = ((--s & m) << ASHIFT) + ABASE;
+                        long j = ((long) (--s & m) << ASHIFT) + ABASE;
                         if ((t = (MyForkJoinTask<?>) U.getObject(a, j)) == null) {
                             return s + 1 == top;     // shorter than expected
                         } else if (t == task) {
@@ -3604,12 +3604,12 @@ public class MyForkJoinPool extends AbstractExecutorService {
          * Pops task if in the same CC computation as the given task,
          * in either shared or owned mode. Used only by helpComplete.
          */
-        final MyCountedCompleter<?> popCC(MyCountedCompleter<?> task, int mode) {
+        MyCountedCompleter<?> popCC(MyCountedCompleter<?> task, int mode) {
             int s;
             MyForkJoinTask<?>[] a;
             Object o;
             if (base - (s = top) < 0 && (a = array) != null) {
-                long j = (((a.length - 1) & (s - 1)) << ASHIFT) + ABASE;
+                long j = ((long) ((a.length - 1) & (s - 1)) << ASHIFT) + ABASE;
                 if ((o = U.getObjectVolatile(a, j)) != null &&
                     (o instanceof MyCountedCompleter)) {
                     MyCountedCompleter<?> t = (MyCountedCompleter<?>) o;
@@ -3650,14 +3650,14 @@ public class MyForkJoinPool extends AbstractExecutorService {
          * stealer), -1 if non-empty but no matching task found, else
          * the base index, forced negative.
          */
-        final int pollAndExecCC(MyCountedCompleter<?> task) {
+        int pollAndExecCC(MyCountedCompleter<?> task) {
             int b, h;
             MyForkJoinTask<?>[] a;
             Object o;
             if ((b = base) - top >= 0 || (a = array) == null) {
                 h = b | Integer.MIN_VALUE;  // to sense movement on re-poll
             } else {
-                long j = (((a.length - 1) & b) << ASHIFT) + ABASE;
+                long j = ((long) ((a.length - 1) & b) << ASHIFT) + ABASE;
                 if ((o = U.getObjectVolatile(a, j)) == null) {
                     h = 2;                  // retryable
                 } else if (!(o instanceof MyCountedCompleter)) {
@@ -3688,7 +3688,7 @@ public class MyForkJoinPool extends AbstractExecutorService {
         /**
          * Returns true if owned and not known to be blocked.
          */
-        final boolean isApparentlyUnblocked() {
+        boolean isApparentlyUnblocked() {
             Thread wt;
             Thread.State s;
             return (scanState >= 0 &&
@@ -3724,7 +3724,7 @@ public class MyForkJoinPool extends AbstractExecutorService {
         }
 
         @Override
-        public final MyForkJoinWorkerThread newThread(MyForkJoinPool pool) {
+        public MyForkJoinWorkerThread newThread(MyForkJoinPool pool) {
             return java.security.AccessController.doPrivileged(
                 new java.security.PrivilegedAction<MyForkJoinWorkerThread>() {
                     @Override

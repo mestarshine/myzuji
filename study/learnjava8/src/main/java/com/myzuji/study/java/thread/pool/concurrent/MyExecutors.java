@@ -8,6 +8,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class MyExecutors {
 
+    /**
+     * Cannot instantiate.
+     */
+    private MyExecutors() {
+    }
+
     public static ExecutorService newFixedThreadPool(int nThreads) {
         return new MyThreadPoolExecutor(nThreads, nThreads,
             0L, TimeUnit.MILLISECONDS,
@@ -149,14 +155,14 @@ public class MyExecutors {
         return new PrivilegedCallable<T>(callable);
     }
 
+    // Non-public classes supporting the public methods
+
     public static <T> Callable<T> privilegedCallableUsingCurrentClassLoader(Callable<T> callable) {
         if (callable == null) {
             throw new NullPointerException();
         }
         return new PrivilegedCallableUsingCurrentClassLoader<T>(callable);
     }
-
-    // Non-public classes supporting the public methods
 
     static final class RunnableAdapter<T> implements Callable<T> {
         final Runnable task;
@@ -451,12 +457,6 @@ public class MyExecutors {
         public ScheduledFuture<?> scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit) {
             return e.scheduleWithFixedDelay(command, initialDelay, delay, unit);
         }
-    }
-
-    /**
-     * Cannot instantiate.
-     */
-    private MyExecutors() {
     }
 }
 

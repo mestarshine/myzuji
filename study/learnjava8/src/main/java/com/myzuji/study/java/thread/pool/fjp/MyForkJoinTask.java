@@ -1519,23 +1519,23 @@ public abstract class MyForkJoinTask<V> implements Future<V>, Serializable {
         }
 
         @Override
-        public final T getRawResult() {
+        public T getRawResult() {
             return result;
         }
 
         @Override
-        public final void setRawResult(T v) {
+        public void setRawResult(T v) {
             result = v;
         }
 
         @Override
-        public final boolean exec() {
+        public boolean exec() {
             runnable.run();
             return true;
         }
 
         @Override
-        public final void run() {
+        public void run() {
             invoke();
         }
     }
@@ -1556,22 +1556,22 @@ public abstract class MyForkJoinTask<V> implements Future<V>, Serializable {
         }
 
         @Override
-        public final Void getRawResult() {
+        public Void getRawResult() {
             return null;
         }
 
         @Override
-        public final void setRawResult(Void v) {
+        public void setRawResult(Void v) {
         }
 
         @Override
-        public final boolean exec() {
+        public boolean exec() {
             runnable.run();
             return true;
         }
 
         @Override
-        public final void run() {
+        public void run() {
             invoke();
         }
     }
@@ -1591,16 +1591,16 @@ public abstract class MyForkJoinTask<V> implements Future<V>, Serializable {
         }
 
         @Override
-        public final Void getRawResult() {
+        public Void getRawResult() {
             return null;
         }
 
         @Override
-        public final void setRawResult(Void v) {
+        public void setRawResult(Void v) {
         }
 
         @Override
-        public final boolean exec() {
+        public boolean exec() {
             runnable.run();
             return true;
         }
@@ -1628,17 +1628,17 @@ public abstract class MyForkJoinTask<V> implements Future<V>, Serializable {
         }
 
         @Override
-        public final T getRawResult() {
+        public T getRawResult() {
             return result;
         }
 
         @Override
-        public final void setRawResult(T v) {
+        public void setRawResult(T v) {
             result = v;
         }
 
         @Override
-        public final boolean exec() {
+        public boolean exec() {
             try {
                 result = callable.call();
                 return true;
@@ -1652,7 +1652,7 @@ public abstract class MyForkJoinTask<V> implements Future<V>, Serializable {
         }
 
         @Override
-        public final void run() {
+        public void run() {
             invoke();
         }
     }
