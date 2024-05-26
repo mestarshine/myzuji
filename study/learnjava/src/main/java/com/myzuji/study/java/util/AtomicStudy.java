@@ -6,7 +6,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * CAS (Compare And Swap):无锁优化，自旋
- * com.myzuji.study.java.thread.multiple.volat.VolatileTest1
  */
 public class AtomicStudy {
 
