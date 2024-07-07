@@ -6,11 +6,11 @@
  * Database IndexedDB 相关操作
  *
  */
-const localStorageIndexName = 'type_pad_idb_index';
-const untypedStringClassName = 'untyped-part';
-const HEIGHT_TEMPLATE = 150; // 对照区高度
+const localStorageIndexName: string = 'type_pad_idb_index';
+const untypedStringClassName: string = 'untyped-part';
+const HEIGHT_TEMPLATE: number = 150; // 对照区高度
 
-const REG = {
+const REG: { [key: string]: RegExp } = {
     all: /.*/,
     az: /^[a-zA-Z]$/,
     number: /\d/,
@@ -24,24 +24,24 @@ const REG = {
     delete: /^Delete$/,
     semicolon: /;/,
     quot: /'/,
-}
+};
 
 // 按键记录
 class KeyCount {
-    all = 0;
-    az = 0;
-    number = 0;
-    ctrl = 0;
-    shift = 0;
-    meta = 0;
-    alt = 0;
-    function = 0;
-    space = 0;
-    backspace = 0;
-    semicolon = 0;
-    quot = 0;
+    all: number = 0;
+    az: number = 0;
+    number: number = 0;
+    ctrl: number = 0;
+    shift: number = 0;
+    meta: number = 0;
+    alt: number = 0;
+    function: number = 0;
+    space: number = 0;
+    backspace: number = 0;
+    semicolon: number = 0;
+    quot: number = 0;
 
-    reset() {
+    reset(): void {
         this.all = 0;
         this.az = 0;
         this.number = 0;
