@@ -58,16 +58,16 @@ class KeyCount {
 }
 
 class Config {
-    chapter;// 当前段号
-    chapterTotal; // 总段数
-    isShuffle; // 是否乱序模式
-    count;// 单条数量
-    articleName;// 文章名称
-    article;// 文章内容
-    darkMode;// 暗黑模式
-    localStorageLabel;// 文章类型
-    articleNameValue;//文章标识
-    isAutoNext;//自动发文
+    chapter: number; // 当前段号
+    chapterTotal: number; // 总段数
+    isShuffle: boolean; // 是否乱序模式
+    count: number; // 单条数量
+    articleName: string; // 文章名称
+    article: string; // 文章内容
+    darkMode: boolean; // 暗黑模式
+    localStorageLabel: { [key: string]: string }; // 文章类型
+    articleNameValue: string; // 文章标识
+    isAutoNext: boolean; // 自动发文
 
     constructor() {
         this.chapter = 1;
@@ -88,54 +88,61 @@ class Config {
             article: 'type_pad_config_article',
             darkMode: 'type_pad_config_dark_mode',
             articleNameValue: 'type_pad_config_article_identifier',
-        }
+        };
     }
 
     // 判断是否存储过配置信息
-    hasSavedData() {
+    hasSavedData(): boolean {
         return Boolean(localStorage[this.localStorageLabel.articleNameValue]);
     }
 
-    save() {
-        localStorage[this.localStorageLabel.chapter] = this.chapter;
-        localStorage[this.localStorageLabel.chapterTotal] = this.chapterTotal;
-        localStorage[this.localStorageLabel.isShuffle] = this.isShuffle;
-        localStorage[this.localStorageLabel.count] = this.count;
+    save(): void {
+        localStorage[this.localStorageLabel.chapter] = this.chapter.toString();
+        localStorage[this.localStorageLabel.chapterTotal] = this.chapterTotal.toString();
+        localStorage[this.localStorageLabel.isShuffle] = this.isShuffle.toString();
+        localStorage[this.localStorageLabel.count] = this.count.toString();
         localStorage[this.localStorageLabel.articleName] = this.articleName;
         localStorage[this.localStorageLabel.article] = this.article;
-        localStorage[this.localStorageLabel.darkMode] = this.darkMode;
+        localStorage[this.localStorageLabel.darkMode] = this.darkMode.toString();
         localStorage[this.localStorageLabel.articleNameValue] = this.articleNameValue;
     }
 
-    get() {
+    get(): void {
         this.chapter = Number(localStorage[this.localStorageLabel.chapter]);
         this.chapterTotal = Number(localStorage[this.localStorageLabel.chapterTotal]);
-        this.isShuffle = Boolean(localStorage[this.localStorageLabel.isShuffle] === 'true');
+        this.isShuffle = localStorage[this.localStorageLabel.isShuffle] === 'true';
         this.count = Number(localStorage[this.localStorageLabel.count]);
-        this.articleName = localStorage[this.localStorageLabel.articleName];
-        this.article = localStorage[this.localStorageLabel.article];
-        this.darkMode = Boolean(localStorage[this.localStorageLabel.darkMode] === 'true');
-        this.articleNameValue = localStorage[this.localStorageLabel.articleNameValue];
+        this.articleName = localStorage[this.localStorageLabel.articleName] || '';
+        this.article = localStorage[this.localStorageLabel.article] || '';
+        this.darkMode = localStorage[this.localStorageLabel.darkMode] === 'true';
+        this.articleNameValue = localStorage[this.localStorageLabel.articleNameValue] || '';
     }
 
-    setWithCurrentConfig() {
-        $('#shuffleMode').checked = this.isShuffle;
-        let radios = document.querySelectorAll('input[name=count]');
-        for (let i = 0; i < radios.length; i++) {
-            radios[i]['checked'] = Number(radios[i]['value']) === this.count
-        }
-        $('#article').value = this.articleNameValue;
+    setWithCurrentConfig(): void {
+        const shuffleMode = document.querySelector('#shuffleMode') as HTMLInputElement;
+        if (shuffleMode) shuffleMode.checked = this.isShuffle;
+
+        const radios = document.querySelectorAll<HTMLInputElement>('input[name=count]');
+        radios.forEach((radio: HTMLInputElement) => {
+            radio.checked = Number(radio.value) === this.count;
+        });
+
+        const articleSelect = document.querySelector('#article') as HTMLSelectElement;
+        if (articleSelect) articleSelect.value = this.articleNameValue;
+
         currentOriginWords = this.article.split('');
 
-        let body = $('body');
-        if (this.darkMode) {
-            body.classList.add('black');
-        } else {
-            body.classList.remove('black');
+        const body = document.querySelector('body');
+        if (body) {
+            if (this.darkMode) {
+                body.classList.add('black');
+            } else {
+                body.classList.remove('black');
+            }
         }
 
-        let darkMode = $('#darkMode');
-        darkMode.innerText = this.darkMode ? '白色' : '暗黑'
+        const darkModeButton = document.querySelector('#darkMode') as HTMLElement;
+        if (darkModeButton) darkModeButton.innerText = this.darkMode ? '白色' : '暗黑';
     }
 }
 
