@@ -471,36 +471,28 @@ class Engine {
 }
 
 class Records {
-    id;
-    speed;
-    codeLength;
-    hitRate;
-    backspace;
-    wordCount;
-    articleName;
-    timeStart;
-    duration;
+    id: number;
+    speed: string = '0';
+    codeLength: string = '0';
+    hitRate: string = '0';
+    backspace: number = 0;
+    wordCount: number = 0;
+    articleName: string = '';
+    timeStart: number = 0;
+    duration: number = 0;
 
     constructor() {
-        let index = localStorage[localStorageIndexName];
+        const index = localStorage[localStorageIndexName];
         this.id = index ? Number(index) : 1;
-        localStorage[localStorageIndexName] = this.id;
-        this.speed = 0;
-        this.codeLength = 0;
-        this.hitRate = 0;
-        this.backspace = 0;
-        this.wordCount = 0;
-        this.articleName = '';
-        this.timeStart = 0;
-        this.duration = 0;
+        localStorage[localStorageIndexName] = this.id.toString();
     }
 
-    getHtml() {
-        let level = Math.floor(this.speed / speedGap);
-        level = level > 6 ? 6 : level;
+    getHtml(): string {
+        const level = Math.floor(Number(this.speed) / speedGap);
+        const levelClass = level > 6 ? 6 : level;
         return `<tr>
               <td class="text-center">${this.id}</td>
-              <td class="bold roboto-mono lv-${level}">${this.speed}</td>
+              <td class="bold roboto-mono lv-${levelClass}">${this.speed}</td>
               <td>${this.codeLength}</td>
               <td>${this.hitRate}</td>
               <td>${this.backspace}</td>
@@ -512,12 +504,12 @@ class Records {
             </tr>`;
     }
 
-    getHtmlWithCursor(cursor) {
-        let level = Math.floor(cursor.value.speed / speedGap);
-        level = level > 6 ? 6 : level;
+    getHtmlWithCursor(cursor: IDBCursorWithValue): string {
+        const level = Math.floor(cursor.value.speed / speedGap);
+        const levelClass = level > 6 ? 6 : level;
         return `<tr>
               <td class="text-center">${cursor.key}</td>
-              <td class="bold roboto-mono lv-${level}">${cursor.value.speed}</td>
+              <td class="bold roboto-mono lv-${levelClass}">${cursor.value.speed}</td>
               <td>${cursor.value.codeLength}</td>
               <td>${cursor.value.hitRate}</td>
               <td>${cursor.value.backspace}</td>
