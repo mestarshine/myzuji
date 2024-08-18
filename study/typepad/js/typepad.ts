@@ -600,7 +600,7 @@ class DataBase {
 
 
 // 默认文章
-const ARTICLE = {
+const ARTICLE: { [key: string]: { name: string; value: string; content: string }}= {
     one: {
         name: '一级简码',
         value: 'one',
