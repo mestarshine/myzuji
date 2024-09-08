@@ -639,12 +639,12 @@ let config:Config = new Config();
 let record:Records = new Records();
 
 // database
-let DB;
-const DBName = "TypePad";
-let dataBase = new DataBase();
-const OBJECT_NAME = 'TypingRecord';
+let DB: IDBDatabase;
+const DBName:string = "TypePad";
+let dataBase:DataBase = new DataBase();
+const OBJECT_NAME:string = 'TypingRecord';
 
-function $(selector) {
+function $(selector:string) {
     return document.querySelector(selector)
 }
 
