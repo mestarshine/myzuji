@@ -663,99 +663,101 @@ window.onload = () => {
         engine.changePerCount();
     }
 
-    currentWords = currentOriginWords.slice(config.count * (config.chapter - 1), config.count * (config.chapter)).join('');
-    content.innerText = currentWords;
+    currentWords = currentOriginWords.slice(config.count * (config.chapter - 1), config.count * config.chapter).join('');
+    if (content) content.innerText = currentWords;
     engine.updateCountInfo();
 
-    typingPad.onblur = () => {
-        if (engine.isStarted && !engine.isPaused) {
-            engine.pause();
-        }
-    }
+    if (typingPad) {
+        typingPad.onblur = () => {
+            if (engine.isStarted && !engine.isPaused) {
+                engine.pause();
+            }
+        };
 
-    typingPad.onfocus = () => {
-        if (engine.isStarted && engine.isPaused) {
-            engine.resume();
-        }
-    }
+        typingPad.onfocus = () => {
+            if (engine.isStarted && engine.isPaused) {
+                engine.resume();
+            }
+        };
 
-    // INDEX DB
-    let request = window.indexedDB.open(DBName);
-    request.onsuccess = e => {
-        if (e.preventDefault) {
+        // INDEX DB
+        const request = window.indexedDB.open(DBName);
+        request.onsuccess = (e: Event) => {
+            if (!e.preventDefault) {
+                return;
+            }
             DB = request.result;
             dataBase.fetchAll();
-        } else {
-        }
-    }
+        };
 
-    request.onerror = e => {
-        console.log(e);
-    }
+        request.onerror = (e: Event) => {
+            console.log(e);
+        };
 
-    request.onupgradeneeded = e => {
-        if (DB) {
-        } else {
-            DB = request.result;
-        }
-        DB.createObjectStore(OBJECT_NAME, {keyPath: 'id'});
-    }
+        request.onupgradeneeded = () => {
+            if (!DB) {
+                DB = request.result;
+            }
+            DB.createObjectStore(OBJECT_NAME, { keyPath: 'id' });
+        };
 
-    /**
-     * 按键过滤器
-     * ⌘ + g: 重置
-     * ⌘ + k: 乱序
-     * ⌘ + u: 上一段
-     * ⌘ + j: 下一段
-     */
-    typingPad.onkeydown = (e) => {
-        if (e.key === 'Tab' || ((e.metaKey || e.ctrlKey) && (/[nqwefgplt]/.test(e.key)))) {
-            e.preventDefault();
-        } else if ((e.metaKey || e.ctrlKey) && e.key === 'y') {
-            e.preventDefault();
-            engine.reset();
-        } else if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-            e.preventDefault();
-            engine.shuffle();
-        } else if ((e.metaKey || e.ctrlKey) && e.key === 'u') {
-            engine.prevChapter();
-            e.preventDefault();
-        } else if ((e.metaKey || e.ctrlKey) && e.key === 'j') {
-            engine.nextChapter();
-            e.preventDefault();
-        } else if (e.key === 'Escape') {
-            engine.pause();
-            e.preventDefault();
-        } else if (REG.az.test(e.key) && !e.ctrlKey && !e.metaKey && !e.altKey && !engine.isStarted && !engine.isFinished) {
-            engine.start()
-        }
-    }
+        /**
+         * 按键过滤器
+         * ⌘ + g: 重置
+         * ⌘ + k: 乱序
+         * ⌘ + u: 上一段
+         * ⌘ + j: 下一段
+         */
+        typingPad.onkeydown = (e: KeyboardEvent) => {
+            if (e.key === 'Tab' || ((e.metaKey || e.ctrlKey) && (/[nqwefgplt]/.test(e.key)))) {
+                e.preventDefault();
+            } else if ((e.metaKey || e.ctrlKey) && e.key === 'y') {
+                e.preventDefault();
+                engine.reset();
+            } else if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                engine.shuffle();
+            } else if ((e.metaKey || e.ctrlKey) && e.key === 'u') {
+                engine.prevChapter();
+                e.preventDefault();
+            } else if ((e.metaKey || e.ctrlKey) && e.key === 'j') {
+                engine.nextChapter();
+                e.preventDefault();
+            } else if (e.key === 'Escape') {
+                engine.pause();
+                e.preventDefault();
+            } else if (REG.az.test(e.key) && !e.ctrlKey && !e.metaKey && !e.altKey && !engine.isStarted && !engine.isFinished) {
+                engine.start();
+            }
+        };
 
-    typingPad.onkeyup = (e) => {
-        e.preventDefault();
-        if (!engine.isFinished) {
-            countKeys(e);
-            engine.compare();
-            // 末字时结束的时候
-            if (typingPad.value.length >= currentWords.length) {
-                if (typingPad.value === currentWords) {
-                    engine.finish();
+        typingPad.onkeyup = (e: KeyboardEvent) => {
+            e.preventDefault();
+            if (!engine.isFinished) {
+                countKeys(e);
+                engine.compare();
+                // 末字时结束的时候
+                if (typingPad.value.length >= currentWords.length) {
+                    if (typingPad.value === currentWords) {
+                        engine.finish();
+                    }
                 }
             }
-        }
-    }
-    typingPad.oninput = e => {
-        if (!engine.isFinished && engine.isStarted) {
-            engine.compare();
-            // 末字时结束的时候
-            if (typingPad.value.length >= currentWords.length) {
-                if (typingPad.value === currentWords) {
-                    engine.finish();
+        };
+
+        typingPad.oninput = () => {
+            if (!engine.isFinished && engine.isStarted) {
+                engine.compare();
+                // 末字时结束的时候
+                if (typingPad.value.length >= currentWords.length) {
+                    if (typingPad.value === currentWords) {
+                        engine.finish();
+                    }
                 }
+            } else if (!engine.isFinished) {
+                engine.start();
             }
-        } else if (!engine.isFinished) {
-            engine.start()
-        }
+        };
     }
 }
 
