@@ -775,7 +775,7 @@ function countKeys(e) {
 /**
  * 数组乱序算法
  */
-function shuffle(arr) {
+function shuffle(arr: string[]): string[] {
     let length = arr.length, r = length, rand = 0;
 
     while (r) {
