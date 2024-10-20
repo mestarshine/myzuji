@@ -792,9 +792,9 @@ function shuffle(arr: string[]): string[] {
  * @param   formatString    返回时间的格式：
  * @return  格式化后的时间字符串
  * */
-function dateFormatter(date, formatString) {
+function dateFormatter(date: Date, formatString: string): string {
     formatString = formatString ? formatString : 'yyyy-MM-dd hh:mm:ss';
-    let dateRegArray = {
+    const dateRegArray: { [key: string]: number | string } = {
         "M+": date.getMonth() + 1,                      // 月份
         "d+": date.getDate(),                           // 日
         "h+": date.getHours(),                          // 小时
@@ -806,9 +806,10 @@ function dateFormatter(date, formatString) {
     if (/(y+)/.test(formatString)) {
         formatString = formatString.replace(RegExp.$1, (date.getFullYear() + "").substring(4 - RegExp.$1.length));
     }
-    for (let section in dateRegArray) {
+    for (const section in dateRegArray) {
         if (new RegExp("(" + section + ")").test(formatString)) {
-            formatString = formatString.replace(RegExp.$1, (RegExp.$1.length === 1) ? (dateRegArray[section]) : (("00" + dateRegArray[section]).substring(("" + dateRegArray[section]).length)));
+            const value = dateRegArray[section];
+            formatString = formatString.replace(RegExp.$1, (RegExp.$1.length === 1) ? value.toString() : (("00" + dateRegArray[section]).substring(("" + dateRegArray[section]).length)));
         }
     }
     return formatString;
@@ -818,24 +819,25 @@ function dateFormatter(date, formatString) {
  * @return：输出倒计时字符串 时时:分分:秒秒
  * @param timeLeft
  **/
-function formatTimeLeft(timeLeft: number) {
+function formatTimeLeft(timeLeft: number): string {
     timeLeft = Math.floor(timeLeft / 1000);
-    let minus = Math.floor(timeLeft / 60);
-    let seconds = timeLeft % 60;
+    const minus = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
     return `${minus.toString().padStart(2, '00')}:${seconds.toString().padStart(2, '00')}`;
 }
 
-function switchDarkMode(sender) {
-    let body = $('body');
-    if (config.darkMode) {
-        body.classList.remove('black');
-        config.darkMode = false;
-        sender.innerText = "暗黑"
-        config.save();
-    } else {
-        body.classList.add('black');
-        config.darkMode = true;
-        sender.innerText = "白色"
+function switchDarkMode(sender: HTMLElement): void {
+    const body = document.querySelector('body');
+    if (body) {
+        if (config.darkMode) {
+            body.classList.remove('black');
+            config.darkMode = false;
+            sender.innerText = "暗黑";
+        } else {
+            body.classList.add('black');
+            config.darkMode = true;
+            sender.innerText = "白色";
+        }
         config.save();
     }
 }
