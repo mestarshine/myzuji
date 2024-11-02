@@ -843,14 +843,15 @@ function switchDarkMode(sender: HTMLElement): void {
 }
 
 // 载入文章列表选项
-function loadArticles() {
+function loadArticles(): void {
     let optionHtml = '';
-    for (let itemName in ARTICLE) {
-        let article = ARTICLE[itemName];
-        let tempHtml = `<option value="${itemName}">${article.name}</option>`;
+    for (const itemName in ARTICLE) {
+        const article = ARTICLE[itemName];
+        const tempHtml = `<option value="${itemName}">${article.name}</option>`;
         optionHtml += tempHtml;
     }
-    $('#article').innerHTML = optionHtml;
+    const articleSelect = document.querySelector('#article') as HTMLSelectElement;
+    if (articleSelect) articleSelect.innerHTML = optionHtml;
 }
 
 function enterFullScreenMode() {
