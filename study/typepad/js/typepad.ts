@@ -854,14 +854,15 @@ function loadArticles(): void {
     if (articleSelect) articleSelect.innerHTML = optionHtml;
 }
 
-function enterFullScreenMode() {
+function enterFullScreenMode(): void {
     if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen().catch(err => {
             console.error('Error attempting to enable full-screen mode:', err);
-            return
         });
-        $('#fullscreen').classList.add('hidden');
-        $('#fullscreen-exit').classList.remove('hidden');
+        const fullscreenButton = document.querySelector('#fullscreen') as HTMLElement;
+        const fullscreenExitButton = document.querySelector('#fullscreen-exit') as HTMLElement;
+        if (fullscreenButton) fullscreenButton.classList.add('hidden');
+        if (fullscreenExitButton) fullscreenExitButton.classList.remove('hidden');
     }
 }
 
