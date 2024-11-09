@@ -866,17 +866,16 @@ function enterFullScreenMode(): void {
     }
 }
 
-function cancelFullscreen() {
-    const doc: any = document;
+function cancelFullscreen(): void {
     if (document.exitFullscreen) {
         document.exitFullscreen().catch(err => {
             console.error('退出全屏模式失败:', err);
-            return
         });
-        $('#fullscreen').classList.remove('hidden');
-        $('#fullscreen-exit').classList.add('hidden');
+        const fullscreenButton = document.querySelector('#fullscreen') as HTMLElement;
+        const fullscreenExitButton = document.querySelector('#fullscreen-exit') as HTMLElement;
+        if (fullscreenButton) fullscreenButton.classList.remove('hidden');
+        if (fullscreenExitButton) fullscreenExitButton.classList.add('hidden');
     } else {
         console.log('浏览器不支持全屏 API');
     }
-
 }
