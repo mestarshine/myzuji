@@ -761,11 +761,11 @@ window.onload = () => {
     }
 }
 
-function countKeys(e) {
-    for (let type in count) {
-        if (typeof (count[type]) !== 'function') {
-            if (REG[type].test(e.key)) {
-                count[type]++
+function countKeys(e: KeyboardEvent): void {
+    for (const type in count) {
+        if (typeof (count[type as keyof KeyCount]) !== 'function') {
+            if (REG[type as keyof typeof REG].test(e.key)) {
+                count[type as keyof KeyCount]++;
             }
         }
     }
