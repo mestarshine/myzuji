@@ -628,8 +628,8 @@ const ARTICLE: { [key: string]: { name: string; value: string; content: string }
     },
 }
 const speedGap:number = 30;// 速度阶梯，每增30新增一个颜色
-const content:HTMLElement|null = $('.content p');
-const typingPad:HTMLTextAreaElement|null = $('#pad');
+const content:HTMLElement|null = document.querySelector('.content p');
+const typingPad:HTMLTextAreaElement|null = document.querySelector('#pad');
 let currentWords:string = '';
 let correctWordsCount:number = 0;
 let currentOriginWords:string[] = [];
@@ -643,10 +643,6 @@ let DB: IDBDatabase;
 const DBName:string = "TypePad";
 let dataBase:DataBase = new DataBase();
 const OBJECT_NAME:string = 'TypingRecord';
-
-function $(selector:string) {
-    return document.querySelector(selector)
-}
 
 // 初始化
 window.onload = () => {
