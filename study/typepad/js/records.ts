@@ -1,3 +1,6 @@
+import {LOCAL_STORAGE_INDEXNAME, SPEED_GAP} from "./constants";
+import {dateFormatter, formatTimeLeft} from "./utils";
+
 export class Records {
     id: number;
     speed: string = '0';
@@ -10,13 +13,13 @@ export class Records {
     duration: number = 0;
 
     constructor() {
-        const index = localStorage[localStorageIndexName];
+        const index = localStorage[LOCAL_STORAGE_INDEXNAME];
         this.id = index ? Number(index) : 1;
-        localStorage[localStorageIndexName] = this.id.toString();
+        localStorage[LOCAL_STORAGE_INDEXNAME] = this.id.toString();
     }
 
     getHtml(): string {
-        const level = Math.floor(Number(this.speed) / speedGap);
+        const level = Math.floor(Number(this.speed) / SPEED_GAP);
         const levelClass = level > 6 ? 6 : level;
         return `<tr>
               <td class="text-center">${this.id}</td>
@@ -33,7 +36,7 @@ export class Records {
     }
 
     getHtmlWithCursor(cursor: IDBCursorWithValue): string {
-        const level = Math.floor(cursor.value.speed / speedGap);
+        const level = Math.floor(cursor.value.speed / SPEED_GAP);
         const levelClass = level > 6 ? 6 : level;
         return `<tr>
               <td class="text-center">${cursor.key}</td>
