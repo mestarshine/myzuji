@@ -1,9 +1,36 @@
 import {Records} from "./records";
+import {DB_NAME, LOCAL_STORAGE_INDEXNAME, OBJECT_NAME} from "./constants";
+import {Config} from "./config";
 
 export class DataBase {
+    request = window.indexedDB.open(DB_NAME);
+    DB: IDBDatabase=this.request.result;
+
+    constructor(private config: Config,private record:Records) {}
+
+    init():void {
+        // INDEX DB
+        this.request.onsuccess = (e: Event) => {
+            if (!e.preventDefault) {
+                return;
+            }
+            this.fetchAll();
+        };
+
+        this.request.onerror = (e: Event) => {
+            console.log(e);
+        };
+
+        this.request.onupgradeneeded = () => {
+            if (!this.DB) {
+                this.DB = this.request.result;
+            }
+            this.DB.createObjectStore(OBJECT_NAME, { keyPath: 'id' });
+        };
+    }
     // 添加数据
     insert(record: Records): void {
-        const request = DB.transaction([OBJECT_NAME], 'readwrite')
+        const request = this.DB.transaction([OBJECT_NAME], 'readwrite')
             .objectStore(OBJECT_NAME)
             .add({
                 id: record.id,
@@ -15,11 +42,11 @@ export class DataBase {
                 articleName: record.articleName,
                 timeStart: record.timeStart,
                 duration: record.duration,
-                articleNameValue: config.articleNameValue,
+                articleNameValue: this.config.articleNameValue,
             });
 
         request.onsuccess = (e: Event) => {
-            localStorage[localStorageIndexName] = (Number(localStorage[localStorageIndexName]) + 1).toString();
+            localStorage[LOCAL_STORAGE_INDEXNAME] = (Number(localStorage[LOCAL_STORAGE_INDEXNAME]) + 1).toString();
             // 插入最后的数据到顶部
             const tr = document.createElement('tr');
             tr.innerHTML = record.getHtml();
@@ -35,12 +62,12 @@ export class DataBase {
 
     // 获取所有数据
     fetchAll(): void {
-        const objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
+        const objectStore = this.DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
         let html = '';
-        objectStore.openCursor(IDBKeyRange.upperBound(record.id), "prev").onsuccess = (e: Event) => {
+        objectStore.openCursor(IDBKeyRange.upperBound(this.record.id), "prev").onsuccess = (e: Event) => {
             const cursor = (e.target as IDBRequest<IDBCursorWithValue>).result;
             if (cursor) {
-                html = html + record.getHtmlWithCursor(cursor);
+                html = html + this.record.getHtmlWithCursor(cursor);
                 const gradesElement = document.querySelector('#grades') as HTMLElement;
                 if (gradesElement) gradesElement.innerHTML = html;
                 cursor.continue(); // 移到下一个位置
@@ -50,10 +77,10 @@ export class DataBase {
 
     // 删除一条数据
     delete(id: number, sender: HTMLElement): void {
-        const objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
+        const objectStore = this.DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
         objectStore.delete(id).onsuccess = (e: Event) => {
             sender.parentElement?.parentElement?.remove();
-            localStorage[localStorageIndexName] = (Number(localStorage[localStorageIndexName]) - 1).toString();
+            localStorage[LOCAL_STORAGE_INDEXNAME] = (Number(localStorage[LOCAL_STORAGE_INDEXNAME]) - 1).toString();
             this.fetchAll();
             console.log(e);
         };
@@ -64,10 +91,10 @@ export class DataBase {
             sender.innerText = '确定清除';
             sender.classList.add('danger');
         } else {
-            const objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
+            const objectStore = this.DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
             const that = this;
             objectStore.clear().onsuccess = (e: Event) => {
-                localStorage[localStorageIndexName] = '1';
+                localStorage[LOCAL_STORAGE_INDEXNAME] = '1';
                 that.fetchAll();
                 location.reload();
                 console.log(e);
