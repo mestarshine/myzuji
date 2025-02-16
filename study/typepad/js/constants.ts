@@ -1,4 +1,24 @@
-export let currentOriginWords:string[] = [];
+export const LOCAL_STORAGE_INDEXNAME: string = 'type_pad_idb_index';
+export const DB_NAME:string = "TypePad";
+export const UNTYPED_STRING_CLASSNAME: string = 'untyped-part';
+export const HEIGHT_TEMPLATE: number = 150; // 对照区高度
+export const SPEED_GAP:number = 30;// 速度阶梯，每增30新增一个颜色
+export const OBJECT_NAME:string = 'TypingRecord';
+export const REG: { [key: string]: RegExp } = {
+    all: /.*/,
+    az: /^[a-zA-Z]$/,
+    number: /\d/,
+    function: /^(Control|Alt|Meta|Shift|Tab)$/,
+    ctrl: /^(Control|Alt|Meta|Shift)$/,
+    shift: /^Shift$/,
+    meta: /^Meta$/,
+    alt: /^Alt$/,
+    space: /^ $/,
+    backspace: /^Backspace$/,
+    delete: /^Delete$/,
+    semicolon: /;/,
+    quot: /'/,
+};
 // 默认文章
 export const ARTICLE: { [key: string]: { name: string; value: string; content: string }}= {
     one: {
