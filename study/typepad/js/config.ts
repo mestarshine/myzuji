@@ -1,4 +1,4 @@
-import {ARTICLE,currentOriginWords} from './constants'
+import { ARTICLE } from './constants';
 
 export class Config {
     chapter: number; // 当前段号
@@ -72,8 +72,6 @@ export class Config {
 
         const articleSelect = document.querySelector('#article') as HTMLSelectElement;
         if (articleSelect) articleSelect.value = this.articleNameValue;
-
-        currentOriginWords = this.article.split('');
 
         const body = document.querySelector('body');
         if (body) {
