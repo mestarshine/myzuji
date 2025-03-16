@@ -1,5 +1,5 @@
-import {LOCAL_STORAGE_INDEXNAME, SPEED_GAP} from "./constants";
-import {dateFormatter, formatTimeLeft} from "./utils";
+import {LOCAL_STORAGE_INDEXNAME, SPEED_GAP} from "./constants.js";
+import {dateFormatter, formatTimeLeft} from "./utils.js";
 
 export class Records {
     id: number;

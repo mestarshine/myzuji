@@ -6,12 +6,12 @@
  * Database IndexedDB 相关操作
  *
  */
-import {REG} from './constants'
-import {Config} from './config';
-import {KeyCount} from "./keyCount";
-import {Engine} from "./engine";
-import {Records} from "./records";
-import {DataBase} from "./dataBase";
+import {REG} from './constants.js'
+import {Config} from './config.js';
+import {KeyCount} from "./keyCount.js";
+import {Engine} from "./engine.js";
+import {Records} from "./records.js";
+import {DataBase} from "./dataBase.js";
 
 const content:HTMLElement|null = document.querySelector('.content p');
 const typingPad:HTMLTextAreaElement|null = document.querySelector('#pad');
@@ -27,7 +27,6 @@ let engine:Engine = new Engine(config,count,record,dataBase);
 window.onload = () => {
     // 载入文章选项列表
     engine.init(content);
-    dataBase.init()
 
     if (typingPad) {
         typingPad.onblur = () => {

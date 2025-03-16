@@ -1,6 +1,6 @@
-import {Records} from "./records";
-import {DB_NAME, LOCAL_STORAGE_INDEXNAME, OBJECT_NAME} from "./constants";
-import {Config} from "./config";
+import {Records} from "./records.js";
+import {DB_NAME, LOCAL_STORAGE_INDEXNAME, OBJECT_NAME} from "./constants.js";
+import {Config} from "./config.js";
 
 export class DataBase {
     request = window.indexedDB.open(DB_NAME);

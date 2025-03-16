@@ -1,9 +1,9 @@
-import { KeyCount } from './keyCount';
-import { Records } from './records';
-import { Config } from './config';
-import { shuffle } from './utils';
-import {ARTICLE, HEIGHT_TEMPLATE, UNTYPED_STRING_CLASSNAME} from './constants'
-import {DataBase} from "./dataBase";
+import { KeyCount } from './keyCount.js';
+import { Records } from './records.js';
+import { Config } from './config.js';
+import { shuffle } from './utils.js';
+import {ARTICLE, HEIGHT_TEMPLATE, UNTYPED_STRING_CLASSNAME} from './constants.js'
+import {DataBase} from "./dataBase.js";
 
 export class Engine {
     isFinished: boolean = false;

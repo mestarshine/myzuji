@@ -1,4 +1,4 @@
-import { ARTICLE } from './constants';
+import { ARTICLE } from './constants.js';
 
 export class Config {
     chapter: number; // 当前段号
