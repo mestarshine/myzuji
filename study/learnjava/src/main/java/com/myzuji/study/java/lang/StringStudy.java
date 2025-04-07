@@ -17,7 +17,7 @@ public class StringStudy {
         System.out.println(a.subSequence(0, 2));
         System.out.println(a.length());
         System.out.println("StringBuffer ==================");
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuffer = new StringBuilder();
         stringBuffer.append("1234123412341234112123412341234344543454454345345");
         System.out.println(stringBuffer.capacity());
         System.out.println(Integer.BYTES);
@@ -29,6 +29,6 @@ public class StringStudy {
         System.out.println(Long.reverseBytes(1021));
         System.out.println(Long.rotateLeft(1231, 1));
         System.out.println(Long.rotateRight(2462, 1));
-        System.out.println(Character.toTitleCase(new Character('a')));
+        System.out.println(Character.toTitleCase('a'));
     }
 }

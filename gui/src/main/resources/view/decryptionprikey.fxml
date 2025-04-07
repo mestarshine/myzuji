@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane fx:id="rightPane" minHeight="580.0" minWidth="690.0" prefHeight="580.0" prefWidth="690.0"
+          xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.myzuji.gui.controller.DecryptionPriKey">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="366.0" minWidth="10.0" prefWidth="129.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="611.0" minWidth="10.0" prefWidth="611.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="140.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="187.0" minHeight="10.0" prefHeight="146.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="135.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="227.0" minHeight="10.0" prefHeight="226.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <children>
+        <Button mnemonicParsing="false" onAction="#decryptionPriKey" text="解密" GridPane.columnSpan="2"
+                GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <font>
+                <Font size="22.0"/>
+            </font>
+        </Button>
+        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="临时私钥" GridPane.halignment="RIGHT"
+               GridPane.rowIndex="1">
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+            <GridPane.margin>
+                <Insets bottom="10.0" right="15.0" top="10.0"/>
+            </GridPane.margin>
+            <padding>
+                <Insets bottom="10.0" top="10.0"/>
+            </padding>
+        </Label>
+        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="密文" GridPane.halignment="RIGHT"
+               GridPane.rowIndex="2">
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+            <padding>
+                <Insets bottom="10.0" top="10.0"/>
+            </padding>
+            <GridPane.margin>
+                <Insets bottom="10.0" right="15.0" top="10.0"/>
+            </GridPane.margin>
+        </Label>
+        <TextArea fx:id="tempPriKey" prefHeight="200.0" prefWidth="200.0"
+                  text="MIGHAgEAMBMGByqGSM49AgEGCCqBHM9VAYItBG0wawIBAQIgLvhiKnQ8D1ldgd+L1v3mWWaiDCwg6LFsmTrHMT+FKQChRANCAASK4gyv9scETtkdJVHdXX7I+kM10N1yPRXp0/gTKG68L4lNtIa19Dldv7E9dt3BxhiYolbVSejOwNB7AOVfduDh"
+                  wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets bottom="10.0" top="10.0"/>
+            </GridPane.margin>
+        </TextArea>
+        <TextArea fx:id="encryptData" prefHeight="200.0" prefWidth="200.0" promptText="解密内容"
+                  text="MHgCIFZZHrbvPqBldbiRHv732ZAo/XCSC3Aov7DSGUEMMxloAiBMRdUAdv7vEWlTUbVW+B4+W2SbkfeEL2XnWzzX7QhRAwQgedeq4HXR2DMg2b+8PVs3L5A2JSz4EAowmQMr98yO814EELD6AwSGOWlAcytRG8r8+aw="
+                  wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets/>
+            </GridPane.margin>
+        </TextArea>
+        <TextArea fx:id="plainData" prefHeight="200.0" prefWidth="200.0" promptText="解密内容" wrapText="true"
+                  GridPane.columnSpan="2" GridPane.rowIndex="3">
+            <GridPane.margin>
+                <Insets bottom="10.0" top="10.0"/>
+            </GridPane.margin>
+        </TextArea>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
+</GridPane>

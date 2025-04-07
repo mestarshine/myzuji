@@ -2,7 +2,13 @@ plugins {
     id 'java'
 }
 
-sourceCompatibility = 1.8
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
 
 repositories {
     mavenLocal()
@@ -13,18 +19,18 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.46'
+    implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.83'
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
-    implementation group: 'commons-codec', name: 'commons-codec', version: '1.11'
+    implementation group: 'commons-codec', name: 'commons-codec', version: '1.17.1'
     implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.64'
     implementation 'org.apache.commons:commons-csv:1.8'
     implementation 'org.apache.httpcomponents:httpclient:4.5.13'
     implementation 'org.apache.logging.log4j:log4j:2.14.0'
     implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.14.0'
-    implementation 'org.apache.logging.log4j:log4j-core:2.14.0'
-    implementation 'org.apache.logging.log4j:log4j-web:2.14.0'
-    implementation 'org.apache.logging.log4j:log4j-jul:2.14.0'
+    implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
+    implementation 'org.apache.logging.log4j:log4j-web:2.17.1'
+    implementation 'org.apache.logging.log4j:log4j-jul:2.17.1'
     implementation 'com.jcraft:jsch:0.1.55'
     implementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
 }

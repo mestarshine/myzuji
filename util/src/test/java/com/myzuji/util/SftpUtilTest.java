@@ -5,8 +5,8 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
 import com.myzuji.util.sftp.SftpConfig;
 import com.myzuji.util.sftp.SftpUtil;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class SftpUtilTest {
     SftpUtil sftpCertUtil, sftpPwdUtil;
 
     @BeforeEach
-    private void sftpConfig() {
+    void sftpConfig() {
         SftpConfig sftpCertConfig = new SftpConfig("root", "192.168.1.xx", 22, null, "~/.ssh/xxx");
         SftpConfig sftpPwdConfig = new SftpConfig("root", "192.168.1.xx", 22, "xx");
         try {
@@ -28,13 +28,13 @@ public class SftpUtilTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void isFolderExistTest() {
         System.out.println(sftpPwdUtil.isFolderExist("/tmp"));
     }
 
     @Test
-    @Ignore
+    @Disabled
     void getFolderFileListTest() throws SftpException {
         List<ChannelSftp.LsEntry> list = sftpCertUtil.getFolderFileList("/tmp");
         for (ChannelSftp.LsEntry lsEntry : list) {

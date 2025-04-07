@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.4.4'
+        springBootVersion = '2.7.9'
     }
     repositories {
         mavenLocal()
@@ -33,16 +33,16 @@ configurations {
 }
 
 dependencies {
-    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
-    implementation('org.springframework.boot:spring-boot-starter-web')
-    implementation('org.springframework.boot:spring-boot-starter-jdbc')
-    implementation('org.springframework.boot:spring-boot-starter-log4j2')
-    implementation('org.projectlombok:lombok')
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-log4j2:${springBootVersion}")
+    compileOnly("org.projectlombok:lombok:1.18.34")
     implementation('net.sourceforge.htmlcleaner:htmlcleaner:2.25')
     implementation('net.sourceforge.htmlunit:htmlunit:2.55.0')
     implementation('org.seleniumhq.selenium:selenium-java:4.1.0')
-    implementation 'mysql:mysql-connector-java'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation("com.mysql:mysql-connector-j:9.0.0")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 }
 
 configurations {

@@ -19,7 +19,7 @@ public class MemoryDemo {
         mem1 = Runtime.getRuntime().freeMemory();
         System.out.println("Free memory garbage collection :" + mem1);
         for (int i = 0; i < 1000; i++) {
-            someints[i] = new Integer(i);
+            someints[i] = i;
         }
         mem2 = Runtime.getRuntime().freeMemory();
         System.out.println("Free memory after allocation :" + mem2);
